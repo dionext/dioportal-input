@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Integration with internet services</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <h1>Integration with internet services</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Open Graph protocol</a></li> 
+                <li><a href="#id1">RDFa</a></li> 
+                <li><a href="#id2">OpenID</a></li> 
+                <li><a href="#id3">OAuth</a></li> 
+                <li><a href="#id4">References</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Open Graph protocol</h2> 
+        <p>Open Graph protocol logo The Open Graph protocol enables developers to integrate their pages into Facebook's global mapping/tracking tool Social Graph. These pages gain the functionality of other graph objects including profile links and stream updates for connected users. <a href="https://en.wikipedia.org/wiki/Facebook_Platform#Open_Graph_protocol" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/Facebook_Platform#Open_Graph_protocol</a> </p> 
+        <p><a href="http://ogp.me" rel="nofollow" target="_blank" class="external">http://ogp.me</a></p> 
+        <p>&#xa0;Introduction The Open Graph protocol enables any web page to become a rich object in a social graph. For instance, this is used on Facebook to allow any web page to have the same functionality as any other object on Facebook. While many different technologies and schemas exist and could be combined together, there isn't a single technology which provides enough information to richly represent any web page within the social graph. The Open Graph protocol builds on these existing technologies and gives developers one thing to implement. Developer simplicity is a key goal of the Open Graph protocol which has informed many of the technical design decisions.</p> 
+        <pre><code class="language-html">
+&lt;meta property="og:title" content="Example title of article"&gt;
+&lt;meta property="og:site_name" content="example.com website"&gt;
+&lt;meta property="og:type" content="article"&gt;
+&lt;meta property="og:url" content="http://example.com/example-title-of-article"&gt;
+&lt;meta property="og:image" content="http://example.com/article_thumbnail.jpg"&gt;
+&lt;meta property="og:image" content="http://example.com/website_logo.png"&gt;
+&lt;meta property="og:description" content="This example article is an example of OpenGraph protocol."&gt;</code></pre> 
+        <h2><a name="id1"></a>RDFa</h2> 
+        <p>RDFa or Resource Description Framework in Attributes[1] is a W3C Recommendation that adds a set of attribute-level extensions to HTML, XHTML and various XML-based document types for embedding rich metadata within Web documents. The Resource Description Framework (RDF) data-model mapping enables its use for embedding RDF subject-predicate-object expressions within XHTML documents. It also enables the extraction of RDF model triples by compliant user agents. <a href="https://en.wikipedia.org/wiki/RDFa" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/RDFa</a> </p> 
+        <pre><code class="language-html">
+&lt;div xmlns:dc="http://purl.org/dc/elements/1.1/"
+  about="http://www.example.com/books/wikinomics"&gt;
+  &lt;span property="dc:title"&gt;Wikinomics&lt;/span&gt;
+  &lt;span property="dc:creator"&gt;Don Tapscott&lt;/span&gt;
+  &lt;span property="dc:date"&gt;2006-10-01&lt;/span&gt;
+&lt;/div&gt;
+</code></pre> 
+        <h2><a name="id2"></a>OpenID</h2> OpenID is an open standard and decentralized authentication protocol promoted by the non-profit OpenID Foundation. It allows users to be authenticated by co-operating sites (known as relying parties, or RP) using a third-party identity provider (IDP) service, eliminating the need for webmasters to provide their own ad hoc login systems, and allowing users to log in to multiple unrelated websites without having to have a separate identity and password for each.[1] Users create accounts by selecting an OpenID identity provider, and then use those accounts to sign on to any website that accepts OpenID authentication. Several large organizations either issue or accept OpenIDs on their websites <a href="https://en.wikipedia.org/wiki/OpenID" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/OpenID</a> 
+        <h2><a name="id3"></a>OAuth</h2> OAuth (short for "Open Authorization") is an open standard for access delegation, commonly used as a way for internet users to grant websites or applications access to their information on other websites but without giving them the passwords. This mechanism is used by companies such as Amazon, Google, Meta Platforms, Microsoft, and Twitter to permit users to share information about their accounts with third-party applications or websites. 
+        <h2><a name="id4"></a>References</h2> 
+        <p><a href="https://docs.oneall.com/api/" rel="nofollow" target="_blank" class="external">https://docs.oneall.com/api/</a>&#xa0; </p> Opt for a cloud-based social network integration to reduce in-house development time and eliminate maintenance costs. We constantly monitor the APIs and technologies of the different social networks and update our services as soon as changes arise. By using OneAll you can integrate 35+ social networks in one go. 
+        <p> <a href="https://www.slideshare.net/Open-IT/social-network-api" rel="nofollow" target="_blank" class="external"> https://www.slideshare.net/Open-IT/social-network-api</a> (lang:rus)</p> 
+        <p>&#xa0;</p> 
+    </body>
+</html>

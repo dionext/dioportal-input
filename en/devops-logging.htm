@@ -1,0 +1,219 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Logging</title>
+        <meta name="description" content="Logging in software development" />
+        <meta name="keywords" content="Logging, logback-local, ConsoleAppender" />
+    </head>
+    <body> 
+        <h1>Logging </h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Overview</a></li> 
+                <li><a href="#id44">Logging in java microservices</a></li> 
+                <li><a href="#id1">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;References</a></li> 
+                <li><a href="#id2">&#xa0;&#xa0;&#xa0;&#xa0;Logging with Docker</a></li> 
+                <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Logging SQL</a></li> 
+                <li><a href="#id37">ELK Stack</a></li> 
+                <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;Versions</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;Elasticsearch</a></li> 
+                <li><a href="#id8">&#xa0;&#xa0;&#xa0;&#xa0;Logstash</a></li> 
+                <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;Filebeat</a></li> 
+                <li><a href="#id12">&#xa0;&#xa0;&#xa0;&#xa0;Kibana</a></li> 
+                <li><a href="#id7">&#xa0;&#xa0;&#xa0;&#xa0;References and examples</a></li> 
+                <li><a href="#id9">OpenTelemetry</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Overview</h2> 
+        <p>Logging is the act of keeping a log of events that occur in a computer system, such as problems, errors or just information on current operations. These events may occur in the operating system or in other software. A message or log entry is recorded for each such event. These log messages can then be used to monitor and understand the operation of the system, to debug problems, or during an audit. Logging is particularly important in multi-user software, to have a central overview of the operation of the system. </p> 
+        <p>In the simplest case, messages are written to a file, called a log file. Alternatively, the messages may be written to a dedicated logging system or to a log management software, where it is stored in a database or on a different computer system. <a href="https://en.wikipedia.org/wiki/Logging_(computing)" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/Logging_(computing)</a></p> 
+        <h2><a name="id44"></a>Logging in java microservices</h2> 
+        <p>Simple log </p> 
+        <pre><code class="language-java">
+@Slf4j
+public class SomeController  {
+	public void someMethod(){
+		log.debug("some message");
+	}
+}</code></pre> 
+        <p>Logging with MDC</p> 
+        <pre><code class="language-java">	meterRegistry.gauge("summer", summer);
+	
+	MDC.put("trackingNumber", "123456" + (new Date()).getSeconds());
+	log.info("test message 3: " + (new Date()).getSeconds());
+	MDC.clear();
+
+</code></pre> 
+        <p> Configuration </p> 
+        <p> Example from application.yaml. Configuration&#xa0; logging from file&#xa0; logback-local.xml, root level is "info", level for classes in package "dionext.com" is "debug"</p> 
+        <pre><code class="language-yaml">logging:
+  config: classpath:${LOGBACK:logback-local.xml}
+  level:
+    root: info
+    com:
+      dionext: debug
+</code>&#xa0;</pre> 
+        <p> Note: <code class="language-yaml">config: classpath:${LOGBACK:logback.xml} - Even if the logger setting is specified in the starter configuration, it must be explicitly specified in the microservice configuration file</code></p> 
+        <p> Example of logback.xml for machine logging </p> 
+        <pre><code class="language-xml">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configuration&gt;
+    &lt;appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"&gt;
+        &lt;layout class="ch.qos.logback.contrib.json.classic.JsonLayout"&gt;
+            &lt;jsonFormatter
+                    class="ch.qos.logback.contrib.jackson.JacksonJsonFormatter"&gt;
+            &lt;/jsonFormatter&gt;
+            &lt;timestampFormat&gt;yyyy-MM-dd' 'HH:mm:ss.SSS&lt;/timestampFormat&gt;
+            &lt;appendLineSeparator&gt;true&lt;/appendLineSeparator&gt;
+        &lt;/layout&gt;
+    &lt;/appender&gt;
+
+    &lt;root level="info"&gt;
+        &lt;appender-ref ref="STDOUT" /&gt;
+    &lt;/root&gt;
+&lt;/configuration&gt;</code></pre> 
+        <p> Example of logback.xml for pretty logging </p> 
+        <pre><code class="language-xml">
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configuration&gt;
+    &lt;statusListener class="ch.qos.logback.core.status.NopStatusListener" /&gt;
+    &lt;appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"&gt;
+        &lt;encoder&gt;
+            &lt;pattern&gt;%green(%d{HH:mm:ss.SSS}) %yellow([%thread]) %highlight(%-5level) %cyan(%logger{100}) - %msg%n %magenta(%throwable)&lt;/pattern&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;root level="info"&gt;
+        &lt;appender-ref ref="STDOUT" /&gt;
+    &lt;/root&gt;
+&lt;/configuration&gt;</code></pre> 
+        <p> If you use actuator you can change log level dynamically via url, for example&#xa0; <a href="http://localhost:8080/api/actuator/loggers/com.dionext" rel="nofollow" target="_blank" class="external"> http://localhost:8080/api/actuator/loggers/com.dionext</a> </p> 
+        <p> <a href="https://www.baeldung.com/spring-boot-changing-log-level-at-runtime" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/spring-boot-changing-log-level-at-runtime</a> </p> 
+        <p> All loggers status</p> 
+        <p> <a href="http://localhost:8080/actuator/loggers" rel="nofollow" target="_blank" class="external"> http://localhost:8080/actuator/loggers</a></p> 
+        <p> Viewing and changing log level for "com.dionext"</p> 
+        <p> GET <a href="http://localhost:8080/api/actuator/loggers/com.dionext" rel="nofollow" target="_blank" class="external"> http://localhost:8080/api/actuator/loggers/com.dionext</a> </p> 
+        <p> POST&#xa0; <a href="http://localhost:8080/api/actuator/loggers/com.dionext" rel="nofollow" target="_blank" class="external"> http://localhost:8080/api/actuator/loggers/com.dionext</a> </p> 
+        <p> <a href="http://localhost:8080/api/actuator/loggers/com.dionext" rel="nofollow" target="_blank" class="external"> http://localhost:8080/api/actuator/loggers/com.dionext</a> </p> 
+        <div style="color: #000000; background-color: #fffffe; font-family: 'IBMPlexMono, 'Courier New', monospace', Consolas, 'Courier New', monospace; font-weight: normal; font-size: 12px; line-height: 18px; white-space: pre;"> 
+            <div> <span style="color: #000000;">{</span> 
+            </div> 
+            <div> <span style="color: #000000;">&#xa0;&#xa0;&#xa0;&#xa0;</span><span style="color: #a31515;">"configuredLevel"</span><span style="color: #000000;">:&#xa0;</span><span style="color: #0451a5;">"DEBUG"</span> 
+            </div> 
+            <div> <span style="color: #000000;">}</span> 
+            </div> 
+        </div> 
+        <p> <span>curl -i -X POST -H 'Content-Type: application/json' -d '{"configuredLevel": "TRACE"}' <a href="http://localhost:8080/api/actuator/loggers/com.dionext" rel="nofollow" target="_blank" class="external"> http://localhost:8080/api/actuator/loggers/com.dionext</a>&#xa0; </span> </p> 
+        <h4><a name="id1"></a>References</h4> 
+        <p><a href="https://www.baeldung.com/java-log-json-output" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/java-log-json-output</a></p> 
+        <p><a href="https://www.baeldung.com/mdc-in-log4j-2-logback" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/mdc-in-log4j-2-logback</a> MDC </p> 
+        <p><a href="https://logback.qos.ch/manual/mdc.html#mis" rel="nofollow" target="_blank" class="external"> https://logback.qos.ch/manual/mdc.html#mis</a>&#xa0; MDC</p> 
+        <p> <a href="https://stackoverflow.com/questions/57399354/send-spring-boot-logs-directly-to-logstash-with-no-file" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/57399354/send-spring-boot-logs-directly-to-logstash-with-no-file</a>&#xa0; log direct to logstash</p> 
+        <p> &#xa0;</p> 
+        <h3><a name="id2"></a>Logging with Docker</h3> 
+        <p>By default, Docker captures the standard output (and standard error) of all your containers, and writes them in files using the JSON format. The JSON format annotates each line with its origin (stdout&#xa0;or&#xa0;stderr) and its timestamp. Each log file contains information about only one container.<br /></p> 
+        <p>{"log":"Log line is here\n","stream":"stdout","time":"2019-01-01T11:11:11.111111111Z"}<br> </br></p> 
+        <p><a href="https://docs.docker.com/config/containers/logging/json-file/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/config/containers/logging/json-file/</a></p> 
+        <p>&#xa0;Docker keeps the json-file logging driver (without log-rotation) as a default to remain backward compatibility with older versions of Docker, and for situations where Docker is used as runtime for Kubernetes. For other situations, the “local” logging driver is recommended as it performs log-rotation by default, and uses a more efficient file format.</p> 
+        <p>Log size restriction</p> 
+        <pre><code class="language-bash">
+docker run -it --log-opt max-size=10m --log-opt max-file=3 alpine ash</code></pre> 
+        <p>By default java application logs like this:</p> 
+        <pre><code>
+2023-06-23T22:32:19.330+03:00 INFO 17740 --- [ scheduling-1] 
+c.f.exmsdemo.scheduler.TestScheduler : test message 3</code></pre> 
+        <br> <p>in docker log file it will be:&#xa0; </p> <pre><code class="language-json">{
+"log":"2023-06-23T19:48:28.265Z INFO 1 --- [ scheduling-1] c.f.exmsdemo.scheduler.TestScheduler : test message 3\n",
+"stream":"stdout",
+"time":"2023-06-23T19:48:28.266761249Z"
+}
+</code></pre> <p>If you use special appender you log will be like this: </p> &#xa0;<br><pre><code class="language-json">
+{
+	"level":"INFO",
+	"mdc":{"trackingNumber":"12345"},
+	"message":"test message 3",
+	"thread":"scheduling-1",
+	"logger":"com.frwsoftware.exmsdemo.scheduler.TestScheduler",
+	"context":"default"
+}
+</code></pre> In Docker it will be: <pre><code class="language-json">
+{
+	"log":"{\"timestamp\":\"2023-06-23 20:24:28.523\",\"level\":\"INFO\",\"thread\":\"scheduling-1\",\"mdc\":{\"trackingNumber\":\"xxxxxx\"},\"logger\":\"com.frwsoftware.exmsdemo.scheduler.TestScheduler\",\"message\":\"test message 3\",\"context\":\"default\"}\n",
+	"stream":"stdout",
+	"time":"2023-06-23T20:24:28.524624217Z"
+}</code></pre> <p>(which is more parsable)</p> To parse this log we can use following configuration in filebeat (ELK): <br><br> <pre><code>
+filebeat.inputs:
+- type: container
+  paths: 
+    - '/var/lib/docker/containers/*/*.log'
+
+processors:
+- add_docker_metadata:
+    host: "unix:///var/run/docker.sock"
+
+- decode_json_fields:
+    fields: ["message"]
+    target: "json"
+    overwrite_keys: true
+</code></pre> <br> <br> <h3><a name="id3"></a>Logging SQL</h3> <p> <a href="https://www.baeldung.com/sql-logging-spring-boot" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/sql-logging-spring-boot</a> </p> <p> <a href="https://stackoverflow.com/questions/12656452/hibernate-show-query-execution-time" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/12656452/hibernate-show-query-execution-time</a> </p> <h2><a name="id37"></a>ELK Stack</h2> <p><a href="https://www.elastic.co/" rel="nofollow" target="_blank" class="external">https://www.elastic.co/</a> </p> <p>The ELK Stack is a collection of three open-source products — Elasticsearch, Logstash, and Kibana. ELK stack provides centralized logging in order to identify problems with servers or applications. It allows you to search all the logs in a single place. It also helps to find issues in multiple servers by connecting logs during a specific time frame <a href="https://www.guru99.com/elk-stack-tutorial.html" rel="nofollow" target="_blank" class="external"> https://www.guru99.com/elk-stack-tutorial.html</a> </p> <h3><a name="id4"></a>Versions</h3> <p>Versions: in examples - 7.8.0, 7.9.1,&#xa0; 7.16.1,&#xa0; last from 7х - 7.17.10,&#xa0; last from 8х - 8.8.1 (on Dockerhub 8.8.0)&#xa0;&#xa0; </p> <p>Security is enabled by default&#xa0;since Elasticsearch 8.0, so you will need SSL certificates, and the examples you find online using docker-compose from the Elasticsearch 7.x era will not work. While the Elasticsearch documentation provides an example docker-compose.yml file that includes Elasticsearch and Kibana with certificates, it does not include Filebeat. <a href="https://gigi.nullneuron.net/gigilabs/filebeat-elasticsearch-and-kibana-with-docker-compose/" rel="nofollow" target="_blank" class="external"> https://gigi.nullneuron.net/gigilabs/filebeat-elasticsearch-and-kibana-with-docker-compose/</a> </p> <h3><a name="id5"></a>Elasticsearch</h3> <p>Elasticsearch is a search engine based on the Lucene library. It provides a distributed, multitenant-capable full-text search engine with an HTTP web interface and schema-free JSON documents. Elasticsearch is developed in Java and is dual-licensed under the source-available Server Side Public License and the Elastic license, while other parts fall under the proprietary (source-available) Elastic License. Official clients are available in Java,.NET (C#), PHP, Python, Rubyand many other languages.According to the DB-Engines ranking, Elasticsearch is the most popular enterprise search engine. <a href="https://en.wikipedia.org/wiki/Elasticsearch" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/Elasticsearch</a>&#xa0; </p> <p>Removing old logs</p> <p>You can use<span>&#xa0;</span>curator, a tool that is also developed by<span>&#xa0;</span><a href="https://www.elastic.co/" rel="nofollow" target="_blank" class="external">elastic</a>, to remove old indices from ElasticSearch. You can install curator by following one of the methods described in the<span>&#xa0;</span><a href="https://www.elastic.co/guide/en/elasticsearch/client/curator/5.x/installation.html" rel="nofollow" target="_blank" class="external">official documentation</a>.</p> <h3><a name="id8"></a>Logstash</h3> <p>Logstash is a free and open server-side data processing pipeline that ingests data from a multitude of sources, transforms it, and then sends it to your favorite "stash." <a href="https://www.elastic.co/logstash" rel="nofollow" target="_blank" class="external">https://www.elastic.co/logstash</a> </p> <p>Logstash is a tool to collect, process, and forward events and log messages. Collection is accomplished via configurable input plugins including raw socket/packet communication, file tailing, and several message bus clients. Once an input plugin has collected data it can be processed by any number of filters which modify and annotate the event data. Finally logstash routes events to output plugins which can forward the events to a variety of external programs, local files, and several message bus implementations </p> <p>Here is our configuration file&#xa0;logback.conf: </p> <pre><code>&#xa0;
+input {
+    file {
+        path =&gt; "/var/lib/tomcat8/logback/*.log"
+        codec =&gt; "json"
+        type =&gt; "logback"
+    }
+}
+
+output {
+    if [type]=="logback" {
+         elasticsearch {
+             hosts =&gt; [ "localhost:9200" ]
+             index =&gt; "logback-%{+YYYY.MM.dd}"
+        }
+    }
+}
+</code></pre> 
+                              <ul> 
+                              <li>input<span>&#xa0;</span>file<span>&#xa0;</span>is used as Logstash will read logs this time from logging files</li> 
+                              <li>path<span>&#xa0;</span>is set to our logging directory and all files with .log extension will be processed</li> 
+                              <li>index<span>&#xa0;</span>is set to new index “logback-%{+YYYY.MM.dd}” instead of default “logstash-%{+YYYY.MM.dd}”</li> 
+                              </ul> <p>Example or logging directly to logstash&#xa0; <a href="https://howtodoinjava.com/spring-cloud/elk-stack-tutorial-example/#microservice" rel="nofollow" target="_blank" class="external"> https://howtodoinjava.com/spring-cloud/elk-stack-tutorial-example/#microservice</a> &#xa0;</p> <p>It is essential to place your pipeline configuration where it can be found by Logstash. By default, the container will look in<span>&#xa0;</span>/usr/share/logstash/pipeline/<span>&#xa0;</span>for pipeline configuration files.</p> <h3><a name="id6"></a>Filebeat</h3> <p><a href="https://www.elastic.co/beats/filebeat" rel="nofollow" target="_blank" class="external">https://www.elastic.co/beats/filebeat</a> </p> <p>Lightweight shipper for logs. Whether you’re collecting from security devices, cloud, containers, hosts, or OT, Filebeat helps you keep the simple things simple by offering a lightweight way to forward and centralize logs and files. </p> <p> Filebeat is a lightweight log message deliverer. The way it works is to monitor and collect log messages from log files and forward them to Elasticsearch or Logstash for indexing.</p> <p> Filebeat consists of key components:</p> 
+                              <ul> 
+                              <li>collectors (harvesters) - are responsible for reading log files and sending log messages to a given output interface, a separate collector is specified for each log file; </li> 
+                              <li>input interfaces (inputs) - are responsible for searching for sources of log messages and managing collectors. </li> 
+                              </ul> <p> Elastic Stack consists of of four components: Elasticsearch, Logstash, Kibana and Beats. The latter is a family of log deliverers for a variety of use cases, and Filebeat is the most popular. In general, the beats family are lightweight, open-source data providers that you install as agents on your servers to send operational data to Elasticsearch. Beats can send data directly to Elasticsearch or through Logstash, where you can further process and enhance the data (image). The beats family consists of Filebeat, Metricbeat, Packetbeat, Winlogbeat, Auditbeat, Journalbeat, Heartbeat and Functionbeat. Each bit is designed to deliver different types of information - for example, Winlogbeat sends Windows event logs, Metricbeat sends host metrics, and so on. Filebeat is designed for sending log files.</p> <p> <a href="https://www.sarulabs.com/post/5/2019-08-12/sending-docker-logs-to-elasticsearch-and-kibana-with-filebeat.html" rel="nofollow" target="_blank" class="external"> https://www.sarulabs.com/post/5/2019-08-12/sending-docker-logs-to-elasticsearch-and-kibana-with-filebeat.html</a>&#xa0; Docker writes the container logs in files. FileBeat then reads those files and transfer the logs into ElasticSearch. FileBeat is used as a replacement for Logstash. It was created because Logstash requires a JVM and tends to consume a lot of resources. Although FileBeat is simpler than Logstash, you can still do a lot of things with it. There are many ways to install FileBeat, ElasticSearch and Kibana. To make things as simple as possible, we will use docker compose to set them up. We will use the official docker images and there will be a single ElasticSearch node. </p> <p><a href="https://www.elastic.co/downloads/beats/filebeat" rel="nofollow" target="_blank" class="external"> https://www.elastic.co/downloads/beats/filebeat</a> </p> <p>If all your files are located on the same node as the logstash process, than using the File Input Plugin could be an option ("xyzlogfile---&gt;logstash-file---&gt;ES---&gt;kibana").</p> <p>However for most deployments you want to collect data from many nodes with different roles and software stacks deployed on them. You do not want to deploy a Logstash instance on all those nodes, so "xyzlogfile---&gt;fileBeat---&gt;logstash-beats---&gt;ES---&gt;kibana" should be used (or another option is "xyzlogfile---&gt;fileBeat---&gt;ES---&gt;kibana" with Ingest Node).</p> <p> <a href="https://stackoverflow.com/questions/46301058/why-do-we-need-filebeat-when-we-can-ship-logs-to-logstatsh" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/46301058/why-do-we-need-filebeat-when-we-can-ship-logs-to-logstatsh</a> </p> <pre>output.elasticsearch<span>:
+  </span>hosts<span>: ["elasticsearch:9200"]
+  </span>indices<span>:
+    </span>-<span> </span>index<span>: "filebeat-elastic-%{[agent.version]}-%{+yyyy.MM.dd}"
+      </span>when.or<span>:
+        </span>-<span> </span>equals<span>:
+            </span>container.image.name<span>: </span>docker.elastic.co/beats/filebeat<span>:7.2.0
+        </span>-<span> </span>equals<span>:
+            </span>container.image.name<span>: </span>docker.elastic.co/elasticsearch/elasticsearch<span>:7.2.0
+        </span>-<span> </span>equals<span>:
+            </span>container.image.name<span>: </span>docker.elastic.co/kibana/kibana<span>:7.2.0
+    </span>-<span> </span>index<span>: "filebeat-apps-%{[agent.version]}-%{+yyyy.MM.dd}"</span></pre> <pre>&#xa0;</pre> <p><a name="id11"></a>Decode json fields <a href="https://www.elastic.co/guide/en/beats/filebeat/current/decode-json-fields.html" rel="nofollow" target="_blank" class="external"> https://www.elastic.co/guide/en/beats/filebeat/current/decode-json-fields.html</a> </p> <pre><span>processors:
+  - decode_json_fields:
+      fields: ["field1", "field2", ...]
+      process_array: false
+      max_depth: 1
+      target: ""
+      overwrite_keys: false
+      add_error_key: true</span></pre> <p>Example of filebeat configuration </p> <pre><code>
+filebeat.inputs:
+- type: container
+  paths: 
+    - '/var/lib/docker/containers/*/*.log'
+
+processors:
+- add_docker_metadata:
+    host: "unix:///var/run/docker.sock"
+
+- decode_json_fields:
+    fields: ["message"]
+    target: "json"
+    overwrite_keys: true
+</code></pre> <h3><a name="id12"></a>Kibana</h3> <p>Kibana provides visualization capabilities on top of the content indexed on an Elasticsearch cluster. Users can create bar, line and scatter plots, or pie charts and maps on top of large volumes of data&#xa0; <a href="https://en.wikipedia.org/wiki/Kibana" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Kibana</a></p> <p>Open<span>&#xa0;</span>config/kibana.yml<span>&#xa0;</span>in an editor and set<span>&#xa0;</span>elasticsearch.url<span>&#xa0;</span>to point at your Elasticsearch instance. In our case as we will use the local instance just uncomment<span>&#xa0;</span>elasticsearch.url: "http://localhost:9200"</p> <p> <a href="https://www.elastic.co/guide/en/kibana/7.8/tutorial-sample-data.html" rel="nofollow" target="_blank" class="external"> https://www.elastic.co/guide/en/kibana/7.8/tutorial-sample-data.html</a> </p> <p>You can use the filebeat-*template to include all logs coming from FileBeat. You also need to define the field used as the log timestamp.</p> <h3><a name="id7"></a>References and examples</h3> <p><a href="https://github.com/awesome-release/elasticsearch-logstash-kibana" rel="nofollow" target="_blank" class="external"> https://github.com/awesome-release/elasticsearch-logstash-kibana</a> 7.8.0</p> <p><a href="https://github.com/amlana21/elkstack-publish.git" rel="nofollow" target="_blank" class="external"> https://github.com/amlana21/elkstack-publish.git</a> </p> <p><a href="https://amlanscloud.com/elk_stack_2/" rel="nofollow" target="_blank" class="external"> https://amlanscloud.com/elk_stack_2/</a>&#xa0; <a href="https://github.com/shazChaudhry/docker-elastic.git" rel="nofollow" target="_blank" class="external"> https://github.com/shazChaudhry/docker-elastic.git</a> </p> <p><a href="https://github.com/deviantony/docker-elk" rel="nofollow" target="_blank" class="external"> https://github.com/deviantony/docker-elk</a> </p> <p><a href="https://github.com/barseghyanartur/elk-stack-container-example" rel="nofollow" target="_blank" class="external"> https://github.com/barseghyanartur/elk-stack-container-example</a>&#xa0;&#xa0; 7.16.1 (ветка!) </p> <p>&#xa0;<a href="https://github.com/sherifabdlnaby/elastdocker.git" rel="nofollow" target="_blank" class="external">https://github.com/sherifabdlnaby/elastdocker.git</a> <span>&gt;= 8.0.0</span></p> <p>The <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html" rel="nofollow" target="_blank" class="external"> https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html</a>&#xa0; page in the official Elasticsearch documentation is a great starting point for running Elasticsearch with Docker. The <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-compose-file" rel="nofollow" target="_blank" class="external"> https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-compose-file</a>&#xa0; section provides everything you need to run a three-node Elasticsearch cluster with Kibana in Docker using&#xa0;docker-compose.</p> <p><a href="https://www.baeldung.com/java-application-logs-to-elastic-stack" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/java-application-logs-to-elastic-stack</a> </p> <p>&#xa0;</p> <h2><a name="id9"></a>OpenTelemetry</h2> <p>OpenTelemetry is an open source project within the&#xa0;Cloud Native Computing Foundation&#xa0;(CNCF) that offers a unified platform for creating, collecting and communicating telemetry data. With OpenTelemetry, you can instrument your application in a vendor-neutral manner and then analyze the telemetry data in the back-end tool of your choice, be it Prometheus, Jaeger, Zipkin, or others.<font> &#xa0;</font></p> <p><a href="https://www.baeldung.com/spring-boot-opentelemetry-setup" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/spring-boot-opentelemetry-setup</a> </p> </br></br></br></br></br></br> 
+    </body>
+</html>

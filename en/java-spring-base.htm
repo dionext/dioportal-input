@@ -1,0 +1,236 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Spring: Base knowledges</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <h1>Spring: Base knowledges</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Overview</a></li> 
+                <li><a href="#id1">IoC explanation</a></li> 
+                <li><a href="#id2">Another Spring features</a></li> 
+                <li><a href="#id3">Initial Spring project creation</a></li> 
+                <li><a href="#id4">Spring Starters</a></li> 
+                <li><a href="#id5">Auto-configuration</a></li> 
+                <li><a href="#id6">References</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Overview</h2> 
+        <p>The Spring Framework is an application framework and inversion of control container for the Java platform. </p> 
+        <p>The Spring Framework provides a comprehensive programming and configuration model for modern Java-based enterprise applications - on any kind of deployment platform. A key element of Spring is infrastructural support at the application level: Spring focuses on the "plumbing" of enterprise applications so that teams can focus on application-level business logic, without unnecessary ties to specific deployment environments.</p> 
+        <p>Official site: <a href="https://spring.io/projects/spring-boot" rel="nofollow" target="_blank" class="external">https://spring.io/projects/spring-boot</a> </p> 
+        <p class="MsoNormal"><span lang="EN-US" style="mso-ansi-language:EN-US">Spring</span><span style="mso-ansi-language:EN-US"> architecture based on</span>: Inversion of Control, Dependency Injection&#xa0; (IoC, DI, DIP) </p> 
+        <p class="MsoNormal"><strong>Inversion of control</strong> (IoC) is a design pattern in which custom-written portions of a computer program receive the flow of control from a generic framework. The term "inversion" is historical: a software architecture with this design "inverts" control as compared to procedural programming. In procedural programming, a program's custom code calls reusable libraries to take care of generic tasks, but with inversion of control, it is the framework that calls the custom code. </p> 
+        <p class="MsoNormal">Inversion of control (IoC) is a design pattern in which custom-written portions of a computer program receive the flow of control from a generic framework. The term "inversion" is historical: a software architecture with this design "inverts" control as compared to procedural programming. <a href="https://en.wikipedia.org/wiki/Inversion_of_control" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Inversion_of_control</a> </p> 
+        <p class="MsoNormal">The main idea of ioc is that the program no longer creates and manages objects on its own, but transfers this responsibility to the container, which itself takes care of creating and managing objects within the program.<br><br>This principle allows for a more flexible application architecture, since objects are more loosely coupled to each other and can be easily replaced or modified without making changes to the main program code.Dependency Inversion Principle (DIP)? </br></br></p> 
+        <p class="MsoNormal"> <a href="https://www.tutorialsteacher.com/ioc/dependency-inversion-principle" rel="nofollow" target="_blank" class="external"> https://www.tutorialsteacher.com/ioc/dependency-inversion-principle</a> </p> 
+        <p>DIP is one of the SOLID object-oriented principle invented by<span>&#xa0;</span>Robert Martin<span>&#xa0;</span>(a.k.a. Uncle Bob)</p> DIP Definition 
+        <ol> 
+            <li>High-level modules should not depend on low-level modules. Both should depend on the abstraction.</li> 
+            <li>Abstractions should not depend on details. Details should depend on abstractions.</li> 
+        </ol> 
+        <p class="MsoNormal"><span>Dependency Injection (DI) is a design pattern which implements the IoC principle to invert the creation of dependent objects.</span></p> IoC Container 
+        <p>The IoC container is a framework used to manage automatic dependency injection throughout the application, so that we as programmers do not need to put more time and effort into it.</p> 
+        <h2><a name="id1"></a>IoC explanation</h2> 
+        <p class="MsoNormal">To put it simply, the main problem that can be solved is reducing the number of links that the programmer is forced to create in order to transfer an object from one part of the program to another. We are, of course, talking about those objects that are not purely local. The objects we are talking about are, as a rule, created at the start of the program, and their use may be needed by other objects that are located quite far away in the extensive network of program objects.</p> 
+        <p class="MsoNormal">Let's look at this with the following example. One typical object of this kind is the CachManager caching manager. It must be created at the very beginning of loading the program and then it may be needed in various blocks of the program. For example, you have a block where certain business data is processed. It is implemented as a separate class &#xa0;BusinessService and a separate object. There are also other similar classes and objects FirstChildBusinessService, SecondChildBusinessService, created inside BusinessService. </p> 
+        <p class="MsoNormal">How can I give them all the ability to use the CachManager object? The easiest way is to pass CachManager as parameters when creating the BusinessService or by calling the set method. Then pass it along the chain to FirstChildBusinessService and SecondChildBusinessService. It is easy to see that with a large number of global objects, the creation and subsequent support of such a branched structure becomes very complex.</p> 
+        <p class="MsoNormal"><br>How can this problem be solved in simple ways? Perhaps the easiest way is to use a static variable. It however has a number of disadvantages. <span style="mso-spacerun:yes">&#xa0;</span></br></p> 
+        <pre><code class="language-java">public class Main {
+    CachManager cachManager;
+    AnotherManager anotherManager;
+    public static void main(String[] args) {
+        Main main = new Main();
+        main.doWork();
+    }
+    public Main(){
+        cachManager = new CachManager();
+        anotherManager = new AnotherManager();
+    }
+    public void doWork(){
+        BusnessService busnessService = new BusnessService(cachManager, anotherManager);
+        busnessService.doSomeBusnessWork();
+    }
+}
+class CachManager {
+    public void doSomeWork(){}
+}
+class AnotherManager {
+    public void doAnotherWork(){}
+}
+class BusnessService {
+    private CachManager cachManager;
+    private AnotherManager anotherManager;
+    private FirstChildBusnessService firstChildBusnessService;
+    private SecondChildBusnessService secondChildBusnessService;
+    public BusnessService(CachManager cachManager, AnotherManager anotherManager){
+        this.cachManager = cachManager;
+        this.anotherManager = anotherManager;
+        firstChildBusnessService = new FirstChildBusnessService(cachManager, anotherManager);
+        secondChildBusnessService = new SecondChildBusnessService(cachManager, anotherManager);
+    }
+    public void doSomeBusnessWork(){
+        firstChildBusnessService.doSomeBusnessWork();
+        secondChildBusnessService.doSomeBusnessWork();
+    }
+}
+class FirstChildBusnessService {
+    private CachManager cachManager;
+    private AnotherManager anotherManager;
+    public FirstChildBusnessService(CachManager cachManager, AnotherManager anotherManager) {
+        this.cachManager = cachManager;
+        this.anotherManager = anotherManager;
+    }
+    public void doSomeBusnessWork(){
+        cachManager.doSomeWork();
+        anotherManager.doAnotherWork();
+    }
+}
+class SecondChildBusnessService{
+    private CachManager cachManager;
+    private AnotherManager anotherManager;
+    public SecondChildBusnessService(CachManager cachManager, AnotherManager anotherManager){
+        this.cachManager = cachManager;
+        this.anotherManager = anotherManager;
+    }
+    public void doSomeBusnessWork(){
+        cachManager.doSomeWork();
+        anotherManager.doAnotherWork();
+    }
+}
+</code></pre> 
+        <p class="MsoNormal">&#xa0;</p> 
+        <p class="MsoNormal">Another approach is using Singleton pattern <a href="https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples" rel="nofollow" target="_blank" class="external"> https://www.digitalocean.com/community/tutorials/java-singleton-design-pattern-best-practices-examples</a> </p> 
+        <pre><code class="language-java">public class SingletonExample {
+    private static SingletonExample instance;
+    private SingletonExample() {
+    }
+    public static synchronized SingletonExample getInstance() {
+        if (instance == null) {
+            instance = new SingletonExample();
+        }
+        return instance;
+    }
+}</code></pre> 
+        <p>Example of same task using Spring </p> 
+        <pre><code class="language-java">@SpringBootApplication
+public class DemoApplication implements ApplicationRunner {
+	@Autowired
+	BusnessService busnessService;
+	public static void main(String[] args) {
+		SpringApplication.run(DemoApplication.class, args);
+	}
+	@Override
+	public void run(ApplicationArguments args) throws Exception {
+		busnessService.doSomeBusnessWork();
+	}
+}
+@Service
+public class BusnessService {
+    @Autowired
+    private FirstChildBusnessService firstChildBusnessService;
+    @Autowired
+    private SecondChildBusnessService secondChildBusnessService;
+
+    public void doSomeBusnessWork() {
+        firstChildBusnessService.doSomeBusnessWork();
+        secondChildBusnessService.doSomeBusnessWork();
+    }
+}
+@Service
+public class FirstChildBusnessService {
+    @Autowired
+    private CachManager cachManager;
+    @Autowired
+    private AnotherManager anotherManager;
+
+    public FirstChildBusnessService() {
+    }
+    public void doSomeBusnessWork() {
+        cachManager.doSomeWork();
+        anotherManager.doAnotherWork();
+    }
+}
+@Service
+public class SecondChildBusnessService{
+    @Autowired
+    private CachManager cachManager;
+    @Autowired
+    private AnotherManager anotherManager;
+    public SecondChildBusnessService(){
+    }
+    public void doSomeBusnessWork(){
+        cachManager.doSomeWork();
+        anotherManager.doAnotherWork();
+    }
+}
+@Component
+public class CachManager {
+    public void doSomeWork() {
+    }
+}
+@Component
+public class AnotherManager {
+    public void doAnotherWork() {
+    }
+}
+</code></pre> 
+        <h2><a name="id2"></a>Another Spring features</h2> 
+        <p>The Spring Framework includes several modules that provide a range of services:</p> 
+        <ul> 
+            <li> Aspect-oriented programming: enables implementing<span>&#xa0;</span>cross-cutting concerns.</li> 
+            <li> Authentication<span>&#xa0;</span>and<span>&#xa0;</span>authorization</li> 
+            <li> Convention over configuration: a rapid application development solution for Spring-based enterprise applications is offered in the<span>&#xa0;</span>Spring Roo<span>&#xa0;</span>module.</li> 
+            <li>Data access: working with<span>&#xa0;</span>relational database management systems<span>&#xa0;</span>on the Java platform </li> 
+            <li>Messaging: declarative registration of message listener objects for transparent message-consumption from<span>&#xa0;</span>message queues<span>&#xa0;</span>via<span>&#xa0;</span>Java Message Service<span>&#xa0;</span>(JMS)</li> 
+            <li> Model–view–controller: an<span>&#xa0;</span>HTTP- and<span>&#xa0;</span>servlet-based framework providing hooks for extension and customization for web applications and<span>&#xa0;</span>RESTful<span>&#xa0;</span>(representational state transfer) Web services.</li> 
+            <li>Remote access framework: declarative<span>&#xa0;</span>remote procedure call<span>&#xa0;</span>(RPC)-style</li> 
+            <li> Transaction management: unifies several transaction management APIs and coordinates transactions for Java objects</li> 
+            <li> Testing: support classes for writing<span>&#xa0;</span>unit tests<span>&#xa0;</span>and<span>&#xa0;</span>integration tests.</li> 
+            <li>WebFlux support</li> 
+            <li>Web Socket support</li> 
+            <li>XML support</li> 
+        </ul> 
+        <h2><a name="id3"></a>Initial Spring project creation</h2> 
+        <p><span lang="ru">Варианты создания нового проекта:</span></p> 
+        <ul> 
+            <li>Online конструктор: <a href="https://start.spring.io/" rel="nofollow" target="_blank" class="external">https://start.spring.io/</a> </li> 
+            <li>IntelliJ IDEA Ultimate&#xa0; (File-New-Project...-Spring Initializer). </li> 
+            <li> Spring Boot CLI</li> 
+        </ul> 
+        <p>Рекомендации по струкруре директорий&#xa0; и т.п. <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-structuring-your-code.html" rel="nofollow" target="_blank" class="external"> https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-structuring-your-code.html</a> </p> 
+        <h2 id="using.build-systems.starters"><a name="id4"></a>Spring Starters</h2> 
+        <div> 
+            <p>Starters are a set of convenient dependency descriptors that you can include in your application. You get a one-stop shop for all the Spring and related technologies that you need without having to hunt through sample code and copy-paste loads of dependency descriptors. For example, if you want to get started using Spring and JPA for database access, include the<span>&#xa0;</span>spring-boot-starter-data-jpa<span>&#xa0;</span>dependency in your project. The starters contain a lot of the dependencies that you need to get a project up and running quickly and with a consistent, supported set of managed transitive dependencies.</p> 
+            <div> 
+                <div> 
+                    <p> <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/features.html#features.developing-auto-configuration.custom-starter" rel="nofollow" target="_blank" class="external"> Creating Your Own Starter</a></p> 
+                    <p>List of starters&#xa0; <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/using.html" rel="nofollow" target="_blank" class="external"> https://docs.spring.io/spring-boot/docs/current/reference/html/using.html</a></p> 
+                    <h2 id="using.auto-configuration"><a name="id5"></a>Auto-configuration</h2> 
+                    <div> 
+                        <div> 
+                            <p>Spring Boot auto-configuration attempts to automatically configure your Spring application based on the jar dependencies that you have added. For example, if<span>&#xa0;</span>HSQLDB<span>&#xa0;</span>is on your classpath, and you have not manually configured any database connection beans, then Spring Boot auto-configures an in-memory database.</p> 
+                        </div> 
+                        <div> 
+                            <p>You need to opt-in to auto-configuration by adding the<span>&#xa0;</span>@EnableAutoConfiguration<span>&#xa0;</span>or<span>&#xa0;</span>@SpringBootApplication<span>&#xa0;</span>annotations to one of your<span>&#xa0;</span>@Configuration<span>&#xa0;</span>classes.</p> 
+                        </div> 
+                    </div> 
+                    <p>Disabling Specific Auto-configuration Classes - If you find that specific auto-configuration classes that you do not want are being applied, you can use the exclude attribute of </p> 
+                    <p>@SpringBootApplication to disable them @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class }) <a name="id41"></a> </p> 
+                </div> 
+            </div> 
+        </div> 
+        <h2><a name="id6"></a>References</h2> 
+        <p class="MsoNormal"> <a target="_blank" rel="nofollow" href="https://spring.io/docs/reference" class="external"> https://spring.io/docs/reference</a> </p> 
+        <p class="MsoNormal"> 3.3.x - <a href="https://docs.spring.io/spring-boot/docs/3.3.x/reference/html/" rel="nofollow" target="_blank" class="external"> https://docs.spring.io/spring-boot/docs/3.3.x/reference/html/</a> </p> 
+        <p class="MsoNormal"> Spring Boot Reference Guide<span lang="en-us"> <a href="https://docs.spring.io/spring-boot/docs/current/reference/html/index.html" rel="nofollow" target="_blank" class="external"> https://docs.spring.io/spring-boot/docs/current/reference/html/index.html</a> </span> </p> 
+        <p class="MsoNormal"> Petclinic demo project&#xa0; <a href="https://github.com/spring-petclinic" rel="nofollow" target="_blank" class="external"> https://github.com/spring-petclinic</a>&#xa0; <a href="https://github.com/spring-projects/spring-petclinic" rel="nofollow" target="_blank" class="external"> https://github.com/spring-projects/spring-petclinic</a>&#xa0; <a href="https://www.thymeleaf.org/doc/articles/petclinic.html" rel="nofollow" target="_blank" class="external"> https://www.thymeleaf.org/doc/articles/petclinic.html</a>&#xa0; <a href="https://hub.docker.com/r/jbrisbin/spring-petclinic/" rel="nofollow" target="_blank" class="external"> https://hub.docker.com/r/jbrisbin/spring-petclinic/</a> <a href="https://learn.microsoft.com/en-us/azure/spring-apps/quickstart-sample-app-introduction?tabs=basic-standard-plan&amp;pivots=programming-language-java" rel="nofollow" target="_blank" class="external"> https://learn.microsoft.com/en-us/azure/spring-apps/quickstart-sample-app-introduction?tabs=basic-standard-plan&amp;pivots=programming-language-java</a>&#xa0; <a href="https://gitlab.com/sylvere_zorer/spring-petclinic-microservices" rel="nofollow" target="_blank" class="external"> https://gitlab.com/sylvere_zorer/spring-petclinic-microservices</a> </p> 
+        <p class="MsoNormal"> Examples <span lang="ru"> &#xa0;<a href="https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples" rel="nofollow" target="_blank" class="external">https://github.com/spring-projects/spring-boot/tree/master/spring-boot-samples</a>&#xa0; <a href="https://github.com/codecentric/springboot-sample-app" rel="nofollow" target="_blank" class="external"> https://github.com/codecentric/springboot-sample-app</a></span>&#xa0; <a name="id13"></a> <a href="https://github.com/in28minutes/spring-boot-examples" rel="nofollow" target="_blank" class="external"> https://github.com/in28minutes/spring-boot-examples</a><span lang="ru"> </span> </p> 
+        <p><a href="https://github.com/Java-Techie-jt/springboot-rabbitmq-example" rel="nofollow" target="_blank" class="external"> https://github.com/Java-Techie-jt/springboot-rabbitmq-example</a> springboot-rabbitmq-example&#xa0; <a href="https://www.youtube.com/watch?v=o4qCdBR4gUM" rel="nofollow" target="_blank" class="external"> https://www.youtube.com/watch?v=o4qCdBR4gUM</a> Spring Boot RabbitMQ | Publisher &amp; Subscriber Example | AMQP | JavaTechie </p> 
+    </body>
+</html>

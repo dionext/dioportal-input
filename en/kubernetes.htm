@@ -1,0 +1,104 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Kubernetes</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <h1>Kubernetes</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Overview</a></li> 
+                <li><a href="#id1">Commands</a></li> 
+                <li><a href="#id2">Clearing</a></li> 
+                <li><a href="#id5">Installation and management</a></li> 
+                <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Windows Docker Desktop</a></li> 
+                <li><a href="#id7">&#xa0;&#xa0;&#xa0;&#xa0;Linux</a></li> 
+                <li><a href="#id47">&#xa0;&#xa0;&#xa0;&#xa0;Helm</a></li> 
+                <li><a href="#id42">&#xa0;&#xa0;&#xa0;&#xa0;Rancher</a></li> 
+                <li><a href="#id4">References</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Overview</h2> 
+        <p><a href="https://kubernetes.io/" rel="nofollow" target="_blank" class="external">https://kubernetes.io/</a></p> 
+        <p>Kubernetes&#xa0; is an open-source container orchestration system for automating software deployment, scaling, and management. Originally designed by Google, the project is now maintained by a worldwide community of contributors, and the trademark is held by the Cloud Native Computing Foundation. <a href="https://en.wikipedia.org/wiki/Kubernetes" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Kubernetes</a> </p> 
+        <h2><a name="id1"></a>Commands</h2> 
+        <p>kubectl cluster-info </p> 
+        <p><span lang="ru">kubectl get </span>nodes<br /> kubectl get nodes --output wide<br /> kubectl --kubeconfig [USER_CLUSTER_KUBECONFIG] get nodes --output wide </p> 
+        <p>&#xa0;</p> 
+        <p><span lang="ru">kubectl get all </span></p> 
+        <p><span lang="ru">kubectl get pods<br /> kubectl get replicasets<br /> kubectl get services<br /> kubectl get secrets</span></p> 
+        <p>kubectl get ingress -o wide&#xa0; (дает ingress сервисы ) </p> 
+        <p>kubectl get svc --all-namespaces&#xa0;&#xa0;&#xa0;&#xa0; kubectl get services --all-namespaces&#xa0; (сервисы во всех неймспесах) </p> 
+        <p><span lang="ru">kubectl get endpoints<br /> kubectl get events<br /> kubectl get storageclasses</span></p> 
+        <pre>kubectl config view</pre> 
+        <h2><a name="id2"></a>Clearing</h2> 
+        <p class="auto-style3">kubectl delete pod pod-nginx </p> 
+        <p class="auto-style3">kubectl delete pod --all </p> 
+        <p class="auto-style3"><span lang="ru">kubectl get all </span></p> 
+        <p class="auto-style3">kubectl delete [deploy/simple-deployment] [svc/simple-service] </p> 
+        <p class="auto-style3">All</p> 
+        <p class="auto-style3">kubectl delete deployment --all</p> 
+        <p class="auto-style3">kubectl delete service --all</p> 
+        <p class="auto-style3">kubectl delete daemonsets,replicasets,services,deployments,pods,rc --all </p> 
+        <p class="auto-style3">kubectl delete ingress --all</p> 
+        <p class="auto-style3">kubectl delete namespace k8sdemo-app </p> 
+        <p class="auto-style3">&#xa0;</p> 
+        <p class="auto-style3">kubectl delete -f file.yaml </p> 
+        <p class="auto-style3">&#xa0;<a href="https://github.com/kubernetes/kubernetes/issues/60807" rel="nofollow" target="_blank" class="external">https://github.com/kubernetes/kubernetes/issues/60807</a> </p> 
+        <pre>kubectl get namespace "stucked-namespace" -o json \
+            | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" \
+            | kubectl replace --raw /api/v1/namespaces/stucked-namespace/finalize -f -</pre> 
+        <p class="auto-style3">kubectl get namespace "ingress-controller" -o json | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" | kubectl replace --raw /api/v1/namespaces/ingress-controller/finalize -f -</p> 
+        <p class="auto-style3">kubectl get namespace "cattle-system" -o json | tr -d "\n" | sed "s/\"finalizers\": \[[^]]\+\]/\"finalizers\": []/" | kubectl replace --raw /api/v1/namespaces/cattle-system/finalize -f -</p> 
+        <h2><a name="id5"></a>Installation and management</h2> 
+        <h3><a name="id3"></a>Windows Docker Desktop</h3> 
+        <p><a href="https://docs.microsoft.com/en-us/windows/wsl/" rel="nofollow" target="_blank" class="external">WSL -&#xa0;the Windows Subsystem for Linux </a></p> 
+        <p> <a href="https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/" rel="nofollow" target="_blank" class="external"> https://kubernetes.io/blog/2020/05/21/wsl-docker-kubernetes-on-the-windows-desktop/</a> </p> 
+        <p><a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" rel="nofollow" target="_blank" class="external">https://docs.microsoft.com/en-us/windows/wsl/install-win10</a> </p> 
+        <p> <a href="https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/quick-create-virtual-machine" rel="nofollow" target="_blank" class="external"> https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/quick-create-virtual-machine</a> </p> 
+        <p>(PowerShell admin mode) </p> 
+        <pre><span>PS</span> <span>C:\WINDOWS\system32&gt;</span> <span>minikube</span> <span>delete</span> 
+<span>PS</span> <span>C:\WINDOWS\system32&gt;</span> <span>kubectl</span> <span>config</span> <span>use-context</span> <span>minikube</span>
+<span>PS</span> <span>C:\WINDOWS\system32&gt;</span> <span>minikube</span> <span>start</span> <span>--vm-driver=hyperv</span></pre> 
+        <p><span>minikube status</span></p> 
+        <p><font>If you have enough CPU and RAM resources, you can easily have both minikube and docker-for-desktop on the same machine and switch between them by selecting context, for example:&#xa0;&#xa0; <a href="https://codefresh.io/kubernetes-tutorial/local-kubernetes-windows-minikube-vs-docker-desktop/#:~:text=Docker%2Dfor%2Dwindows%20uses%20Type,while%20Minikube%20supports%20both%20hypervisors.&amp;text=If%20you%20are%20running%20virtual,you%20enable%20type%2D1%20hypervisors" rel="nofollow" target="_blank" class="external">https://codefresh.io/kubernetes-tutorial/local-kubernetes-windows-minikube-vs-docker-desktop/#:~:text=Docker-for-windows uses Type,while Minikube supports both hypervisors.&amp;text=If you are running virtual,you enable type-1 hypervisors</a>. </font></p> 
+        <pre><span>&gt;</span> <span>kubectl</span> <span>config</span> <span>get-contexts</span>
+<span>&gt;</span> <span>kubectl</span> <span>config</span> <span>use-context</span> <span>docker-for-desktop</span></pre> 
+        <p> <a href="https://www.assistanz.com/installing-minikube-on-windows-10-home-edition-using-virtualbox/" rel="nofollow" target="_blank" class="external"> https://www.assistanz.com/installing-minikube-on-windows-10-home-edition-using-virtualbox/</a><span lang="ru">&#xa0;&#xa0; </span></p> <version> 
+            <hypervisor> 
+                <none> 
+                    <p>minikube start</p> 
+                    <p>minikube version</p> 
+                    <p>minikube status</p> 
+                    <p>minikube docker-env</p> 
+                    <h3><a name="id7"></a>Linux</h3> 
+                    <p><a href="https://kubernetes.io/docs/tasks/tools/install-kubectl/" rel="nofollow" target="_blank" class="external">https://kubernetes.io/docs/tasks/tools/install-kubectl/</a> </p> 
+                    <p>&#xa0;</p> 
+                </none> 
+            </hypervisor> 
+        </version> 
+        <h3><a name="id47"></a>Helm</h3> 
+        <p><a href="https://helm.sh/docs/intro/install/" rel="nofollow" target="_blank" class="external">https://helm.sh/docs/intro/install/</a> </p> 
+        <p><a href="https://helm.sh/docs/faq/" rel="nofollow" target="_blank" class="external">https://helm.sh/docs/faq/</a> </p> 
+        <h3><a name="id42"></a>Rancher</h3> 
+        <p><a href="https://www.youtube.com/watch?v=LaAnOxy4efc" rel="nofollow" target="_blank" class="external">https://www.youtube.com/watch?v=LaAnOxy4efc</a> </p> 
+        <p> <a href="https://rancher.com/docs/rancher/v2.x/en/installation/other-installation-methods/single-node-docker/advanced/" rel="nofollow" target="_blank" class="external"> https://rancher.com/docs/rancher/v2.x/en/installation/other-installation-methods/single-node-docker/advanced/</a> </p> 
+        <pre>2.4</pre> 
+        <pre>docker run -d --restart=unless-stopped \
+  -p 80:80 -p 443:443 --name rancher \
+  -v /mnt/devops/rancher:/var/lib/rancher \
+  rancher/rancher:v2.4-head </pre> System requirements:&#xa0; 1CPU/4RAM -&#xa0; 2CPU/4RAM 
+        <pre>2.5</pre> 
+        <pre>docker run -d --restart=unless-stopped \
+  -p 80:80 -p 443:443 --name rancher \
+  -v /mnt/devops/rancher:/var/lib/rancher \
+  --privileged \
+  rancher/rancher:latest</pre> 
+        <p>&#xa0;</p> 
+        <h2><a name="id4"></a>References</h2> 
+    </body>
+</html>

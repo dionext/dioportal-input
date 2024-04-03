@@ -1,0 +1,145 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Docker Compose</title>
+        <meta name="description" content="Using docker compose" />
+        <meta name="keywords" content="docker, compose" />
+    </head>
+    <body> 
+        <h1>Docker Compose </h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Overview</a></li> 
+                <li><a href="#id1">Commands</a></li> 
+                <li><a href="#id2">&#xa0;&#xa0;&#xa0;&#xa0;Volumes</a></li> 
+                <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Environment variables</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;Compose Deploy Specification (replicas, etc.)</a></li> 
+                <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;Manage sensitive data (Secrets)</a></li> 
+                <li><a href="#id7">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Vault</a></li> 
+                <li><a href="#id8">&#xa0;&#xa0;&#xa0;&#xa0;References</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Overview</h2> 
+        <p>Docker Compose is a tool for defining and running multi-container Docker applications. It uses YAML files to configure the application's services and performs the creation and start-up process of all the containers with a single command. The docker-compose CLI utility allows users to run commands on multiple containers at once; for example, building images, scaling containers, running containers that were stopped, and more. Commands related to image manipulation, or user-interactive options, are not relevant in Docker Compose because they address one container. The docker-compose.yml file is used to define an application's services and includes various configuration options. For example, the build option defines configuration options such as the Dockerfile path, the command option allows one to override default Docker commands, and more. The first public beta version of Docker Compose (version 0.0.1) was released on December 21, 2013. The first production-ready version (1.0) was made available on October 16, 2014. <a href="https://en.wikipedia.org/wiki/Docker_(software" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/Docker_(software</a>) </p> 
+        <h2><a name="id1"></a>Commands</h2> 
+        <p><span>Typically, you want&#xa0;</span>docker-compose up<span>. Use&#xa0;</span>up<span>&#xa0;to start or restart all the services defined in a&#xa0;</span>docker-compose.yml<span>. In the default “attached” mode, you see all the logs from all the containers. In “detached” mode (</span>-d<span>), Compose exits after starting the containers, but the containers continue to run in the background.</span></p> 
+        <pre><code class="language-bash">docker-compose up</code></pre> 
+        <pre><code class="language-bash">docker-compose up -d</code></pre> 
+        <pre><code class="language-bash">docker compose up -d</code></pre>
+		<p>--build - Build images before starting containers.&nbsp; To rebuild 
+		image you must use `docker-compose build` or `docker-compose up --build`</p>
+        <pre><code class="language-bash">docker-compose down</code></pre> 
+        <p>Restart<span lang="ru"> (!!!If you make changes to your docker-compose.yml configuration these changes are not reflected after running this command.)</span></p> 
+        <pre><code class="language-bash">docker-compose&#xa0; restart</code></pre> 
+        <p>Custom file name:</p> 
+        <pre><code class="language-bash">docker-compose --file docker-compose.local-tests.yml up</code></pre> 
+        <pre><code class="language-bash">docker-compose --file stack.yml restart</code></pre> 
+        <p>List of services </p> 
+        <pre><code class="language-bash">docker-compose ps</code></pre> 
+        <p>View logs</p> 
+        <pre><code class="language-bash">docker-compose logs -f</code></pre> 
+        <h2><a name="id2"></a>Volumes</h2> 
+        <p><a href="https://docs.docker.com/storage/volumes/" rel="nofollow" target="_blank" class="external">https://docs.docker.com/storage/volumes/</a> </p> <host_path> 
+            <mountpoint_inside_the_container> 
+                <volume_name> 
+                    <mountpoint_inside_container> 
+                        <h2 id="title"><a name="id3"></a>Environment variables</h2> 
+                        <p><a href="https://docs.docker.com/compose/environment-variables/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/compose/environment-variables/</a> </p> 
+                        <p>The order of precedence (highest to lowest) is as follows:</p> 
+                        <ol> 
+                            <li>Set using<span>&#xa0;</span><a href="https://docs.docker.com/compose/environment-variables/set-environment-variables/#set-environment-variables-with-docker-compose-run---env" rel="nofollow" target="_blank" class="external">docker compose run -e<span>&#xa0;</span>in the CLI</a></li> 
+                            <li>Substituted from your<span>&#xa0;</span><a href="https://docs.docker.com/compose/environment-variables/set-environment-variables/#substitute-from-the-shell" rel="nofollow" target="_blank" class="external">shell</a></li> 
+                            <li>Set using the<span>&#xa0;</span><a href="https://docs.docker.com/compose/environment-variables/set-environment-variables/#use-the-environment-attribute" rel="nofollow" target="_blank" class="external">environment<span>&#xa0;</span>attribute in the Compose file</a></li> 
+                            <li>Use of the<span>&#xa0;</span><a href="https://docs.docker.com/compose/environment-variables/set-environment-variables/#substitute-with---env-file" rel="nofollow" target="_blank" class="external">--env-file<span>&#xa0;</span>argument</a><span>&#xa0;</span>in the CLI</li> 
+                            <li>Use of the<span>&#xa0;</span><a href="https://docs.docker.com/compose/environment-variables/set-environment-variables/#use-the-env_file-attribute" rel="nofollow" target="_blank" class="external">env_file<span>&#xa0;</span>attribute</a><span>&#xa0;</span>in the Compose file</li> 
+                            <li>Set using an<span>&#xa0;</span><a href="https://docs.docker.com/compose/environment-variables/set-environment-variables/#substitute-with-an-env-file" rel="nofollow" target="_blank" class="external">.env<span>&#xa0;</span>file</a><span>&#xa0;</span>placed at base of your project directory</li> 
+                            <li>Set in a container image in the<span>&#xa0;</span><a href="https://docs.docker.com/engine/reference/builder/#env" rel="nofollow" target="_blank" class="external">ENV directive</a>. Having any<span>&#xa0;</span>ARG<span>&#xa0;</span>or<span>&#xa0;</span>ENV<span>&#xa0;</span>setting in a<span>&#xa0;</span>Dockerfile<span>&#xa0;</span>evaluates only if there is no Docker Compose entry for<span>&#xa0;</span>environment,<span>&#xa0;</span>env_file<span>&#xa0;</span>or<span>&#xa0;</span>run --env.</li> 
+                        </ol> 
+                        <h2>Parametrise compose file</h2>
+<pre><code class="language-yaml">
+version: '3.8'
+services:
+  hiki-ms-app:
+    image: hiki-ms-app:latest
+    volumes:
+      - /mnt/disk2/sites:/mnt/sites
+    ports:
+      - 8080-8081:8080
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      SPRING_PROFILES_ACTIVE: htest
+      SERVER_PORT: 8080
+      MYSQL_PASSWORD: $ENV_MYSQL_PASSWORD
+      MYSQL_USER: $ENV_MYSQL_USER		
+</code></pre>
+		<span style="color: rgb(12, 13, 14); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI Adjusted&quot;, &quot;Segoe UI&quot;, &quot;Liberation Sans&quot;, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+		Define a<span>&nbsp;</span></span><code style="margin: 0px; padding: var(--su2) var(--su4); border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: var(--ff-mono); font-optical-sizing: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: var(--_pr-code-fs); vertical-align: baseline; box-sizing: inherit; background-color: var(--black-200); white-space: pre-wrap; --theme-base-primary-color-h: 27; --theme-base-primary-color-s: 89%; --theme-base-primary-color-l: 48%; --theme-primary-custom-100: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + ((100% - var(--theme-base-primary-color-l)) * .9))); --theme-primary-custom-200: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + ((100% - var(--theme-base-primary-color-l)) * .75))); --theme-primary-custom-300: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + ((100% - var(--theme-base-primary-color-l)) * .5))); --theme-primary-custom-400: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), var(--theme-base-primary-color-l)); --theme-primary-custom-500: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + (var(--theme-base-primary-color-l) * -.3))); --theme-primary-custom-600: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + (var(--theme-base-primary-color-l) * -.6))); --theme-primary-custom: var(--theme-primary-custom-400); --theme-button-color: initial; --theme-button-hover-color: initial; --theme-button-hover-background-color: initial; --theme-button-active-background-color: initial; --theme-button-selected-color: initial; --theme-button-selected-background-color: initial; --theme-button-outlined-border-color: initial; --theme-button-outlined-selected-border-color: initial; --theme-button-primary-color: initial; --theme-button-primary-active-color: initial; --theme-button-primary-hover-color: initial; --theme-button-primary-selected-color: initial; --theme-button-primary-background-color: initial; --theme-button-primary-active-background-color: initial; --theme-button-primary-hover-background-color: initial; --theme-button-primary-selected-background-color: initial; --theme-background-color: var(--white); --theme-background-position: top left; --theme-background-repeat: repeat; --theme-background-size: auto; --theme-background-attachment: auto; --theme-content-background-color: var(--white); --theme-content-border-color: var(--black-225); --theme-header-background-color: var(--theme-primary); --theme-header-background-position: center left; --theme-header-background-repeat: repeat; --theme-header-background-size: auto; --theme-header-background-border-bottom: 0; --theme-header-link-color: var(--theme-primary); --theme-header-sponsored-color: hsla(0,0%,100%,0.4); --theme-header-foreground-color: transparent; --theme-header-foreground-position: bottom right; --theme-header-foreground-repeat: no-repeat; --theme-header-foreground-size: auto; --theme-footer-background-color: hsl(210,8%,5%); --theme-footer-background-position: top left; --theme-footer-background-repeat: no-repeat; --theme-footer-background-size: auto; --theme-footer-background-border-top: 0; --theme-footer-title-color: var(--black-250); --theme-footer-text-color: var(--black-300); --theme-footer-link-color: var(--black-300); --theme-footer-link-color-hover: var(--black-200); --theme-footer-divider-color: var(--black-500); --theme-footer-padding-top: 0; --theme-footer-padding-bottom: 0; --theme-link-color: initial; --theme-link-color-hover: initial; --theme-link-color-visited: initial; --theme-tag-color: initial; --theme-tag-background-color: initial; --theme-tag-border-color: initial; --theme-tag-hover-color: initial; --theme-tag-hover-background-color: initial; --theme-tag-hover-border-color: initial; --theme-tag-required-color: var(--white); --theme-tag-required-background-color: var(--theme-secondary-500); --theme-tag-required-border-color: transparent; --theme-tag-required-hover-color: var(--white); --theme-tag-required-hover-background-color: var(--theme-secondary-400); --theme-tag-required-hover-border-color: transparent; --theme-body-font-family: var(--ff-sans); --theme-body-font-color: var(--black-600); --theme-post-title-font-family: var(--ff-sans); --theme-post-title-color: var(--theme-link-color); --theme-post-title-color-hover: var(--theme-link-color-hover); --theme-post-title-color-visited: var(--theme-link-color-visited); --theme-post-body-font-family: var(--ff-sans); --theme-post-owner-background-color: var(--theme-secondary-100); --theme-post-owner-new-background-color: var(--theme-secondary-200); --theme-topbar-bottom-border: 1px solid var(--black-225); color: rgb(12, 13, 14); border-radius: var(--br-sm); letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">.env</code><span style="color: rgb(12, 13, 14); font-family: -apple-system, BlinkMacSystemFont, &quot;Segoe UI Adjusted&quot;, &quot;Segoe UI&quot;, &quot;Liberation Sans&quot;, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>&nbsp;</span>file 
+		in the same directory as<span>&nbsp;</span></span><code style="margin: 0px; padding: var(--su2) var(--su4); border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: var(--ff-mono); font-optical-sizing: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; font-size: var(--_pr-code-fs); vertical-align: baseline; box-sizing: inherit; background-color: var(--black-200); white-space: pre-wrap; --theme-base-primary-color-h: 27; --theme-base-primary-color-s: 89%; --theme-base-primary-color-l: 48%; --theme-primary-custom-100: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + ((100% - var(--theme-base-primary-color-l)) * .9))); --theme-primary-custom-200: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + ((100% - var(--theme-base-primary-color-l)) * .75))); --theme-primary-custom-300: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + ((100% - var(--theme-base-primary-color-l)) * .5))); --theme-primary-custom-400: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), var(--theme-base-primary-color-l)); --theme-primary-custom-500: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + (var(--theme-base-primary-color-l) * -.3))); --theme-primary-custom-600: hsl(var(--theme-base-primary-color-h), var(--theme-base-primary-color-s), calc(var(--theme-base-primary-color-l) + (var(--theme-base-primary-color-l) * -.6))); --theme-primary-custom: var(--theme-primary-custom-400); --theme-button-color: initial; --theme-button-hover-color: initial; --theme-button-hover-background-color: initial; --theme-button-active-background-color: initial; --theme-button-selected-color: initial; --theme-button-selected-background-color: initial; --theme-button-outlined-border-color: initial; --theme-button-outlined-selected-border-color: initial; --theme-button-primary-color: initial; --theme-button-primary-active-color: initial; --theme-button-primary-hover-color: initial; --theme-button-primary-selected-color: initial; --theme-button-primary-background-color: initial; --theme-button-primary-active-background-color: initial; --theme-button-primary-hover-background-color: initial; --theme-button-primary-selected-background-color: initial; --theme-background-color: var(--white); --theme-background-position: top left; --theme-background-repeat: repeat; --theme-background-size: auto; --theme-background-attachment: auto; --theme-content-background-color: var(--white); --theme-content-border-color: var(--black-225); --theme-header-background-color: var(--theme-primary); --theme-header-background-position: center left; --theme-header-background-repeat: repeat; --theme-header-background-size: auto; --theme-header-background-border-bottom: 0; --theme-header-link-color: var(--theme-primary); --theme-header-sponsored-color: hsla(0,0%,100%,0.4); --theme-header-foreground-color: transparent; --theme-header-foreground-position: bottom right; --theme-header-foreground-repeat: no-repeat; --theme-header-foreground-size: auto; --theme-footer-background-color: hsl(210,8%,5%); --theme-footer-background-position: top left; --theme-footer-background-repeat: no-repeat; --theme-footer-background-size: auto; --theme-footer-background-border-top: 0; --theme-footer-title-color: var(--black-250); --theme-footer-text-color: var(--black-300); --theme-footer-link-color: var(--black-300); --theme-footer-link-color-hover: var(--black-200); --theme-footer-divider-color: var(--black-500); --theme-footer-padding-top: 0; --theme-footer-padding-bottom: 0; --theme-link-color: initial; --theme-link-color-hover: initial; --theme-link-color-visited: initial; --theme-tag-color: initial; --theme-tag-background-color: initial; --theme-tag-border-color: initial; --theme-tag-hover-color: initial; --theme-tag-hover-background-color: initial; --theme-tag-hover-border-color: initial; --theme-tag-required-color: var(--white); --theme-tag-required-background-color: var(--theme-secondary-500); --theme-tag-required-border-color: transparent; --theme-tag-required-hover-color: var(--white); --theme-tag-required-hover-background-color: var(--theme-secondary-400); --theme-tag-required-hover-border-color: transparent; --theme-body-font-family: var(--ff-sans); --theme-body-font-color: var(--black-600); --theme-post-title-font-family: var(--ff-sans); --theme-post-title-color: var(--theme-link-color); --theme-post-title-color-hover: var(--theme-link-color-hover); --theme-post-title-color-visited: var(--theme-link-color-visited); --theme-post-body-font-family: var(--ff-sans); --theme-post-owner-background-color: var(--theme-secondary-100); --theme-post-owner-new-background-color: var(--theme-secondary-200); --theme-topbar-bottom-border: 1px solid var(--black-225); color: rgb(12, 13, 14); border-radius: var(--br-sm); letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;">docker-compose.yml<br>
+		<br>ENV_MYSQL_PASSWORD=mypassword<br>ENV_MYSQL_USER=myuser</code><p>
+		<a href="https://stackoverflow.com/questions/43544328/pass-argument-to-docker-compose">
+		https://stackoverflow.com/questions/43544328/pass-argument-to-docker-compose</a> 
+		Pass argument to docker compose </p>
+		<p>
+		<a href="https://docs.docker.com/compose/environment-variables/env-file/">
+		https://docs.docker.com/compose/environment-variables/env-file/</a>&nbsp; 
+		Syntax for environment files in Docker Compose </p>
+		<p>
+		<a href="https://docs.docker.com/compose/environment-variables/set-environment-variables/#substitute-with-an-env-file">
+		https://docs.docker.com/compose/environment-variables/set-environment-variables/#substitute-with-an-env-file</a> </p> 
+                        <h2><a name="id5"></a>Compose Deploy Specification (replicas, etc.)</h2> 
+                        <p><a href="https://docs.docker.com/compose/compose-file/deploy/#replicas" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/compose/compose-file/deploy/#replicas</a> </p> 
+                        <h2><a name="id6"></a>Manage sensitive data (Secrets)</h2> 
+                        <p>(Docker Swarm Mode)</p> 
+                        <p><a href="https://docs.docker.com/compose/use-secrets/" rel="nofollow" target="_blank" class="external">https://docs.docker.com/compose/use-secrets/</a> </p> 
+                        <p><a href="https://spacelift.io/blog/docker-secrets" rel="nofollow" target="_blank" class="external">https://spacelift.io/blog/docker-secrets</a> </p> 
+                        <p> <a href="https://stackoverflow.com/questions/42139605/how-do-you-manage-secret-values-with-docker-compose-v3-1" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/42139605/how-do-you-manage-secret-values-with-docker-compose-v3-1</a> </p> 
+                        <p><a href="https://blog.gitguardian.com/how-to-handle-secrets-in-docker/" rel="nofollow" target="_blank" class="external"> https://blog.gitguardian.com/how-to-handle-secrets-in-docker/</a> </p> 
+                        <pre><code class="language-yaml">
+version: '3.8'
+services:
+  hiki-ms-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hiki-ms-app:latest
+    volumes:
+      - /mnt/disk2/sites/hiking:/mnt/sites/hiking
+    ports:
+      - 8080:8080
+    environment:
+      - MYSQL_PASSWORD=/run/secrets/mysql_password
+    secrets:
+      - mysql_password
+secrets:
+  mysql_password:
+    file: ./devsecrets/mysql_password
+</code></pre> 
+                        <p>Note: <a href="https://github.com/kwonghung-YIP/spring-boot-docker-secret" rel="nofollow" target="_blank" class="external"> https://github.com/kwonghung-YIP/spring-boot-docker-secret</a> </p> 
+                        <h4><a name="id7"></a>Vault</h4> 
+                        <p>Vault: provides secrets management, identity-based access, encrypting application data and auditing of secrets for applications, systems, and users <a href="https://www.hashicorp.com/products/vault" rel="nofollow" target="_blank" class="external">https://www.hashicorp.com/products/vault</a> </p> 
+                        <p>&#xa0;</p> 
+                        <h2><a name="id8"></a>References</h2> 
+                        <p> These samples focus specifically on Docker Compose:</p> 
+                        <ul> 
+                            <li> <p> <a href="https://github.com/docker/awesome-compose/tree/master/elasticsearch-logstash-kibana/logstash/README.md" rel="nofollow" target="_blank" class="external"> Quickstart: Compose and ELK</a><span>&#xa0;</span>- Shows how to use Docker Compose to set up and run ELK - Elasticsearch-Logstash-Kibana.</p> </li> 
+                            <li> <p> <a href="https://github.com/docker/awesome-compose/tree/master/official-documentation-samples/django/README.md" rel="nofollow" target="_blank" class="external"> Quickstart: Compose and Django</a><span>&#xa0;</span>- Shows how to use Docker Compose to set up and run a simple Django/PostgreSQL app.</p> </li> 
+                            <li> <p> <a href="https://github.com/docker/awesome-compose/tree/master/official-documentation-samples/rails/README.md" rel="nofollow" target="_blank" class="external"> Quickstart: Compose and Rails</a><span>&#xa0;</span>- Shows how to use Docker Compose to set up and run a Rails/PostgreSQL app.</p> </li> 
+                            <li> <p> <a href="https://github.com/docker/awesome-compose/tree/master/official-documentation-samples/wordpress/README.md" rel="nofollow" target="_blank" class="external"> Quickstart: Compose and WordPress</a><span>&#xa0;</span>- Shows how to use Docker Compose to set up and run WordPress in an isolated environment with Docker containers.</p> </li> 
+                        </ul> Awesome Compose samples 
+                        <a href="https://docs.docker.com/compose/samples-for-compose/#awesome-compose-samples" rel="nofollow" target="_blank" class="external"></a> 
+                        <p> The Awesome Compose samples provide a starting point on how to integrate different frameworks and technologies using Docker Compose. All samples are available in the<span>&#xa0;</span><a href="https://github.com/docker/awesome-compose" rel="nofollow" target="_blank" class="external">Awesome-compose GitHub repo</a><span>&#xa0;</span>and are ready to run with<span>&#xa0;</span>docker compose up.</p> 
+                        <p>&#xa0;</p> 
+                        <h3><a name="id45"></a></h3> 
+                    </mountpoint_inside_container> 
+                </volume_name> 
+            </mountpoint_inside_the_container> 
+        </host_path> 
+        <p>&#xa0;</p> 
+        <h2>&#xa0;</h2> 
+        <p>&#xa0;</p> 
+    </body>
+</html>

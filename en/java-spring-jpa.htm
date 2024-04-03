@@ -1,0 +1,85 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Spring: JPA, Hibernate, Working with databases</title>
+        <meta name="description" content="Working with databases" />
+        <meta name="keywords" content="JPA, Hibernate" />
+    </head>
+    <body> 
+        <h1>Spring: <a name="id4"></a>JPA, Hibernate, Working with databases </h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Database first</a></li> 
+                <li><a href="#id1">Query methods</a></li> 
+                <li><a href="#id5">@Entity @Repository</a></li> 
+                <li><a href="#id10">Jpa naming convention</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Database first</h2> 
+        <p> <a href="https://stackoverflow.com/questions/36995670/how-can-i-generate-entities-classes-from-database-using-spring-boot-and-intellij" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/36995670/how-can-i-generate-entities-classes-from-database-using-spring-boot-and-intellij</a>&#xa0; </p> 
+        <p>In Eclipse:&#xa0; <a href="https://www.eclipse.org/webtools/dali/docs/3.2/user_guide/tasks006.htm" rel="nofollow" target="_blank" class="external"> https://www.eclipse.org/webtools/dali/docs/3.2/user_guide/tasks006.htm</a> <a href="https://www.eclipse.org/webtools/dali/docs/3.2/user_guide/task_create_new_project.htm#CIHHEJCJ" rel="nofollow" target="_blank" class="external"> https://www.eclipse.org/webtools/dali/docs/3.2/user_guide/task_create_new_project.htm#CIHHEJCJ</a> </p> 
+        <h2><a name="id1"></a>Query methods</h2> 
+        <p> <a href="https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html" rel="nofollow" target="_blank" class="external"> https://docs.spring.io/spring-data/jpa/reference/jpa/query-methods.html</a> </p> 
+        <p>When you search entity by using list of column values as predicate, you must have to use "In" clause at the end of Column name. You can use inerrable </p> 
+        <pre><code class="language-java">List&lt;Entity&gt; findAllByEntityColumnIn(Iterable&lt;Long&gt; EntityColumns); </code></pre> 
+        <h2><a name="id5"></a>@Entity @Repository</h2> 
+        <pre><code class="language-java">package bookmarks;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.HashSet;
+import java.util.Set;
+
+
+@Entity
+public class Account {
+
+    @OneToMany(mappedBy = "account")
+    private Set bookmarks = new HashSet&lt;&gt;();
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    public Set getBookmarks() {
+        return bookmarks;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    @JsonIgnore
+    public String password;
+    public String username;
+
+    public Account(String name, String password) {
+        this.username = name;
+        this.password = password;
+    }
+
+    Account() { // jpa only
+    }
+}
+</code></pre> 
+        <h2><a name="id10"></a>Jpa naming convention</h2> 
+        <p> <a href="https://www.jpa-buddy.com/blog/hibernate-naming-strategies-jpa-specification-vs-springboot-opinionation/" rel="nofollow" target="_blank" class="external"> https://www.jpa-buddy.com/blog/hibernate-naming-strategies-jpa-specification-vs-springboot-opinionation/</a></p>
+		<h2> Connection pool </h2>
+		<p> Configuring a Hikari Connection Pool with Spring Boot
+		<a href="https://www.baeldung.com/spring-boot-hikari">https://www.baeldung.com/spring-boot-hikari</a>&nbsp; </p> 
+    </body>
+</html>

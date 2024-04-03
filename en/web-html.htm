@@ -1,0 +1,94 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Dionext software development notes</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">HTML</a></li> 
+                <li><a href="#id1">HTML Editors</a></li> 
+                <li><a href="#id2">&#xa0;&#xa0;&#xa0;&#xa0;WYSIWYG</a></li> 
+                <li><a href="#id3">Adaptive web design</a></li> 
+                <li><a href="#id4">Html structure</a></li> 
+                <li><a href="#id5">Responsive images</a></li> 
+                <li><a href="#id10">&#xa0;&#xa0;&#xa0;&#xa0;picture</a></li> 
+                <li><a href="#id11">&#xa0;&#xa0;&#xa0;&#xa0;srcset</a></li> 
+                <li><a href="#id6">Cites</a></li> 
+                <li><a href="#id7">Code highlighting</a></li> 
+                <li><a href="#id8">&#xa0;&#xa0;&#xa0;&#xa0;highlightjs</a></li> 
+                <li><a href="#id9">&#xa0;&#xa0;&#xa0;&#xa0;Prism</a></li> 
+                <li><a href="#id12">&#xa0;&#xa0;&#xa0;&#xa0;SyntaxHighlight</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>HTML</h2> 
+        <h2><a name="id1"></a>HTML Editors</h2> 
+        <h3><a name="id2"></a>WYSIWYG</h3> 
+        <p>WYSIWYG -&#xa0; an acronym for What You See Is What You Get, refers to software which allows content to be edited in a form that resembles its appearance when printed or displayed as a finished product, such as a printed document, web page, or slide presentation. WYSIWYG implies a user interface that allows the user to view something very similar to the result while the document is being created. In general, WYSIWYG implies the ability to directly manipulate the layout of a document without having to type or remember names of layout commands. <a href="https://en.wikipedia.org/wiki/WYSIWYG" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/WYSIWYG</a> </p> 
+        <p><strong>TinyMCE.</strong> This is a very popular web-based HTML WYSIWYG editor used by popular content management systems like WordPress. You can easily add images, links, lists and quotes to your webpage very easily without needing to know any HTML code whatsoever.&#xa0; <em>&#xa0;(Free Plan allows 1,000 editor loads per month <a href="https://www.tiny.cloud/pricing/" rel="nofollow" target="_blank" class="external">https://www.tiny.cloud/pricing/</a> )&#xa0; </em></p> 
+        <p><strong>Microsoft Expression Web</strong> is a discontinued HTML editor and general web design software product by Microsoft. It was discontinued on December 20, 2012, and subsequently made available free of charge from Microsoft. It was a component of the also discontinued Expression Studio. Expression Web can design and develop web pages using HTML5, CSS 3, ASP.NET, PHP, JavaScript, XML+XSLT and XHTML. Expression Web 4 requires .NET Framework 4.0 and Silverlight 4.0 to install and run.&#xa0; Expression Web uses its own standards-based rendering engine which is different from Internet Explorer's Trident engine. <a href="https://en.wikipedia.org/wiki/Microsoft_Expression_Web" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/Microsoft_Expression_Web</a> </p> 
+        <h2><a name="id3"></a>Adaptive web design</h2> 
+        <p>Adaptive web design (AWD) promotes the creation of multiple versions of a web page to better fit the user's device, as opposed to a single static page which loads (and looks) the same on all devices or a single page which reorders and resizes content responsively based on the device/screen size/browser of the user.</p> 
+        <p><a href="https://en.wikipedia.org/wiki/Adaptive_web_design" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Adaptive_web_design</a> </p> 
+        <p>The future of responsive design&#xa0; <a href="https://developer.ibm.com/articles/responsive-design-future/" rel="nofollow" target="_blank" class="external">https://developer.ibm.com/articles/responsive-design-future/</a> </p> 
+        <h2><a name="id4"></a>Html structure</h2> 
+        <p>Order of elements <a href="https://stackoverflow.com/questions/1987065/what-are-best-practices-to-order-elements-in-head" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/1987065/what-are-best-practices-to-order-elements-in-head</a> </p> 
+        <h2><a name="id5"></a>Responsive images</h2> 
+        <h3><a name="id10"></a>picture</h3> 
+        <pre><code>
+&lt;picture&gt; 
+&lt;source media="(min-width: 1024px)" srcset="opera-fullshot.webp" type="image/webp"&gt; 
+&lt;source media="(min-width: 1024px)" srcset="opera-fullshot.jpg"&gt; 
+&lt;source srcset="opera-closeup.webp" type="image/webp"&gt; 
+&lt;img src="opera-closeup.jpg" alt="The Oslo Opera House"&gt; 
+&lt;/picture&gt; 
+</code></pre> 
+        <h3><a name="id11"></a>srcset</h3> 
+        <pre><code>
+&lt;img&#xa0;src="small.jpg" srcset="medium.jpg 1000w, large.jpg 2000w"alt="yah"&gt; 
+&lt;img src="opera-1x.jpg" alt="The Oslo Opera House" srcset="opera-2x.jpg 2x, opera-3x.jpg 3x"&gt; 
+&lt;img src="opera-fallback.jpg" alt="The Oslo Opera House" sizes="(min-width: 640px) 60vw, 100vw" srcset="opera-200.jpg 200w, opera-400.jpg 400w, opera-800.jpg 800w, opera-1200.jpg 1200w"&gt;
+</code></pre> 
+        <h2><a name="id6"></a>Cites</h2> 
+        <ul> 
+            <li>&lt;blockquote&gt;</li> 
+            <li>&lt;q&gt;<span>&#xa0;</span></li> 
+            <li>&lt;cite&gt;<span>&#xa0;</span></li> 
+        </ul> 
+        <p><span lang="ru"> <a href="https://www.bdblogov.ru/2014/07/beautiful-styles-design-quotes-in-blog-Blogspot.html" rel="nofollow" target="_blank" class="external"> https://www.bdblogov.ru/2014/07/beautiful-styles-design-quotes-in-blog-Blogspot.html</a> </span></p> 
+        <p><span lang="ru"> <a href="https://www.ipetrenko.com/2015/11/5-amazing-style-for-blockquote.html" rel="nofollow" target="_blank" class="external"> https://www.ipetrenko.com/2015/11/5-amazing-style-for-blockquote.html</a> </span> </p> 
+        <p><a href="https://html5book.ru/krasivoe-oformlenie-citat-na-sayte/" rel="nofollow" target="_blank" class="external"> https://html5book.ru/krasivoe-oformlenie-citat-na-sayte/</a> <span lang="ru">&#xa0;</span></p> 
+        <h2><a name="id7"></a>Code highlighting</h2> 
+        <h3><a name="id8"></a>highlightjs</h3> 
+        <p>&#xa0;</p> 
+        <p><a href="https://highlightjs.org/" rel="nofollow" target="_blank" class="external">https://highlightjs.org/</a> javascript </p> 
+        <pre><code>
+&lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css"&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"&gt;&lt;/script&gt;
+
+&lt;!-- and it's easy to individually load additional languages --&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/go.min.js"&gt;&lt;/script&gt;
+
+&lt;script&gt;<code>hljs.highlightAll();&lt;/script&gt;</code>
+</code></pre> 
+        <div> 
+            <p>This will find and highlight code inside<span>&#xa0;</span>&lt;pre&gt;&lt;code&gt;<span>&#xa0;</span>tags; it tries to detect the language automatically. If automatic detection does not work for you, you can specify the language in the class attribute:</p> 
+            <pre><span><code>&lt;<span class="auto-style1">pre</span></code>&gt;&lt;code class="language-html"&gt;<code>...&lt;/code&gt;&lt;/pre&gt;</code></span></pre> 
+        </div> 
+        <p>List of languages&#xa0; <a href="https://highlightjs.readthedocs.io/en/latest/supported-languages.html" rel="nofollow" target="_blank" class="external"> https://highlightjs.readthedocs.io/en/latest/supported-languages.html</a> </p> 
+        <p>Add "Copy" button <a href="https://github.com/arronhunt/highlightjs-copy" rel="nofollow" target="_blank" class="external"> https://github.com/arronhunt/highlightjs-copy</a> </p> 
+        <p>Alternate <a href="https://www.eddymens.com/blog/adding-a-copy-button-to-highlightjs-code-snippets" rel="nofollow" target="_blank" class="external"> https://www.eddymens.com/blog/adding-a-copy-button-to-highlightjs-code-snippets</a> </p> 
+        <p>You could just replace the<span>&#xa0;</span>default<span>&#xa0;</span>theme name inside<span>&#xa0;</span>&lt;Head&gt;<span>&#xa0;</span>with your desired theme<br /> </p> 
+        <div> 
+            <pre><span>&lt;link</span> <span>rel="stylesheet"</span> <span>href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.3.2/build/styles/{ THEME_NAME }.min.css"&gt;&lt;/lin</span></pre> 
+        </div> 
+        <h3><a name="id9"></a>Prism</h3> 
+        <p><span>Prism is a lightweight, extensible syntax highlighter, built with modern web standards in mind. It’s used in millions of websites, including some of those you visit daily.&#xa0; <a href="https://prismjs.com/" rel="nofollow" target="_blank" class="external">https://prismjs.com/</a>&#xa0; <a href="https://www.garb.ru/blog/prism.html" rel="nofollow" target="_blank" class="external">https://www.garb.ru/blog/prism.html</a> </span></p> 
+        <h3><a name="id12"></a>SyntaxHighlight</h3> 
+        <p>For mediawiki&#xa0; <a href="https://www.mediawiki.org/wiki/Extension:SyntaxHighlight/ru" rel="nofollow" target="_blank" class="external">https://www.mediawiki.org/wiki/Extension:SyntaxHighlight/ru</a> </p> 
+    </body>
+</html>

@@ -1,0 +1,83 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Spring: WEB and REST</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Spring controller mapping rules</a></li> 
+                <li><a href="#id1">Static content</a></li> 
+                <li><a href="#id2">Spring Data Rest, HATEOAS, HAL</a></li> 
+                <li><a href="#id23">JSON serializers and deserializers.</a></li> 
+                <li><a href="#id3">Validation</a></li> 
+                <li><a href="#id4">Error handling</a></li> 
+                <li><a href="#id27">Thymeleaf Templates</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Spring controller mapping rules</h2> 
+        <div> 
+            <p>Some example patterns:</p> 
+        </div> 
+        <div> 
+            <ul> 
+                <li> <p>"/resources/ima?e.png"<span>&#xa0;</span>- match one character in a path segment</p> </li> 
+                <li> <p>"/resources/*.png"<span>&#xa0;</span>- match zero or more characters in a path segment</p> </li> 
+                <li> <p>"/resources/**"<span>&#xa0;</span>- match multiple path segments</p> </li> 
+                <li> <p>"/projects/{project}/versions"<span>&#xa0;</span>- match a path segment and capture it as a variable</p> </li> 
+                <li> <p>"/projects/{project:[a-z]+}/versions"<span>&#xa0;</span>- match and capture a variable with a regex</p> </li> 
+            </ul> 
+        </div> 
+        <div> 
+            <div> 
+                <p>When multiple patterns match a URL, the best match must be selected. This is done with one of the following depending on whether use of parsed<span>&#xa0;</span>PathPattern<span>&#xa0;</span>is enabled for use or not:</p> 
+            </div> 
+            <div> 
+                <ul> 
+                    <li> <p> <a href="https://docs.spring.io/spring-framework/docs/6.1.3/javadoc-api/org/springframework/web/util/pattern/PathPattern.html#SPECIFICITY_COMPARATOR" rel="nofollow" target="_blank" class="external"> PathPattern.SPECIFICITY_COMPARATOR</a></p> </li> 
+                    <li> <p> <a href="https://docs.spring.io/spring-framework/docs/6.1.3/javadoc-api/org/springframework/util/AntPathMatcher.html#getPatternComparator-java.lang.String-" rel="nofollow" target="_blank" class="external"> AntPathMatcher.getPatternComparator(String path)</a></p> </li> 
+                </ul> 
+            </div> 
+            <div> 
+                <p>Both help to sort patterns with more specific ones on top. A pattern is more specific if it has a lower count of URI variables (counted as 1), single wildcards (counted as 1), and double wildcards (counted as 2). Given an equal score, the longer pattern is chosen. Given the same score and length, the pattern with more URI variables than wildcards is chosen.</p> 
+            </div> 
+            <div> 
+                <p>The default mapping pattern (/**) is excluded from scoring and always sorted last. Also, prefix patterns (such as<span>&#xa0;</span>/public/**) are considered less specific than other pattern that do not have double wildcards.</p> 
+            </div> 
+            <div> 
+                <p>For the full details, follow the above links to the pattern Comparators.</p> 
+            </div> 
+        </div> <span>Starting in 5.3, by default Spring MVC no longer performs&#xa0;</span>.*<span>&#xa0;suffix pattern matching where a controller mapped to&#xa0;</span>/person<span>&#xa0;is also implicitly mapped to&#xa0;</span>/person.*<span>. As a consequence path extensions are no longer used to interpret the requested content type for the response — for example,&#xa0;</span>/person.pdf<span>,&#xa0;</span>/person.xml<span>, and so on.</span> 
+        <br style="box-sizing: inherit; color: rgb(34, 34, 34); font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial;"> <p>See also: <a href="integration-technologies.htm">REST URL pattern best practice</a> </p> <h2><a name="id1"></a>Static content</h2> <p>Static content support, that is, the ability to add static content, such as HTML, JavaScript, CSS, media elements, etc., to the /static (default) or /public, /resources, or /META-INF/resources directory, which should located on the classpath or in the current directory. Spring Boot picks them up and produces them when requested.</p> <h2><a name="id2"></a>Spring Data Rest, HATEOAS, HAL</h2> <p> <a href="https://docs.spring.io/spring-data/rest/docs/current/reference/html/#reference" rel="nofollow" target="_blank" class="external"> https://docs.spring.io/spring-data/rest/docs/current/reference/html/#reference</a> </p> <p><a href="https://www.youtube.com/watch?v=h_e1picwRBg" rel="nofollow" target="_blank" class="external"> https://www.youtube.com/watch?v=h_e1picwRBg</a> </p> <p> <a href="https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=ru" rel="nofollow" target="_blank" class="external"> https://chrome.google.com/webstore/detail/json-formatter/bcjindcccaagfpapjjmafapmmgkkhgoa?hl=ru</a>&#xa0; Плугин к хрому JSON formater</p> <p><a href="https://www.baeldung.com/spring-rest-hal" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/spring-rest-hal</a> </p> <h2><a name="id23"></a>JSON serializers and deserializers.</h2> <p>To better control serialization/deserialization to/from JSON format, Spring Boot provides the ability to create your own serializers/deserializers by extending the JsonSerializer and/or JsonDeserializer types and annotating the generated class with @JsonComponent so that it can be registered for use. Another feature of Spring Boot is Jackson support; By default, Spring Boot serializes date fields in the format 2018-05-01T23:31:38.141+0000, but this default behavior can be changed by changing the property value spring.jackson.dateformat=yyyy-MM-dd (any date format pattern can be used ); the previous value causes output like 2018-05-01 to be generated.</p> <h2><a name="id3"></a>Validation</h2> <p>Annotation by @Valid. This annotation checks the correctness of incoming data and is used in method parameters. To run the check, the data that needs to be checked must be provided with one of the annotations - @NotNull, @NotBlank, etc. In this case, in the ToDo class, the fields for identifier and description are provided with the specified annotations. If errors are found during validation, they are collected in the Errors class (in this case, the hibernate validator supplied with the spring-webmvc module JARs is registered and used as a global validator; but you can create your own custom validator and override the Spring parameters Boot by default). Next, you can examine what you found and add the necessary logic to send an error message</p> <p>@NotNull - The annotated element must not be null. Accepts any type.<br /> @Null - The annotated element must be null. Accepts any type.<br /> @NotBlank and @NotEmpty@NotBlank - The annotated element must not be null and must contain at least one non-whitespace character. Accepts&#xa0;CharSequence.<br /> @NotEmpty - The annotated element must not be null or empty. Supported types:</p> 
+            <ul> 
+                <li>CharSequence</li> 
+                <li>Collection </li> 
+                <li>Map </li> 
+                <li>Array</li> 
+            </ul> <p>@NotBlank&#xa0;applies only to strings and checks that the string is not empty or composed entirely of spaces.<br /> @NotNull applies to a CharSequence, Collection, Map, or Array and checks that the object is not null. But at the same time it may be empty.<br /> @NotEmpty is applied to a CharSequence, Collection, Map or Array and checks that it is not null and has a size greater than 0.<br /> The annotation @Size(min=6) will skip a line consisting of 6 spaces and/or line breaks, but @NotBlank will not.<br /> @SizeThe size of the annotated element must be between the specified bounds, including the bounds themselves. null elements are considered valid.</p> <p>&#xa0;<a href="https://stackoverflow.com/questions/22948257/thymeleaf-not-displaying-spring-form-error-messages" rel="nofollow" target="_blank" class="external">https://stackoverflow.com/questions/22948257/thymeleaf-not-displaying-spring-form-error-messages</a> </p> <h2><a name="id4"></a>Error handling</h2> <p>Spring Boot uses the /error path to create a page that displays all global errors. This behavior can be changed by creating your own custom pages for this purpose. You need to create custom HTML pages in the src/main/resources/public/error/ directory, such as 500.html or 404.html pages. In the case of a RESTful application, Spring Boot responds in JSON format. Spring Boot also supports error handling using Spring MVC when @ControllerAdvice or @ExceptionHandler annotations are applied. You can register custom ErrorPage objects by implementing the ErrorPageRegistrar interface and declaring it as a Spring bean<br /> </p> <p>@ExceptionHandler annotation. Spring MVC automatically declares built-in exception resolvers and adds support in this annotation. In this case, a method with the @ExceptionHandler annotation is declared inside the controller class (it can also be used inside the @ControllerAdvice interceptor) and all exceptions are sent to the Spring Boot Web method: rest client application</p> <p dir="auto">Error responses should include a general HTTP status code, a message to the developer, a message to the end user (if necessary), an internal error code (corresponding to a specific internal identifier), links where developers can find additional information. For example:</p> 
+            <div> 
+                <pre><code>{</code>
+<code>  "status" : 400,
+  "developerMessage" : "Verbose, plain language description of the problem. Provide developers
+   suggestions about how to solve their problems here",
+  "userMessage" : "This is a message that can be passed along to end-users, if needed.",
+  "errorCode" : "444444",
+  "moreInfo" : "http://www.example.gov/developer/path/to/help/for/444444,
+   http://drupal.org/node/444444",
+}
+</code></pre> 
+            </div> <p>Use three simple, common response codes to indicate (1) success, (2) failure due to a client-side issue, (3) failure due to a server-side issue:<br /> 200 - OK Error 400, invalid request internal server error 500</p> <h2><a name="id27"></a>Thymeleaf Templates</h2> <p>Template engine support. Spring Boot supports FreeMarker, Groovy Templates, Thymeleaf and Mustache. When you include the spring-bootstarter-&lt;template engine&gt; dependency, Spring Boot autoconfiguration is required to activate it and add all the necessary view resolvers and file handlers. By default, Spring Boot looks for them in the src/main/resources/templates/path directory</p> <p>If you want short-hand syntax you can use following:</p> <pre>[(${variable})]
+</pre> <p>Escaped short-hand syntax is</p> <pre>[[${variable}]]
+</pre> <p>but if you change inner square brackets<span>&#xa0;</span>[<span>&#xa0;</span>with regular<span>&#xa0;</span>(<span>&#xa0;</span>ones HTML is not escaped.</p> <p>Example within tags:</p> <pre>&lt;div&gt;
+    [(${variable})]
+&lt;/div&gt;</pre> <p>Staring with Thymeleaf 3.0 the html friendly tag would be:</p> <pre>&lt;div class=<span>"mailbox-read-message"</span> data-th-utext=<span>"*{body}"</span>&gt;</pre> <pre>&lt;h1 th:text="${greeting}"&gt;Hello!&lt;/h1&gt; </pre> <p>In addition to substituting values into attributes, it is possible to substitute values directly into the text using two pairs of square brackets: [[...]]. The only condition is that in one of the parent elements you need to specify the th:inline attribute, which can take text, javascript and none as a value. For example:</p> <pre><code>
+&lt;body th:inline="text"&gt;
+	&lt;h1&gt;Hello [[${user.name}]]!&lt;/h1&gt;
+&lt;/body&gt; 
+</code></pre> <h3><a name="id29"></a></h3> </br> 
+    </body>
+</html>

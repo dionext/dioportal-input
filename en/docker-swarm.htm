@@ -1,0 +1,110 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Docker Swarm</title>
+        <meta name="description" content="Using Docker Swarm" />
+        <meta name="keywords" content="Docker, Swarm" />
+    </head>
+    <body> 
+        <h1>Docker Swarm</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Overview</a></li> 
+                <li><a href="#id1">Commands</a></li> 
+                <li><a href="#id92">Load balancer</a></li> 
+                <li><a href="#id94">Volumes</a></li> 
+                <li><a href="#id2">Health Check</a></li> 
+                <li><a href="#id3">References</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Overview</h2> 
+        <p>Docker Swarm provides native clustering functionality for Docker containers, which turns a group of Docker engines into a single virtual Docker engine. In Docker 1.12 and higher, Swarm mode is integrated with Docker Engine. The docker swarm CLI utility allows users to run Swarm containers, create discovery tokens, list nodes in the cluster, and more. The docker node CLI utility allows users to run various commands to manage nodes in a swarm, for example, listing the nodes in a swarm, updating nodes, and removing nodes from the swarm. Docker manages swarms using the Raft consensus algorithm. According to Raft, for an update to be performed, the majority of Swarm nodes need to agree on the update <a href="https://en.wikipedia.org/wiki/Docker_(software" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Docker_(software</a>) </p> 
+        <p>Docker Swarm (Swarm mode)</p> 
+        <p><span>Docker Swarm mode is built into the Docker Engine. Do not confuse Docker Swarm mode with&#xa0; </span><a href="https://github.com/docker/classicswarm" rel="nofollow" target="_blank" class="external">Docker Classic Swarm</a><span>&#xa0;which is no longer actively developed.</span></p> 
+        <p>When running Docker Engine in swarm mode, you can use&#xa0;docker stack deploy&#xa0;to deploy a complete application stack to the swarm. The&#xa0;deploy&#xa0;command accepts a stack description in the form of a&#xa0;<a href="https://docs.docker.com/compose/compose-file/compose-file-v3/" rel="nofollow" target="_blank" class="external">Compose file</a>. </p> 
+        <p>Although the "version" is officially declared optional, when deploying a stack it must be declared explicitly </p> 
+        <pre><span>version:</span> <span>"3.8"</span></pre> 
+        <p>Note: When specifying the Compose file version to use, make sure to specify both the<span>&#xa0;</span>major<span>&#xa0;</span>and<span>&#xa0;</span>minor<span>&#xa0;</span>numbers. If no minor version is given,<span>&#xa0;</span>0<span>&#xa0;</span>is used by default and not the latest minor version. As a result, features added in later versions will not be supported. For example:</p> 
+        <p>&#xa0;</p> 
+        <h2><a name="id1"></a>Commands</h2> 
+        <p><a href="https://docs.docker.com/engine/swarm/swarm-mode/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/engine/swarm/swarm-mode/</a> </p> 
+        <pre><code class="language-bash">docker swarm init --advertise-addr 192.168.1.99</code></pre> 
+        <p>Result:</p> 
+        <pre><code class="language-bash">Swarm initialized: current node (n19e4ri7bophj51p7celk2za0) is now a manager.
+To add a worker to this swarm, run the following command:<br>docker swarm join 
+--token SWMTKN-1-5o6zfqqw9x6zadx8nfbkbngku76ko57wy5fhfzflje4qr5mn9o-4759yfe1rd0qfxc1azar111fu 192.168.1.99:2377
+</br></code></pre> 
+        <pre><code class="language-bash">docker swarm join-token worker</code></pre> 
+        <p>Information:</p> 
+        <pre>docker info</pre> 
+        <pre>docker node ls</pre> DRAIN availability prevents a node from receiving new tasks from the swarm manager. It also means the manager stops tasks running on the node and launches replica tasks on a node with ACTIVE availability. 
+        <br /> 
+        <br />docker node update --availability drain &lt;NODE-ID&gt; 
+        <br />docker node update --availability active &lt;NODE-ID&gt; 
+        <br /> 
+        <pre>docker node update --availability drain worker1</pre> About nodes&#xa0; <a href="https://docs.docker.com/engine/swarm/how-swarm-mode-works/nodes/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/engine/swarm/how-swarm-mode-works/nodes/</a> 
+        <br /> 
+        <br /> Run the&#xa0;command on a node to remove it from the swarm. 
+        <br /> 
+        <br /> 
+        <pre><code class="language-bash">docker swarm leave</code></pre> 
+        <p>Labels:</p> 
+        <pre><code class="language-bash">docker node update --label-add DC=east worker_node2
+</code></pre> 
+        <p>Working with services</p> 
+        <p><a href="https://docs.docker.com/engine/swarm/services/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/engine/swarm/services/</a> </p> 
+        <pre>docker service create <span>--replicas</span> 3 <span>--name</span> redis <span>--update-delay</span> 10s redis:3.0.6</pre> 
+        <pre>docker service ls </pre> 
+        <pre><code class="language-bash">
+docker service inspect --pretty &lt;SERVICE-ID&gt;</code></pre> 
+        <p><span>Run&#xa0;</span>docker service ps &lt;SERVICE-ID&gt;<span>&#xa0;to see which nodes are running the service</span></p> 
+        <p>Remove service:</p> 
+        <pre><code class="language-bash">
+docker service rm &lt;SERVICE-ID&gt; </code></pre> 
+        <p>Use the<span>&#xa0;</span>--publish<span>&#xa0;</span>flag to publish a port when you create a service.<span>&#xa0;</span>target<span>&#xa0;</span>is used to specify the port inside the container, and<span>&#xa0;</span>published<span>&#xa0;</span>is used to specify the port to bind on the routing mesh. If you leave off the<span>&#xa0;</span>published<span>&#xa0;</span>port, a random high-numbered port is bound for each service task. You need to inspect the task to determine the port.</p> 
+        <div> 
+            <div> 
+                <pre><span>$ </span>docker service create <span>\</span>
+  <span>--name</span> &lt;SERVICE-NAME&gt; <span>\</span>
+  <span>--publish</span> <span>published=</span>&lt;PUBLISHED-PORT&gt;,target<span>=</span>&lt;CONTAINER-PORT&gt; <span>\</span>
+  &lt;IMAGE&gt;</pre> 
+            </div> 
+        </div> Note <span>: The older form of this syntax is a colon-separated string, where the published port is first and the target port is second, such as&#xa0;</span>-p 8080:80 <span>. The new syntax is preferred because it is easier to read and allows more flexibility.</span> 
+        <p>Update service: </p> 
+        <pre>docker service update <span>--image</span> redis:3.0.7 redis</pre> <span>A global service is a service that runs one task on every node. There is no pre-specified number of tasks. Each time you add a node to the swarm, the orchestrator creates a task and the scheduler assigns the task to the new node. Good candidates for global services are monitoring agents, anti-virus scanners or other types of containers that you want to run on every node in the swarm.<br><br>Conditions:<br> <pre>docker service create \
+  --name my-nginx \
+  --mode global \
+  --constraint node.labels.region==east \
+  --constraint node.labels.type!=devel \
+  nginx</pre> <pre> deploy:
+  placement: 
+   constraints: 
+     - node.labels.type == db </pre> </br></br></br></span> 
+        <h2 id="configure-an-external-load-balancer"><a name="id92"></a>Load balancer</h2> 
+        <p> <a href="https://docs.docker.com/engine/swarm/ingress/#bypass-the-routing-mesh" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/engine/swarm/ingress/#bypass-the-routing-mesh</a> </p> 
+        <p><span>You can configure an external load balancer for swarm services, either in combination with the routing mesh or without using the routing mesh at all.</span></p> 
+        <h2><a name="id94"></a>Volumes</h2> 
+        <p>Swarm Mode itself does not do anything different with volumes, it runs any volume mount command you provide on the node where the container is running. If your volume mount is local to that node, then your data will be saved locally on that node. There is no built in functionality to move data between nodes automatically. There are some software based distributed storage solutions like GlusterFS, Rook, Ceph, and Longhorn. Many of these are focused on integration with Kubernetes, which won't help in Swarm.</p> Data volumes 
+        <br><br><span>/var/lib/docker/volumes</span><br> <p>Data volumes are storage that exist independently of a container.<span>&#xa0;</span></p> <pre>docker service create <span>\</span>
+  <span>--mount</span> <span>src=</span>&lt;VOLUME-NAME&gt;,dst<span>=</span>&lt;CONTAINER-PATH&gt; <span>\</span>
+  <span>--name</span> myservice <span>\</span>
+  &lt;IMAGE&gt;</pre> <p>Bind mounts </p> <p>Bind mounts are file system paths from the host where the scheduler deploys the container for the task. Docker mounts the path into the container. The file system path must exist before the swarm initializes the container for the task. </p> <pre><span> </span>docker service create <span>\</span>
+  <span>--mount</span> <span>type=bind</span>,src<span>=</span>&lt;HOST-PATH&gt;,dst<span>=</span>&lt;CONTAINER-PATH&gt;,readonly <span>\</span>
+  <span>--name</span> myservice <span>\</span>
+  &lt;IMAGE&gt;</pre> <pre>&#xa0;</pre> <h2><a name="id2"></a>Health Check</h2> Often used Docker swarm health checks 
+                    <ul> 
+                        <li>WGET<p>healthcheck:<br>&#xa0; test: wget --no-verbose --tries=1 --spider http://localhost || exit 1<br>&#xa0; interval: 60s<br>&#xa0; retries: 5<br>&#xa0; start_period: 20s<br>&#xa0; timeout: 10s<br /></br></br></br></br></br></p> </li> 
+                    </ul> 
+                    <ul> 
+                        <li>CURL<p>&#xa0; healthcheck:<br>&#xa0; test: curl --fail http://localhost || exit 1<br>&#xa0; interval: 60s<br>&#xa0; retries: 5<br>&#xa0; start_period: 20s<br>&#xa0; timeout: 10s</br></br></br></br></br></p> </li> 
+                    </ul> <p> <a href="https://dotsandbrackets.com/docker-health-check-ru/" rel="nofollow" target="_blank" class="external">https://dotsandbrackets.com/docker-health-check-ru/</a></p></br></br></br> 
+        <h2><a name="id3"></a>References</h2> 
+        <p><a href="https://www.youtube.com/watch?v=GgkreJfdTL8" rel="nofollow" target="_blank" class="external"> https://www.youtube.com/watch?v=GgkreJfdTL8</a> Doсker Swarm (lang: ru)</p> 
+        <p><a href="https://www.youtube.com/watch?v=XcpqfN8-2R0" rel="nofollow" target="_blank" class="external"> https://www.youtube.com/watch?v=XcpqfN8-2R0</a> DevOps by Rebrain: Docker Swarm &amp; Gitlab&#xa0; </p> 
+        <h4><a name="id90"></a></h4> 
+        <p>&#xa0;</p> 
+        <p>&#xa0;</p> 
+    </body>
+</html>

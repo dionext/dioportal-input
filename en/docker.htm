@@ -1,0 +1,146 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Docker</title>
+        <meta name="description" content="Using Docker" />
+        <meta name="keywords" content="Docker" />
+    </head>
+    <body> 
+        <h1>Docker</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Overview</a></li> 
+                <li><a href="#id1">Installation</a></li> 
+                <li><a href="#id2">&#xa0;&#xa0;&#xa0;&#xa0;For Windows (Docker Desktop)</a></li> 
+                <li><a href="#id27">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Docker Dev Environments</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;Linux</a></li> 
+                <li><a href="#id7">Commands</a></li> 
+                <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Run container</a></li> 
+                <li><a href="#id4">Clearing</a></li> 
+                <li><a href="#id26">Dockerfile</a></li> 
+                <li><a href="#id6">Docker compose</a></li> 
+                <li><a href="#id8">Docker Swarm</a></li> 
+                <li><a href="#id9">UI</a></li> 
+                <li><a href="#id10">&#xa0;&#xa0;&#xa0;&#xa0;Portainer (CE - community edition)</a></li> 
+                <li><a href="#id11">References</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Overview</h2> 
+        <p>Docker is a set of platform as a service (PaaS) products that use OS-level virtualization to deliver software in packages called containers. The service has both free and premium tiers. The software that hosts the containers is called Docker Engine. It was first released in 2013 and is developed by Docker, Inc. Docker is a tool that is used to automate the deployment of applications in lightweight containers so that applications can work efficiently in different environments in isolation. <a href="https://en.wikipedia.org/wiki/Docker_(software" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Docker_(software</a>)</p> 
+        <h2><a name="id1"></a>Installation</h2> 
+        <h3><a name="id2"></a>For Windows (Docker Desktop)</h3> 
+        <h4><a name="id27"></a>Docker Dev Environments</h4> 
+        <p><a href="https://docs.docker.com/desktop/dev-environments/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/desktop/dev-environments/</a></p> 
+        <p>Dev Environments - like a&#xa0; docker-compose </p> 
+        <p>Requirements:&#xa0; </p> 
+        <ul> 
+            <li>Git. Make sure add Git to your PATH if you’re a Windows user.</li> 
+            <li>Visual Studio Code</li> 
+            <li> Visual Studio Code Remote Containers Extension (<span>Dev Containers)</span></li> 
+        </ul> 
+        <p><span>Install the&#xa0;</span><a href="https://github.com/docker/dev-envs-extension" rel="nofollow" target="_blank" class="external">Dev Environments browser extension</a><span>&#xa0;for&#xa0;</span><a href="https://chrome.google.com/webstore/detail/docker-dev-environments/gnagpachnalcofcblcgdbofnfakdbeka" rel="nofollow" target="_blank" class="external">Chrome</a><span>&#xa0;or&#xa0;</span><a href="https://addons.mozilla.org/en-US/firefox/addon/docker-dev-environments/" rel="nofollow" target="_blank" class="external">Firefox</a>&#xa0; Allows you to quickly jump from a Git repository, branch or PR to a local development environment with the tools you need to test and run your workload — using Dev Environments — by adding a button to Github, Bitbucket and Gitlab, in your browser. Requires: - Docker Desktop version 4.12 or higher </p> 
+        <p>compose-dev.yaml (If you have an existing project with a .docker/ folder this is automatically migrated the next time you launch. )</p> 
+        <p>Examples: <a href="https://github.com/docker/awesome-compose" rel="nofollow" target="_blank" class="external"> https://github.com/docker/awesome-compose</a> </p> <a name="id101"></a> 
+        <h3><a name="id5"></a>Linux</h3> 
+        <p>Debian <a href="https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/install/linux/docker-ce/debian/#install-docker-ce</a> </p> 
+        <p>Ubuntu <a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/install/linux/docker-ce/ubuntu/</a> </p> 
+        <h2><a name="id7"></a>Commands</h2> 
+        <p><a href="https://medium.com/statuscode/dockercheatsheet-9730ce03630d" rel="nofollow" target="_blank" class="external"> https://medium.com/statuscode/dockercheatsheet-9730ce03630d</a> </p> 
+        <p>Full information:</p> 
+        <pre><code class="language-bash">docker info</code></pre> 
+        <p>Version:</p> 
+        <pre><code class="language-bash">docker --version </code></pre> 
+        <p><span lang="ru">Images list</span></p> 
+        <pre><code class="language-bash">docker image ls</code></pre> 
+        <p><span lang="ru">Containers (working) list </span></p> 
+        <pre><code class="language-bash">docker ps</code></pre> 
+        <p><span lang="ru">All containers </span></p> 
+        <pre><code class="language-bash">docker ps -a</code></pre> 
+        <p><span lang="ru">Information about container </span></p> 
+        <pre><code class="language-bash">docker inspect NAME|ID</code></pre> 
+        <h3><a name="id3"></a>Run container</h3> 
+        <pre><code class="language-bash">docker run&#xa0; nginx
+docker run --detach --publish 80:80 --name webserver nginx
+docker container run -d --name web -p 8080:8080 jboss/wildfly
+</code></pre> 
+        <p>Start stopped conainer</p> 
+        <pre><code class="language-bash">docker start nginx</code></pre> 
+        <p>Stop container </p> 
+        <pre><code class="language-bash">docker stop nginx</code></pre> 
+        <p>Show log</p> 
+        <pre><code class="language-bash">docker container logs mariadb</code></pre> 
+        <p>Restart container</p> 
+        <pre><code class="language-bash">docker restart nginx</code></pre> 
+        <p>Remove container</p> 
+        <pre><code class="language-bash">docker container rm nginx</code></pre> 
+        <h2><a name="id4"></a>Clearing</h2> 
+        <p><span>Directory /var/lib/docker/containers/container_ID – when using the standard logging driver, this is where event logs are saved in JSON format. Too detailed logs, as well as logs that no one reads or otherwise processes, often cause disk overflow. </span></p> 
+        <p><span>The directory /var/lib/docker/overlay2 – contains the read-write layers of containers (overlay2 is the preferred driver in most Linux distributions) . If a container stores data in its file system, then this is the directory where it will be placed. </span></p> 
+        <p><span>Using the following command, you can remove all installed containers in one fell swoop and clear your disk of all read-write files created by them<br /></span></p> 
+        <pre><code class="language-bash">docker container prune</code></pre> 
+        <p><span lang="ru">Full clearing </span></p> 
+        <pre><code class="language-bash">docker system prune</code></pre> 
+        <p> <a href="https://stackoverflow.com/questions/46672001/is-it-safe-to-clean-docker-overlay2" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/46672001/is-it-safe-to-clean-docker-overlay2</a> </p> 
+        <p><span>Docker uses /var/lib/docker to store images, containers, and local named volumes. Removing this may result in data loss and possible engine stoppage. The overlay2 subdirectory specifically contains different filesystem levels for images and containers.<br>To clean up unused containers and images, see docker system prune. There are also options for deleting volumes and even tagged images, but these are not enabled by default due to the possibility of data loss:</br></span></p> 
+        <pre><code class="language-bash">
+docker system prune -a &amp;&amp; docker volume prune </code></pre> 
+        <p><span lang="ru">Log size restriction in </span><font>&#xa0;docker-compose.yml:</font></p> 
+        <pre><code class="language-bash">my_container:
+  logging:
+    options:
+      max-size: 10m
+</code></pre> 
+        <h2><a name="id26"></a>Dockerfile for spring boot application</h2> 
+        <p><a href="https://www.baeldung.com/java-dockerize-app" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/java-dockerize-app</a> </p> 
+        <pre><code>FROM bellsoft/liberica-openjdk-alpine-musl:21.0.2
+COPY ./target/hiki-ms-app-0.0.1-SNAPSHOT.jar .
+CMD ["java","-jar","hiki-ms-app-0.0.1-SNAPSHOT.jar"]</code></pre>
+
+		<p>Comparation of different images </p>
+		<table style="width: 100%">
+			<tr>
+				<td>FROM bellsoft/liberica-openjdk-alpine-musl:21.0.2 </td>
+				<td>187MB</td>
+			</tr>
+			<tr>
+				<td>FROM amazoncorretto:21.0.2 </td>
+				<td>568MB</td>
+			</tr>
+			<tr>
+				<td>FROM amazoncorretto:21.0.2-alpine </td>
+				<td>393MB</td>
+			</tr>
+		</table>
+		<p>&nbsp;</p>
+		<p>Future tips:&nbsp; </p>
+		<ul>
+			<li>&nbsp;Don't Put Fat Jars in Docker Images
+			<a href="https://phauer.com/2019/no-fat-jar-in-docker-image/">
+			https://phauer.com/2019/no-fat-jar-in-docker-image/</a></li>
+			<li>Spring Boot Docker Best Practices
+			<a href="https://mydeveloperplanet.com/2022/12/14/spring-boot-docker-best-practices/">
+			https://mydeveloperplanet.com/2022/12/14/spring-boot-docker-best-practices/</a>
+			</li>
+		</ul>
+		<p>&nbsp;</p>
+		<h2><a name="id6"></a>Docker compose</h2>
+        <p>See <a href="docker-compose.htm">Docker compose</a></p> 
+        <h2><a name="id8"></a>Docker Swarm</h2> 
+        <p>See <a href="docker-swarm.htm">Docker Swarm</a></p> 
+        <h2><a name="id9"></a>UI</h2> 
+        <h3><a name="id10"></a>Portainer (CE - community edition)</h3> 
+        <div> 
+            <p><a name="id28"></a>Deployment Single</p> 
+            <p> <a href="https://docs.portainer.io/start/install-ce/server/docker/linux" rel="nofollow" target="_blank" class="external"> https://docs.portainer.io/start/install-ce/server/docker/linux</a> </p> 
+        </div> 
+        <p><a name="id102"></a>Deployment Deploymet Swarm</p> 
+        <p><a href="https://docs.portainer.io/start/install-ce/server/swarm/linux" rel="nofollow" target="_blank" class="external"> https://docs.portainer.io/start/install-ce/server/swarm/linux</a></p> 
+        <p>Restrictions: </p> 
+        <div> 
+            <p> <span> Docker is running as root. Portainer with rootless Docker has some limitations, and requires additional configuration.</span></p> 
+        </div> You are running a single manager node in your swarm. If you have more than one, please <a href="https://portal.portainer.io/knowledge/how-can-i-ensure-portainers-configuration-is-retained" rel="nofollow" target="_blank" class="external"> read this knowledge base article</a> 
+        <br> <br>curl -L https://downloads.portainer.io/ce2-18/portainer-agent-stack.yml -o portainer-agent-stack.yml<br> docker stack deploy -c portainer-agent-stack.yml portainer<br><br> <a href="https://localhost:9443" rel="nofollow" target="_blank" class="external">https://localhost:9443</a> <br> <br>Upgrade:&#xa0; <a href="https://docs.portainer.io/start/upgrade/swarm" rel="nofollow" target="_blank" class="external"> https://docs.portainer.io/start/upgrade/swarm</a> <br> <h2><a name="id11"></a>References</h2> <p><a href="https://labs.play-with-docker.com/" rel="nofollow" target="_blank" class="external">https://labs.play-with-docker.com</a>&#xa0; Play with Docker (PWD) is a project hacked by Marcos Liljedhal and Jonathan Leibiusky and sponsored by Docker Inc. PWD is a Docker playground which allows users to run Docker commands in a matter of seconds. It gives the experience of having a free Alpine Linux Virtual Machine in browser, where you can build and run Docker containers and even create clusters in Docker Swarm Mode. Under the hood Docker-in-Docker (DinD) is used to give the effect of multiple VMs/PCs. In addition to the playground, PWD also includes a training site composed of a large set of Docker labs and quizzes from beginner to advanced level available at training.play-with-docker.com. </p> <p><a href="https://github.com/docker/awesome-compose" rel="nofollow" target="_blank" class="external"> https://github.com/docker/awesome-compose</a>&#xa0; Examples </p> <p>&#xa0;&#xa0;</p> </br></br></br></br></br></br></br></br>
+    </body>
+</html>

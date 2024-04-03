@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Spring: Advanced</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id1">Spring: Advanced</a></li> 
+                <li><a href="#id53">I18n</a></li> 
+                <li><a href="#id54">&#xa0;&#xa0;&#xa0;&#xa0;Quick Thymeleaf guide:</a></li> 
+                <li><a href="#id0">Monitoring</a></li> 
+            </ul>
+        </div>
+        <h2><a name="id1"></a>Spring: Advanced</h2> 
+        <h2><a name="id53"></a>I18n</h2> 
+        <p> <a href="https://www.baeldung.com/spring-boot-internationalization" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/spring-boot-internationalization</a>&#xa0; </p> 
+        <p> <a href="https://lokalise.com/blog/spring-boot-internationalization/" rel="nofollow" target="_blank" class="external">https://lokalise.com/blog/spring-boot-internationalization/</a> </p> 
+        <p> <a href="https://simplelocalize.io/blog/posts/spring-boot-simple-internationalization/#localized-texts" rel="nofollow" target="_blank" class="external"> https://simplelocalize.io/blog/posts/spring-boot-simple-internationalization/#localized-texts</a> </p> 
+        <p> <a href="https://stackoverflow.com/questions/3221632/locales-as-part-of-the-url-in-spring-mvc" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/3221632/locales-as-part-of-the-url-in-spring-mvc</a> </p> 
+        <p> <a href="https://phrase.com/blog/posts/database-stored-messages-for-i18n-in-spring-boot/" rel="nofollow" target="_blank" class="external"> https://phrase.com/blog/posts/database-stored-messages-for-i18n-in-spring-boot/</a> </p> 
+        <p> <a href="https://stackoverflow.com/questions/59410685/load-messages-files-in-messagesouce-from-imported-jar" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/59410685/load-messages-files-in-messagesouce-from-imported-jar</a>&#xa0; проблема библиотек </p> 
+        <p> <span>&lt;h1 th:text="#{greeting}"&gt;&lt;/h1&gt;</span></p> 
+        <h3 id="quick-thymeleaf-guide"><a name="id54"></a>Quick Thymeleaf guide:</h3> 
+        <ul> 
+            <li>th:attr="lang=${lang}"<span>&#xa0;</span>- sets the language of the document</li> 
+            <li>th:utext="#{title(${userName})}"<span>&#xa0;</span>- gets a message with<span>&#xa0;</span>title<span>&#xa0;</span>key and inserts the value of the<span>&#xa0;</span>userName<span>&#xa0;</span>variable</li> 
+            <li>th:text="#{message}"<span>&#xa0;</span>- gets a message with<span>&#xa0;</span>message<span>&#xa0;</span>key</li> 
+            <li>th:href="${url}"<span>&#xa0;</span>- inserts a value of the<span>&#xa0;</span>url<span>&#xa0;</span>variable</li> 
+            <li>You can use<span>&#xa0;</span>th:utext<span>&#xa0;</span>instead of<span>&#xa0;</span>th:text<span>&#xa0;</span>to avoid escaping HTML characters.</li> 
+            <li>You can use<span>&#xa0;</span>th:attr<span>&#xa0;</span>to set the<span>&#xa0;</span>lang<span>&#xa0;</span>attribute on the<span>&#xa0;</span>html<span>&#xa0;</span>tag.</li> 
+        </ul> 
+        <div style="background-color:#ffffff;color:#080808;font-family:'JetBrains Mono',monospace;font-size:10,5pt;"> 
+            <pre><span style="color:#000000;">Locale</span>.<span style="font-style:italic;">setDefault</span>(<span style="color:#000000;">Locale</span>.<span style="color:#871094;font-style:italic;">ENGLISH</span>);</pre> 
+        </div> 
+        <h2><a name="id0"></a>Monitoring</h2> 
+        <p>@Timed Annotation Using Metrics and AspectJ <a href="https://www.baeldung.com/timed-metrics-aspectj" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/timed-metrics-aspectj</a> </p> 
+        <p> <a href="https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/production-ready-metrics.html#production-ready-metrics-export-prometheus" rel="nofollow" target="_blank" class="external"> https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/production-ready-metrics.html#production-ready-metrics-export-prometheus</a> </p> 
+    </body>
+</html>

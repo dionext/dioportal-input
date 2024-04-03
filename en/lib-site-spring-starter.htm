@@ -1,0 +1,111 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+</head>
+
+<body>
+
+<h1>Spring starter (library) for creating simple websites </h1>
+<p>Source: <a href="https://github.com/dionext/lib-site-spring-starter">https://github.com/dionext/lib-site-spring-starter</a> </p>
+<p>The goal of the project is to make it easier to generate simple websites. The 
+main content of such sites consists of static materials: articles, blogs, etc. 
+The easiest way to post them on the Internet is to post them as static pages and 
+then process them with a simple web server (for example, nginx). Such a site is 
+usually called a static site. And many sites on the Internet were originally 
+made in exactly this way. However, quite a long time ago there was a tendency 
+towards an increase in the percentage of dynamic sites. Even for simple 
+projects. Why is this happening? The point is that even the simplest website 
+usually needs some dynamic content. For example, a site has a menu that is 
+repeated on every page. When you add a new item to a menu, you have to edit all 
+the pages on which it is used. The question arises: is it possible to place the 
+site menu in a separate file, which will then be dynamically included in all 
+pages? This problem can be solved in various ways. One of the solutions is 
+provided by various offline editors and generators (outdated Ms Frontpage, not 
+outdated Adobe Dreamweaver, etc.). There are also many other alternative ways to 
+solve the problem: frames, javascript, cloud site builders, installing a web 
+content management system (WordPress, etc.). However, developers who have a good 
+command of software technologies in the Java language often come to the 
+conclusion that it is more profitable not to diversify their attention to 
+studying third-party technologies, but to solve this rather simple task, 
+remaining within the framework of the technology that they are fluent in. For 
+example, using Java and Spring Boot. But if they choose this path, then before 
+they can get the maximum benefit from using their experience and knowledge, they 
+will have to solve a number of routine problems. The described library is 
+intended to help with this.</p>
+<p>PageCreatorService </p>
+<ul>
+	<li>createHtmlAll
+	<ul>
+		<li>createHtmlBeginTag</li>
+		<li>createHeadContentType</li>
+		<li>createHeadTitle</li>
+		<li>createHeadLocaleLinks</li>
+		<li>createHeadMetaDescription</li>
+		<li>createHeadMetaForIcons</li>
+		<li>createHeadMetaForSocialMedia</li>
+	</ul>
+	</li>
+	<ul>
+		<li>createHeadBootstrap</li>
+		<li>createHeadBottom</li>
+		<li>createBodyTop</li>
+		<ul>
+			<li>createBodyTopBanner</li>
+			<li>createBodyTopMenu<ul>
+				<li>createBodyTopMenuStyle </li>
+				<li>createBodyTopMenuHierLevel</li>
+				<li>createBodyTopMenuLangSelector&nbsp; </li>
+			</ul>
+			</li>
+		</ul>
+		<li>createBodyMainSection</li>
+		<li>createBodyBottom</li>HtmlBlock
+		<ul>
+			<li>createBodyBottomInformation</li>
+			<li>createBodyBottomMenu</li>
+		</ul>
+		<li>createBodyBootstrap</li>
+		<li>createBodyScripts</li>
+		<li>createBodySearchEngineScripts<br /></li>
+	</ul>
+</ul>
+<p>&nbsp;</p>
+<p>PageParserService </p>
+<p>processPage </p>
+<ul>
+	<li>getTitleFromPage </li>
+	<li>getMetaDescriptionFromPage </li>
+	<li>getMetaKeywordsFromPage </li>
+	<li>getBodyFromPage </li>
+	<li>adjustBody
+	<ul>
+		<li>adjustHrefs
+		<ul>
+			<li>adjustHref</li>
+		</ul>
+		</li>
+		<li>adjustBlockquotes
+		<ul>
+			<li>adjustBlockquote </li>
+		</ul>
+		</li>
+		<li>adjustIframes
+		<ul>
+			<li>adjustIframe </li>
+		</ul>
+		</li>
+		<li>adjustImages<ul>
+			<li>adjustImage </li>
+			<li>adjustImageByFigure </li>
+		</ul>
+		</li>
+	</ul>
+	</li>
+</ul>
+
+</body>
+
+</html>

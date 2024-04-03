@@ -1,0 +1,531 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Integration technologies</title>
+        <meta name="description" content="Integration technologies in sofware development" />
+        <meta name="keywords" content="ESB, EMS, RPC, GraphQL, gRPC, JSON, XML, XPath" />
+    </head>
+    <body> 
+        <h1>Integration technologies</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Overview</a></li> 
+                <li><a href="#id1">ESB</a></li> 
+                <li><a href="#id2">&#xa0;&#xa0;&#xa0;&#xa0;EMS</a></li> 
+                <li><a href="#id3">Integration protocols (popular)</a></li> 
+                <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;REST</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;REST URL pattern best practice</a></li> 
+                <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;RPC</a></li> 
+                <li><a href="#id58">&#xa0;&#xa0;&#xa0;&#xa0;GraphQL</a></li> 
+                <li><a href="#id7">&#xa0;&#xa0;&#xa0;&#xa0;OData</a></li> 
+                <li><a href="#id8">&#xa0;&#xa0;&#xa0;&#xa0;gRPC</a></li> 
+                <li><a href="#id9">&#xa0;&#xa0;&#xa0;&#xa0;SOAP</a></li> 
+                <li><a href="#id10">Integration data format (popular)</a></li> 
+                <li><a href="#id28">&#xa0;&#xa0;&#xa0;&#xa0;JSON</a></li> 
+                <li><a href="#id32">&#xa0;&#xa0;&#xa0;&#xa0;XML</a></li> 
+                <li><a href="#id11">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;XPath</a></li> 
+                <li><a href="#id12">References</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Overview</h2> 
+        <p><strong>Main reference:</strong> <a href="https://www.enterpriseintegrationpatterns.com/" rel="nofollow" target="_blank" class="external">https://www.enterpriseintegrationpatterns.com/</a> This pattern catalog describes 65 integration patterns, collected from many integration projects since 2002. The patterns provide technology-independent design guidance for developers and architects to describe and develop robust integration solutions. The inspiration to document these patterns came when we struggled through multiple integration vendors' product documentation just to realize later that many of the underlying concepts were quite similar.</p> 
+        <p>Three approaches to information systems integration</p> 
+        <ul> 
+            <li>Integration at the data level. The essence of this approach is as follows: applications work independently of each other, each using its own set of data. If necessary, data is exchanged between applications. At the same time, if data exchange is carried out by calling services or sending/receiving messages, then the Enterprise Service Bus (ESB) can be used as a medium for exchange. If data exchange is carried out mainly between databases used by a particular application, then you can use the Extract, Transform, Load (ETL) class solution. <br /> </li> 
+            <li>Integration at the level of business processes. The essence of this approach is as follows: applications expose services that are interfaces to the business logic of these applications. Interaction between applications is implemented within the framework of a business process, at individual steps of which a particular service is called. This approach is implemented using the enterprise service bus (ESB), which is engaged in the virtualization of services provided by applications, and Business Process Management System (BPMS) class solutions, usually based on the BPEL or BPMN languages that implement the process logic.<br /> </li> 
+            <li>Integration at the level of composite applications. The business logic of an individual application is built by calling services provided both by this application and by other systems. Thus, several services can interact at one step of a business process, while with integration at the business process level, one service is called at one step of the process. </li> 
+        </ul> 
+        <h2><a name="id1"></a>ESB</h2> 
+        <p><a href="https://en.wikipedia.org/wiki/Enterprise_service_bus" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Enterprise_service_bus</a>&#xa0;&#xa0; </p> 
+        <p>An enterprise service bus (ESB) implements a communication system between mutually interacting software applications in a service-oriented architecture (SOA). It represents a software architecture for distributed computing, and is a special variant of the more general client-server model, wherein any application may behave as server or client. ESB promotes agility and flexibility with regard to high-level protocol communication between applications. Its primary use is in enterprise application integration (EAI) of heterogeneous and complex service landscapes. </p> 
+        <p>The concept of the enterprise service bus is analogous to the bus concept found in computer hardware architecture combined with the modular and concurrent design of high-performance computer operating systems. The motivation for the development of the architecture was to find a standard, structured, and general purpose concept for describing implementation of loosely coupled software components (called services) that are expected to be independently deployed, running, heterogeneous, and disparate within a network. ESB is also a common implementation pattern for service-oriented architecture, including the intrinsically adopted network design of the World Wide Web. </p> 
+        <p>No global standards exist for enterprise service bus concepts or implementations. Most providers of message-oriented middleware have adopted the enterprise service bus concept as de facto standard for a service-oriented architecture. The implementations of ESB use event-driven and standards-based message-oriented middleware in combination with message queues as technology frameworks. However, some software manufacturers relabel existing middleware and communication solutions as ESB without adopting the crucial aspect of a bus concept.</p> 
+        <p>Notable products include:</p> 
+        <div> 
+            <ul> 
+                <li>Proprietary 
+                    <ul> 
+                        <li> <a href="https://en.wikipedia.org/w/index.php?title=Candle%27s_Roma_ESB_-_bought_by_IBM_and_became_WebSphere_ESB&amp;action=edit&amp;redlink=1" title="Candle's Roma ESB - bought by IBM and became WebSphere ESB (page does not exist)" rel="nofollow" target="_blank" class="external"> Candle's Roma ESB - bought by IBM and became WebSphere ESB</a></li> 
+                        <li><a href="https://en.wikipedia.org/wiki/IBM" title="IBM" rel="nofollow" target="_blank" class="external">IBM</a><span>&#xa0;</span>App Connect, formerly IBM Integration Bus and IBM WebSphere ESB</li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/InterSystems" title="InterSystems" rel="nofollow" target="_blank" class="external"> InterSystems</a><span>&#xa0;</span>Ensemble</li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Information_Builders" title="Information Builders" rel="nofollow" target="_blank" class="external"> Information Builders</a><span>&#xa0;</span>iWay Service Manager</li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Microsoft_Azure" title="Microsoft Azure" rel="nofollow" target="_blank" class="external"> Microsoft Azure</a><span>&#xa0;</span>Service Bus</li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Microsoft_BizTalk_Server" title="Microsoft BizTalk Server" rel="nofollow" target="_blank" class="external"> Microsoft BizTalk Server</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Mule_(software)" title="Mule (software)" rel="nofollow" target="_blank" class="external"> Mule</a><span>&#xa0;</span>ESB</li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Oracle_Enterprise_Service_Bus" title="Oracle Enterprise Service Bus" rel="nofollow" target="_blank" class="external"> Oracle Enterprise Service Bus</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Progress_Software" title="Progress Software" rel="nofollow" target="_blank" class="external"> Progress Software</a><span>&#xa0;</span>Sonic ESB (acquired by<span>&#xa0;</span><a href="https://en.wikipedia.org/wiki/Trilogy_(company)" title="Trilogy (company)" rel="nofollow" target="_blank" class="external">Trilogy</a>)</li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/SAP_Process_Integration" title="SAP Process Integration" rel="nofollow" target="_blank" class="external"> SAP Process Integration</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/TIBCO_Software" title="TIBCO Software" rel="nofollow" target="_blank" class="external"> TIBCO Software</a><span>&#xa0;</span>ActiveMatrix BusinessWorks</li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/WebMethods" title="WebMethods" rel="nofollow" target="_blank" class="external"> webMethods</a><span>&#xa0;</span>enterprise service bus (acquired by<span>&#xa0;</span><a href="https://en.wikipedia.org/wiki/Software_AG" title="Software AG" rel="nofollow" target="_blank" class="external">Software AG</a>)</li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Sonic_ESB" title="Sonic ESB" rel="nofollow" target="_blank" class="external"> Sonic ESB</a><span>&#xa0;</span>from Aurea</li> 
+                        <li> <a href="https://en.wikipedia.org/w/index.php?title=XIATech&amp;action=edit&amp;redlink=1" title="XIATech (page does not exist)" rel="nofollow" target="_blank" class="external"> XIATech</a><span>&#xa0;</span>Single Data View</li> 
+                    </ul> </li> 
+                <li>Open-source software 
+                    <ul> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Apache_Camel" title="Apache Camel" rel="nofollow" target="_blank" class="external"> Apache Camel</a></li> 
+                        <li>Apache ServiceMix</li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Apache_Synapse" title="Apache Synapse" rel="nofollow" target="_blank" class="external"> Apache Synapse</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Fuse_ESB" title="Fuse ESB" rel="nofollow" target="_blank" class="external"> Fuse ESB</a><span>&#xa0;</span>from<span>&#xa0;</span><a href="https://en.wikipedia.org/wiki/Red_Hat" title="Red Hat" rel="nofollow" target="_blank" class="external">Red Hat</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/JBoss_Enterprise_SOA_Platform#Enterprise_Service_Bus_(ESB)" title="JBoss Enterprise SOA Platform" rel="nofollow" target="_blank" class="external"> JBoss ESB</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/NetKernel" title="NetKernel" rel="nofollow" target="_blank" class="external"> NetKernel</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Open_ESB" title="Open ESB" rel="nofollow" target="_blank" class="external"> Open ESB</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Petals_ESB" title="Petals ESB" rel="nofollow" target="_blank" class="external"> Petals ESB</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/Spring_Integration" title="Spring Integration" rel="nofollow" target="_blank" class="external"> Spring Integration</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/UltraESB" title="UltraESB" rel="nofollow" target="_blank" class="external"> UltraESB</a></li> 
+                        <li> <a href="https://en.wikipedia.org/wiki/WSO2_ESB" title="WSO2 ESB" rel="nofollow" target="_blank" class="external"> WSO2 ESB</a></li> 
+                        <li><a href="https://zato.io/" rel="nofollow" target="_blank" class="external">Zato</a><span>&#xa0;</span>(in Python)</li> 
+                    </ul> </li> 
+            </ul> 
+        </div> 
+        <p>&#xa0;</p> 
+        <h3><a name="id2"></a>EMS</h3> 
+        <p><a href="https://en.wikipedia.org/wiki/Enterprise_messaging_system" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Enterprise_messaging_system</a></p> 
+        <p>An enterprise messaging system (EMS) or messaging system in brief[1] is a set of published enterprise-wide standards that allows organizations to send semantically precise messages between computer systems. EMS systems promote loosely coupled architectures that allow changes in the formats of messages to have minimum impact on message subscribers. EMS systems are facilitated by the use of structured messages (such as using XML or JSON), and appropriate protocols, such as DDS, MSMQ, AMQP or SOAP with web services.</p> 
+        <h2><a name="id3"></a>Integration protocols (popular)</h2> 
+        <h3><a name="id4"></a>REST</h3> 
+        <p>REpresentational State Transfer REST, or REpresentational State Transfer, is an architectural style for providing standards between computer systems on the web, making it easier for systems to communicate with each other. REST-compliant systems, often called RESTful systems, are characterized by how they are stateless and separate the concerns of client and server. We will go into what these terms mean and why they are beneficial characteristics for services on the Web. Pay close attention: If you’re looking for a career in tech, you may be asked to define rest during an interview.&#xa0; <a href="https://www.codecademy.com/article/what-is-rest" rel="nofollow" target="_blank" class="external">https://www.codecademy.com/article/what-is-rest</a> </p> 
+        <p>According to REST, a network resource must support only four operations: GET, PUT, POST and DELETE (with the same meanings as in the HTTP protocol). Data should be transmitted in a small number of standard formats (eg HTML, XML, JSON). The network protocol (like HTTP) must support caching, must not depend on the network layer, and must not store state information between request-response pairs. It is argued that this approach ensures scalability of the system and allows it to evolve with new requirements.</p> 
+        <p id="heading-http-verbs">HTTP Verbs</p> 
+        <p>There are 4 basic HTTP verbs we use in requests to interact with resources in a REST system:</p> 
+        <ul> 
+            <li>GET — retrieve a specific resource (by id) or a collection of resources</li> 
+            <li>POST — create a new resource</li> 
+            <li>PUT — update a specific resource (by id)</li> 
+            <li>DELETE — remove a specific resource by id</li> 
+        </ul> 
+        <h4><a name="id5"></a>REST URL pattern best practice</h4> 
+        <p> 
+            <table> 
+                <thead> 
+                    <tr> 
+                        <th>Action</th> 
+                        <th>HTTP</th> 
+                        <th>Payload</th> 
+                        <th>URL</th> 
+                        <th>Description</th> 
+                    </tr> 
+                </thead> 
+                <tr> 
+                    <td>Create</td> 
+                    <td>POST</td> 
+                    <td>json</td> 
+                    <td>/&lt;resource&gt;</td> 
+                    <td>Create an entity represented by the JSON payload.</td> 
+                </tr> 
+                <tr> 
+                    <td>Read</td> 
+                    <td>GET</td> 
+                    <td>-</td> 
+                    <td>/&lt;resource&gt;</td> 
+                    <td>Get all entities from the resource.</td> 
+                </tr> 
+                <tr> 
+                    <td>Read</td> 
+                    <td>GET</td> 
+                    <td>-</td> 
+                    <td>/&lt;resource&gt;/&lt;id&gt;</td> 
+                    <td>Get a single entity.</td> 
+                </tr> 
+                <tr> 
+                    <td>Update</td> 
+                    <td>PUT</td> 
+                    <td>json</td> 
+                    <td>/&lt;resource&gt;/&lt;id&gt;</td> 
+                    <td>Update an entitiy with the JSON payload.</td> 
+                </tr> 
+                <tr> 
+                    <td>Delete</td> 
+                    <td>DELETE</td> 
+                    <td>-</td> 
+                    <td>/&lt;resource&gt;/&lt;id&gt;</td> 
+                    <td><br /> Delete an entity.</td> 
+                </tr> 
+            </table> </p> 
+        <p>Example </p> 
+        <ul> 
+            <li>All contacts:<span>&#xa0;</span>/contacts</li> 
+            <li>Individual contact:<span>&#xa0;</span>/contacts/{cID}</li> 
+            <li>Notes for contact:<span>&#xa0;</span>/contacts/{cID}/notes</li> 
+            <li>Individual note:<span>&#xa0;</span>/contacts/{cID}/notes/{nID}</li> 
+            <li>Emails for contact:<span>&#xa0;</span>/contacts/{cID}/emails</li> 
+            <li>Individual email:<span>&#xa0;</span>/email/{eID}</li> 
+        </ul> 
+        <p><a href="https://blog.stoplight.io/crud-api-design" rel="nofollow" target="_blank" class="external">https://blog.stoplight.io/crud-api-design</a> </p> 
+        <p>The nouns in URLs are the same that describe your domain model. When modeling your domain, pay attention to the following:</p> 
+        <ul> 
+            <li>Do not make nouns unnecessarily long and complicated (users, not<span>&#xa0;</span>system-users).</li> 
+            <li>Use common terminology (people<span>&#xa0;</span>instead of<span>&#xa0;</span>special-snowflakes).</li> 
+        </ul> 
+        <p>Apart from the noun rules, there are a few other best practices that the industry has established and many companies have put down in their API style guides:</p> 
+        <ul> 
+            <li>Use lowercase (/items<span>&#xa0;</span>not<span>&#xa0;</span>/Items) to avoid the ambiguity around URL case-sensitivity.</li> 
+            <li>For individual resources, include resource identifiers in the path, not the query (/contacts/22<span>&#xa0;</span>instead of<span>&#xa0;</span>/contacts?id=22).</li> 
+            <li>Paths that end with a resource name (and typically no trailing slash) are used to list multiple items (/files) or create items without specifying an identifier.</li> 
+            <li>Paths can indicate a hierarchy of subresources (/contacts/22/addresses), but API designers should avoid complex structures that require more than two levels of nesting.</li> 
+            <li>Nouns should be in the plural form (/files<span>&#xa0;</span>instead of<span>&#xa0;</span>/file) unless they describe a singleton.</li> 
+            <li>Nouns that are compounds of multiple words should use a hyphen as a separator (/legal-documents). There’s a very mundane reason for this: when URLs are hyperlinks, they are often underlined, which would render an underscore separator invisible.</li> 
+            <li>URLs should<span>&#xa0;</span>never<span>&#xa0;</span>reveal the underlying implementation (/resources<span>&#xa0;</span>not<span>&#xa0;</span>/api.php/resources).</li> 
+            <li>The query part of the URL is for search and filtering and commonly used with a resource list endpoint (/contacts?first_name=Anna&amp;limit=20).</li> 
+        </ul> 
+        <p><font> <a href="https://opensource.zalando.com/restful-api-guidelines/index.html#introduction" rel="nofollow" target="_blank" class="external"> https://opensource.zalando.com/restful-api-guidelines/index.html#introduction</a> </font></p> 
+        <div> 
+            <p>If you provide query support for searching, sorting, filtering, and paginating, you must stick to the following naming conventions:</p> 
+        </div> 
+        <div> 
+            <ul> 
+                <li> <p><a id="q"></a>q: default query parameter, e.g. used by browser tab completion; should have an entity specific alias, e.g. sku.</p> </li> 
+                <li> <p><a id="sort"></a>sort: comma-separated list of fields (as defined by<span>&#xa0;MUST&#xa0;</span>define collection format of header and query parameters) to define the sort order. To indicate sorting direction, fields may be prefixed with<span>&#xa0;</span>+<span>&#xa0;</span>(ascending) or<span>&#xa0;</span>-<span>&#xa0;</span>(descending), e.g. /sales-orders?sort=+id.</p> </li> 
+                <li> <p><a id="fields"></a>fields: field name expression to retrieve only a subset of fields of a resource.</p> </li> 
+                <li> <p><a id="embed"></a>embed: field name expression to expand or embedded sub-entities, e.g. inside of an article entity, expand silhouette code into the silhouette object. Implementing<span>&#xa0;</span>embed<span>&#xa0;</span>correctly is difficult, so do it with care. </p> </li> 
+                <li> <p><a id="offset"></a>offset: numeric offset of the first element provided on a page representing a collection request. </p> </li> 
+                <li> <p><a id="cursor"></a>cursor: an opaque pointer to a page, never to be inspected or constructed by clients. It usually (encrypted) encodes the page position, i.e. the identifier of the first or last page element, the pagination direction, and the applied query filters to recreate the collection. See<span>&#xa0;</span></p> </li> 
+                <li> <p><a id="limit"></a>limit: client suggested limit to restrict the number of entries on a page. </p> </li> 
+            </ul> 
+        </div> 
+        <p>&#xa0;</p> 
+        <h3><a name="id6"></a>RPC</h3> 
+        <p>The antipode of REST is an approach based on remote procedure calls (RPC). The RPC approach allows the use of a small number of network resources with a large number of methods and a complex protocol. With the REST approach, the number of methods and the complexity of the protocol are strictly limited, which is why the number of individual resources must be large</p> 
+        <h3><a name="id58"></a>GraphQL</h3> 
+        <p><a href="https://en.wikipedia.org/wiki/GraphQL" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/GraphQL</a> </p> 
+        <p><a href="https://graphql.org/" rel="nofollow" target="_blank" class="external">https://graphql.org/</a></p> 
+        <p>GraphQL is an open-source data query and manipulation language for APIs and a query runtime engine.&#xa0; GraphQL enables declarative data fetching where a client can specify exactly what data it needs from an API. Instead of multiple endpoints that return separate data, a GraphQL server exposes a single endpoint and responds with precisely the data a client asked for. Because a GraphQL server can fetch from separate data sources and present the data in a unified graph, it is not tied to any specific database or storage engine. acebook started GraphQL development in 2012 and released it as open source in 2015.In 2018, GraphQL was moved to the newly established GraphQL Foundation, hosted by the non-profit Linux Foundation.</p> 
+        <p>GraphQL же позволяет передать в&#xa0;приложение сразу нужные данные<span>&#xa0;</span>за&#xa0;один запрос, даже если они находятся в&#xa0;нескольких источниках. Благодаря этому технология извлечения данных GraphQL удобнее и&#xa0;практичнее, чем REST.</p> 
+        <p>GraphQL Features:</p> 
+        <ul> 
+            <li>There is no need to create multiple REST requests. To extract data, just enter one query.</li> 
+            <li>Not tied to a specific database or storage mechanism.</li> 
+            <li>A whole system of data types is used.<br /> </li> 
+        </ul> 
+        <p>The GraphQL API is built on two main blocks: queries and schema.</p> 
+        <h3><a name="id7"></a>OData</h3> 
+        <p><a href="https://www.odata.org/" rel="nofollow" target="_blank" class="external">https://www.odata.org/</a> </p> 
+        <p><a href="https://en.wikipedia.org/wiki/Open_Data_Protocol" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Open_Data_Protocol</a> </p> 
+        <p>Open Data Protocol (OData) is an open protocol that allows the creation and consumption of queryable and interoperable Web service APIs in a standard way. Microsoft initiated OData in 2007.Versions 1.0, 2.0, and 3.0 are released under the Microsoft Open Specification Promise. Version 4.0 was standardized at OASIS.</p> 
+        <p>The protocol enables the creation and consumption of HTTP-based Web APIs, which allow Web clients to publish and edit resources, identified using URLs and defined in a data model, using simple HTTP messages. OData shares some similarities with JDBC and with ODBC; like ODBC, OData is not limited to relational databases.</p> 
+        <p> <a href="https://devblogs.microsoft.com/odata/up-running-w-odata-in-asp-net-6/" rel="nofollow" target="_blank" class="external"> https://devblogs.microsoft.com/odata/up-running-w-odata-in-asp-net-6/</a> <br /> </p> 
+        <h3><a name="id8"></a>gRPC</h3> 
+        <p><a href="https://grpc.io/" rel="nofollow" target="_blank" class="external">https://grpc.io</a> </p> 
+        <p>gRPC is an open-source API architecture and system governed by the Cloud Native Computing Foundation. It’s based on the Remote Procedure Call (RPC) model. While the RPC model is broad, gRPC is a specific implementation. <a href="https://aws.amazon.com/compare/the-difference-between-grpc-and-rest" rel="nofollow" target="_blank" class="external"> https://aws.amazon.com/compare/the-difference-between-grpc-and-rest</a> </p> 
+        <h3><a name="id9"></a>SOAP</h3> 
+        <p><a href="https://en.wikipedia.org/wiki/SOAP" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/SOAP</a> </p> 
+        <p>SOAP (formerly an acronym for Simple Object Access Protocol) is a messaging protocol specification for exchanging structured information in the implementation of web services in computer networks. It uses XML Information Set for its message format, and relies on application layer protocols, most often Hypertext Transfer Protocol (HTTP), although some legacy systems communicate over Simple Mail Transfer Protocol (SMTP), for message negotiation and transmission. </p> 
+        <p>SOAP allows developers to invoke processes running on different operating systems (such as Windows, macOS, and Linux) to authenticate, authorize, and communicate using Extensible Markup Language (XML). Since Web protocols like HTTP are installed and running on practically all operating systems, SOAP allows clients to invoke web services and receive responses independent of language and platforms.</p> 
+        <h2><a name="id10"></a>Integration data format (popular)</h2> 
+        <h3><a name="id28"></a>JSON</h3> 
+        <div id="container-wrap-wrap" sizcache="5" sizset="7"> 
+            <div id="container-wrap" sizcache="5" sizset="7"> 
+                <div id="container" sizcache="5" sizset="7"> 
+                    <div id="content-wrap" sizcache="5" sizset="42"> 
+                        <div id="main-content" sizcache="5" sizset="113"> 
+                            <div id="page-content" sizcache="5" sizset="113"> 
+                              <p><a href="https://en.wikipedia.org/wiki/JSON" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/JSON</a>&#xa0; </p> 
+                              <p>JSON (JavaScript Object Notation, pronounced /ˈdʒeɪsən/; also /ˈdʒeɪˌsɒn/) is an open standard file format and data interchange format that uses human-readable text to store and transmit data objects consisting of attribute–value pairs and arrays (or other serializable values). It is a common data format with diverse uses in electronic data interchange, including that of web applications with servers. </p> 
+                              <p>JSON is a language-independent data format. It was derived from JavaScript, but many modern programming languages include code to generate and parse JSON-format data. JSON filenames use the extension .json.</p> 
+                              <h3><a name="id32"></a>XML</h3> 
+                              <p><a href="https://en.wikipedia.org/wiki/XML" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/XML</a> Extensible Markup Language (XML) is a markup language and file format for storing, transmitting, and reconstructing arbitrary data. The design goals of XML emphasize simplicity, generality, and usability across the Internet. It is a textual data format with strong support via Unicode for different human languages. Although the design of XML focuses on documents, the language is widely used for the representation of arbitrary data structures such as those used in web services. </p> 
+                              <p>Several schema systems exist to aid in the definition of XML-based languages, while programmers have developed many application programming interfaces (APIs) to aid the processing of XML data.</p> 
+                              <h4><a name="id11"></a>XPath</h4> 
+                              <p>XPath stands for XML Path Language. It uses a non-XML syntax to provide a flexible way of addressing (pointing to) different parts of an XML document. It can also be used to test addressed nodes within a document to determine whether they match a pattern or not.</p> 
+                              <p><a href="https://en.wikipedia.org/wiki/XPath" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/XPath</a> </p> If a path begins with a '/' character, then it represents the absolute path to the specified element. If the path begins with //, then all document elements that match the specified pattern will be selected. 
+                              <br /> 
+                              <br /> ./ current context 
+                              <br /> 
+                              <br /> .// all elements of the current context 
+                              <br /> 
+                              <br /> The '*' character indicates that all elements matching the path before it should be selected. 
+                              <br /> 
+                              <br /> Attributes are identified by the @ prefix. 
+                              <br /> 
+                              <br /> The name() function returns the name of the element. The starts-with() function returns true if the string of the first argument begins with the string of the second argument. The contains() function returns true if the string in the first argument contains the string in the second. 
+                              <br /> 
+                              <br /> 
+                              <p> <a href="https://msdn.microsoft.com/ru-ru/library/ms256086(v=vs.120).aspx" rel="nofollow" target="_blank" class="external"> https://msdn.microsoft.com/ru-ru/library/ms256086(v=vs.120).aspx</a><span lang="ru"> </span></p> 
+                              <p></p> 
+                              <p> 
+                              <table aria-label="XPath Examples"> 
+                              <thead> 
+                              <tr> 
+                              <th> <p><font>Expression</font></p> </th> 
+                              <th> <p><font>Refers to</font></p> </th> 
+                              </tr> 
+                              </thead> 
+                              <tr> 
+                              <td> <p>./author</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements of the current context.<span>&#xa0;</span>Note that this is equivalent to the expression on the next line.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements of the current context.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>first. name</p> </td> 
+                              <td> <p><font>All &lt;first.name&gt; elements of the current context.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>/bookstore</p> </td> 
+                              <td> <p><font>The document element (&lt;bookstore&gt;) of this document.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>//author</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements of a given document.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book[/bookstore/@specialty=@style]</p> </td> 
+                              <td> <p><font>All &lt;book&gt; elements for which the value of the style attribute is equal to the value of the specialty attribute of the &lt;bookstore&gt; element of the document's root node.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author/first-name</p> </td> 
+                              <td> <p><font>All &lt;first-name&gt; elements that are children of the &lt;author&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>bookstore//title</p> </td> 
+                              <td> <p><font>All &lt;title&gt; elements at the first or deeper levels of the &lt;bookstore&gt; element (descendants of an arbitrary level).<span>&#xa0;</span>Notice the difference from the expression on the next line.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>bookstore/*/title</p> </td> 
+                              <td> <p><font>All &lt;title&gt; elements that are "grandchildren" of &lt;bookstore&gt; elements.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>bookstore//book/excerpt//emph</p> </td> 
+                              <td> <p><font>All &lt;emph&gt; elements anywhere within &lt;excerpt&gt; elements that are children of &lt;book&gt; elements anywhere within a &lt;bookstore&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>.//title</p> </td> 
+                              <td> <p><font>All &lt;title&gt; elements at the first or deeper levels of the current context.<span>&#xa0;</span>Note that this is the only situation where dot notation is required.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author/*</p> </td> 
+                              <td> <p><font>All elements that are children of &lt;author&gt; elements.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book/*/last-name</p> </td> 
+                              <td> <p><font>All &lt;last-name&gt; elements that are "grandchildren" of &lt;book&gt; elements.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>*/*</p> </td> 
+                              <td> <p><font>All elements are "grandchildren" of the current context.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>*[@specialty]</p> </td> 
+                              <td> <p><font>All elements with the specialty attribute.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>@style</p> </td> 
+                              <td> <p><font>The name of the style attribute of the current context.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>price/@exchange</p> </td> 
+                              <td> <p><font>The exchange attribute of &lt;price&gt; elements in the current context.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>price/@exchange/total</p> </td> 
+                              <td> <p><font>Returns an empty set of nodes because the attributes do not contain children.<span>&#xa0;</span>Such an expression is not prohibited by the XPath language grammar, but strictly speaking it is not valid.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book[@style]</p> </td> 
+                              <td> <p><font>All &lt;book&gt; elements with style attributes in the current context.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book/@style</p> </td> 
+                              <td> <p><font>The style attribute on all &lt;book&gt; elements in the current context.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>@*</p> </td> 
+                              <td> <p><font>All context attributes of the current element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>./first-name</p> </td> 
+                              <td> <p><font>All &lt;first-name&gt; elements of the current context.<span>&#xa0;</span>Note that this is equivalent to the expression on the next line.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>first-name</p> </td> 
+                              <td> <p><font>All &lt;first-name&gt; elements of the current context.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[1]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements in the context of the current node.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[first-name][3]</p> </td> 
+                              <td> <p><font>The third &lt;author&gt; element, which has a &lt;first-name&gt; child element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>my:book</p> </td> 
+                              <td> <p><font>The &lt;book&gt; element from the my namespace.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>my:*</p> </td> 
+                              <td> <p><font>All elements from the namespace my.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>@my:*</p> </td> 
+                              <td> <p><font>All attributes from the my namespace (this does not include unqualified attributes belonging to elements from the my namespace).</font></p> </td> 
+                              </tr> 
+                              </table> </p> 
+                              <p>&#xa0;</p> 
+                              <p> 
+                              <table aria-label="Table 2"> 
+                              <thead> 
+                              <tr> 
+                              <th> <p><font>Expression</font></p> </th> 
+                              <th> <p><font>Refers to</font></p> </th> 
+                              </tr> 
+                              </thead> 
+                              <tr> 
+                              <td> <p>x/y[1]</p> </td> 
+                              <td> <p><font>The first &lt;y&gt; child of every &lt;x&gt; element.<span>&#xa0;</span>This is equivalent to the expression on the next line.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>x/y[position() = 1]</p> </td> 
+                              <td> <p><font>The first &lt;y&gt; child of every &lt;x&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>(x/y)[1]</p> </td> 
+                              <td> <p><font>The first &lt;y&gt; element of the entire set of &lt;y&gt; elements that are children of &lt;x&gt; elements.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>x[1]/y[2]</p> </td> 
+                              <td> <p><font>The second child &lt;y&gt; element of the first &lt;x&gt; element.</font></p> </td> 
+                              </tr> 
+                              </table> </p> 
+                              <p>&#xa0;</p> 
+                              <p> 
+                              <table aria-label="Table 3"> 
+                              <thead> 
+                              <tr> 
+                              <th> <p><font>Expression</font></p> </th> 
+                              <th> <p><font>Refers to</font></p> </th> 
+                              </tr> 
+                              </thead> 
+                              <tr> 
+                              <td> <p>book[last()]</p> </td> 
+                              <td> <p><font>The last &lt;book&gt; element in the context of the current node.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book/author[last()]</p> </td> 
+                              <td> <p><font>The last child &lt;author&gt; element of each &lt;book&gt; element in the context of the current node.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>(book/author)[last()]</p> </td> 
+                              <td> <p><font>The last &lt;author&gt; element of the entire set of &lt;author&gt; elements that are children of &lt;book&gt; elements in the context of the current node.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book[excerpt]</p> </td> 
+                              <td> <p><font>All &lt;book&gt; elements that contain at least one child &lt;excerpt&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book[excerpt]/title</p> </td> 
+                              <td> <p><font>All &lt;title&gt; elements that are children of &lt;book&gt; elements and contain at least one child &lt;excerpt&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book[excerpt]/author[degree]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that contain at least one child &lt;degree&gt; element and are children of &lt;book&gt; elements that contain at least one &lt;excerpt&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book[author/degree]</p> </td> 
+                              <td> <p><font>All &lt;book&gt; elements that have child &lt;author&gt; elements, which in turn have at least one child &lt;degree&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[degree][award]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that contain at least one &lt;degree&gt; element and at least one &lt;award&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[degree and award]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that contain at least one &lt;degree&gt; element and at least one &lt;award&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[(degree or award) and publication]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that contain at least one &lt;degree&gt; or &lt;award&gt; child element and at least one &lt;publication&gt; child element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[degree and not(publication)]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that contain at least one &lt;degree&gt; child element and no &lt;publication&gt; child elements.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[not(degree or award) and publication]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that contain at least one child &lt;publication&gt; element and do not contain any &lt;degree&gt; elements or &lt;award&gt; elements.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[last-name = "Bob"]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that contain at least one child &lt;last-name&gt; element with the value Bob.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[last-name[1] = "Bob"]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements whose first child &lt;last-name&gt; is Bob.<span>&#xa0;</span>Note that this is equivalent to the expression on the next line.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[last-name [position()=1]= "Bob"]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements whose first child &lt;last-name&gt; is Bob.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>degree[@from != "Harvard"]</p> </td> 
+                              <td> <p><font>All &lt;degree&gt; elements whose from attribute is not equal to "Harvard".</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[. = "Matthew Bob"]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements with the value Matthew Bob.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[last-name = "Bob" and ../price &amp;gt; 50]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that have a child &lt;last-name&gt; element with a value of Bob and a sibling &lt;price&gt; element with a value greater than 50.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>book[position() &amp;lt;= 3]</p> </td> 
+                              <td> <p><font>The first three books (1, 2, 3).</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[not(last-name = "Bob")]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that do not contain child &lt;last-name&gt; elements with the value Bob.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[first-name = "Bob"]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that contain at least one child &lt;first-name&gt; element with the value Bob.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[* = "Bob"]</p> </td> 
+                              <td> <p><font>all author elements that have any child element with the value Bob.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>author[last-name = "Bob" and first-name = "Joe"]</p> </td> 
+                              <td> <p><font>All &lt;author&gt; elements that have a &lt;last-name&gt; child value of Bob and a &lt;first-name&gt; child element of value Joe.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>price[@intl = "Canada"]</p> </td> 
+                              <td> <p><font>All &lt;price&gt; elements in the context node that have an intl attribute with the value "Canada".</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>degree[position() &amp;lt; 3]</p> </td> 
+                              <td> <p><font>The first two &lt;degree&gt; elements that are children of the context node.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>p/text()[2]</p> </td> 
+                              <td> <p><font>The second text node in each context node's &lt;p&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>ancestor::book[1]</p> </td> 
+                              <td> <p><font>The closest &lt;book&gt; element that is the ancestor of the context node.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>ancestor::book[author][1]</p> </td> 
+                              <td> <p><font>The closest &lt;book&gt; element that is an ancestor of the context node and contains a child &lt;author&gt; element.</font></p> </td> 
+                              </tr> 
+                              <tr> 
+                              <td> <p>ancestor::author[parent::book][1]</p> </td> 
+                              <td> <p><font>The closest &lt;author&gt; element that is an ancestor in the current context and a child of the &lt;book&gt; element.</font></p> </td> 
+                              </tr> 
+                              </table> </p> 
+                            </div> 
+                        </div> 
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+        <h2><a name="id12"></a>References</h2> 
+        <p> <a href="https://en.wikipedia.org/wiki/Category:Enterprise_application_integration" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/Category:Enterprise_application_integration</a>&#xa0; Category:Enterprise application integration</p> 
+        <p><a href="https://en.wikipedia.org/wiki/Category:Message-oriented_middleware" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/Category:Message-oriented_middleware</a> Category:Message-oriented middleware</p> 
+        <p><a href="https://aosabook.org/en/v2/distsys.html" rel="nofollow" target="_blank" class="external">https://aosabook.org/en/v2/distsys.html</a> Kate Matsudaira The Architecture of Open Source Applications (Volume 2) Scalable Web Architecture and Distributed Systems</p> 
+        <p><a href="https://www.youtube.com/watch?v=o7ogFTMJW1A" rel="nofollow" target="_blank" class="external">https://www.youtube.com/watch?v=o7ogFTMJW1A</a> </p> 
+    </body>
+</html>

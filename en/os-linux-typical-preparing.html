@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+<style type="text/css">
+.auto-style1 {
+	margin-left: 40px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Typical operating system preparation after creating a new server</h1>
+<p>(Ubuntu 22.04)</p>
+<h2>Initial</h2>
+<p>apt-get update</p>
+<p class="auto-style1">apt-get install ntfs-3g<span lang="ru">&nbsp; (для 
+корректного монтирования </span>NTFS)</p>
+<p>apt-get install<span lang="ru"> </span>mc</p>
+<p class="auto-style1"><span class="crayon-v">apt</span><span class="crayon-o">-</span><span class="crayon-e">get 
+install </span><span class="crayon-v">screen</span></p>
+<p>&nbsp;</p>
+<p>timedatectl </p>
+<p>timedatectl set-timezone Europe/Moscow </p>
+<p>&nbsp;</p>
+		<p><a href="https://ubuntushell.com/disable-ssh-welcome-message">
+		https://ubuntushell.com/disable-ssh-welcome-message</a> How to Disable 
+		SSH Welcome Message on Ubuntu</p>
+		<pre><a name="id15"></a>nano /etc/pam.d/sshd</pre>
+		<pre># session    optional     pam_motd.so  motd=/run/motd.dynamic
+# session    optional     pam_motd.so noupdate</pre>
+		<pre>sudo systemctl restart ssh</pre>
+        <p>test ssh </p>
+<p>ssh -t root@$REMOTE_SERVER_ADDRESS </p>
+<h2><a name="id29"></a>Adding a Hard Drive in Linux</h2> <p><a href="http://www.linuxlib.ru/iron/hddadd.htm" rel="nofollow" target="_blank" class="external">http://www.linuxlib.ru/iron/hddadd.htm</a>&#xa0; <a href="http://mydebianblog.blogspot.ru/2008/09/linux.html" rel="nofollow" target="_blank" class="external">http://mydebianblog.blogspot.ru/2008/09/linux.html</a>&#xa0; </p> <p><a href="https://pve.proxmox.com/wiki/Resize_disks" rel="nofollow" target="_blank" class="external">https://pve.proxmox.com/wiki/Resize_disks</a> </p> <p>view information about all physical and virtual disks</p> <pre><code class="language-bash">fdisk -l</code></pre> <p>view information about the first physical or virtual disk</p> <pre><code class="language-bash">fdisk -l /dev/sda</code></pre> <p>find your new drive. it can be for example /dev/vdb /dev/vdc /dev/sda4 - this must be taken into account in further commands</p> <pre><code class="language-bash">fdisk /dev/vdc</code></pre> <p>Create a new partition with n. Then select the partition type by entering the p command. Leave the remaining parameters unchanged by simply pressing Enter. To save your changes, enter the w command.</p> <p>formats the vdc1 partition into ext4 format</p> <pre><code class="language-bash">mkfs.ext4 /dev/vdc1</code></pre> <p>create the mount folder</p> <pre><code class="language-bash">mkdir /mnt/disk2</code></pre> <pre><code class="language-bash">mount -o barrier=0 /dev/vdc1 /mnt/disk2</code></pre> <pre><code class="language-bash">echo "/dev/vdc1 /mnt/disk2 ext4 barrier=0 0 1" &gt;&gt; /etc/fstab</code></pre> <p>Check the disk names in the system, for example, with the lsblk command</p>
+<h2>Docker</h2>
+<p>Ubuntu <a href="https://docs.docker.com/install/linux/docker-ce/ubuntu/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/install/linux/docker-ce/ubuntu/</a> </p> 
+<p>for pkg in docker.io docker-doc docker-compose docker-compose-v2 
+podman-docker containerd runc; do sudo apt-get remove $pkg; done</p>
+<p>&nbsp;</p>
+<p># Add Docker's official GPG key:<br />
+sudo apt-get update<br />
+sudo apt-get install ca-certificates curl<br />
+sudo install -m 0755 -d /etc/apt/keyrings<br />
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc<br />
+sudo chmod a+r /etc/apt/keyrings/docker.asc<br />
+<br />
+# Add the repository to Apt sources:<br />
+echo \<br />
+"deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] 
+https://download.docker.com/linux/ubuntu \<br />
+$(. /etc/os-release &amp;&amp; echo "$VERSION_CODENAME") stable" | \<br />
+sudo tee /etc/apt/sources.list.d/docker.list &gt; /dev/null<br />
+sudo apt-get update</p>
+<p>&nbsp;</p>
+<p>sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
+docker-compose-plugin</p>
+<p>&nbsp;</p>
+<p>&nbsp;docker --version<br />
+Docker version 26.0.0, build 2ae903e<br />
+</p>
+<h2>docker compose </h2>
+<p>apt install docker-compose</p>
+<p>docker-compose --version<br />
+docker-compose version 1.29.2, build unknown<br />
+</p>
+        <h3><a name="id10"></a>Portainer (CE - community edition)</h3> 
+        <div> 
+            <p><a name="id28"></a>Deployment Single</p> 
+            <p> <a href="https://docs.portainer.io/start/install-ce/server/docker/linux" rel="nofollow" target="_blank" class="external"> https://docs.portainer.io/start/install-ce/server/docker/linux</a> </p> 
+        </div> 
+        <p>docker volume create portainer_data </p>
+<p>docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v 
+/var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data 
+portainer/portainer-ce:latest</p>
+
+</body>
+
+</html>

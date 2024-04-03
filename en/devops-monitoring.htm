@@ -1,0 +1,135 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Devops. Monitoring</title>
+        <meta name="description" content="Monitorig in sofware development" />
+        <meta name="keywords" content="Monitorig, Prometheus, Micrometer, Grafan" />
+    </head>
+    <body> 
+        <h1> Devops. Monitoring</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Overview</a></li> 
+                <li><a href="#id1">Monitoring system with Prometheus and Grafana</a></li> 
+                <li><a href="#id2">&#xa0;&#xa0;&#xa0;&#xa0;Prometheus</a></li> 
+                <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Exporters (for Prometheus)</a></li> 
+                <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Exporter for windows</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Node exporter</a></li> 
+                <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;cAdvisor</a></li> 
+                <li><a href="#id7">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;blackbox_exporter</a></li> 
+                <li><a href="#id8">&#xa0;&#xa0;&#xa0;&#xa0;Micrometer</a></li> 
+                <li><a href="#id35">&#xa0;&#xa0;&#xa0;&#xa0;Grafana</a></li> 
+                <li><a href="#id9">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Userful dashboards (grafana)</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Overview</h2> 
+        <p> <a href="https://en.wikipedia.org/wiki/Monitoring" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Monitoring</a> </p> 
+        <ul> 
+            <li> <a href="https://en.wikipedia.org/wiki/Application_performance_management" title="Application performance management" rel="nofollow" target="_blank" class="external"> Application performance management</a>, also called application performance monitoring, monitoring and management of performance and availability of software applications</li> 
+            <li> <a href="https://en.wikipedia.org/wiki/Event_monitoring" title="Event monitoring" rel="nofollow" target="_blank" class="external"> Event monitoring</a>, process of collecting, analyzing, and signaling event occurrences to subscribers such as operating system processes, active database rules as well as human operators</li> 
+            <li> <a href="https://en.wikipedia.org/wiki/Business_transaction_management" title="Business transaction management" rel="nofollow" target="_blank" class="external"> Business transaction management</a>, also called business transaction monitoring, managing information technology from a business transaction perspective</li> 
+            <li> <a href="https://en.wikipedia.org/wiki/Network_monitoring" title="Network monitoring" rel="nofollow" target="_blank" class="external"> Network monitoring</a>, systems that constantly monitors a computer network for slow or failing components and that notifies the network administrator</li> 
+            <li> <a href="https://en.wikipedia.org/wiki/System_monitoring" title="System monitoring" rel="nofollow" target="_blank" class="external"> System monitoring</a>, a process within a distributed system for collecting and storing state data</li> 
+            <li> <a href="https://en.wikipedia.org/wiki/User_activity_monitoring" title="User activity monitoring" rel="nofollow" target="_blank" class="external"> User activity monitoring</a>, the process of recording user input</li> 
+            <li> <a href="https://en.wikipedia.org/wiki/Website_monitoring" title="Website monitoring" rel="nofollow" target="_blank" class="external"> Website monitoring</a>, the process of testing and verifying that end-users can interact with a website or web application as expected</li> 
+        </ul> 
+        <p> Simple Monitoring with Linux cmd </p> 
+        <p>free -m&#xa0; </p> 
+        <p><a href="https://www.linuxatemyram.com/" rel="nofollow" target="_blank" class="external">https://www.linuxatemyram.com/</a>&#xa0; To see how much ram your applications could use without swapping, run free -m and look at the <strong>"available</strong>" column (On installations from before 2016, look at "free" column in the "-/+ buffers/cache" row instead.) </p> When should I start to worry? 
+        <p>A<span>&#xa0;</span>healthy Linux system<span>&#xa0;</span>with more than enough memory will, after running for a while, show the following expected and harmless behavior:</p> 
+        <ul> 
+            <li>free<span>&#xa0;</span>memory is close to<span>&#xa0;</span>0</li> 
+            <li>used<span>&#xa0;</span>memory is close to<span>&#xa0;</span>total</li> 
+            <li>available<span>&#xa0;</span>memory (or "free + buffers/cache") has enough room (let's say, 20%+ of total)</li> 
+            <li>swap used<span>&#xa0;</span>does not change</li> 
+        </ul> 
+        <p>Warning signs<span>&#xa0;</span>of a genuine low memory situation that you may want to look into:</p> 
+        <ul> 
+            <li>available<span>&#xa0;</span>memory (or "free + buffers/cache") is close to zero</li> 
+            <li>swap used<span>&#xa0;</span>increases or fluctuates</li> 
+            <li>dmesg | grep oom-killer<span>&#xa0;</span>shows the OutOfMemory-killer at work</li> 
+        </ul> 
+        <p>df -h </p> 
+        <p><span>docker system df</span></p> 
+        <p><span>docker stats</span></p> 
+        <p>With the<span>&#xa0;</span>docker system df<span>&#xa0;</span>command you would get a summary of your Docker usage including things like:</p> 
+        <ul> 
+            <li>The total size of all images</li> 
+            <li>The total size of all containers</li> 
+            <li>The local volumes size</li> 
+            <li>And the cache</li> 
+        </ul> 
+        <p> <a href="https://docs.docker.com/config/containers/resource_constraints/#understand-the-risks-of-running-out-of-memory" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/config/containers/resource_constraints/#understand-the-risks-of-running-out-of-memory</a> </p> 
+        <h2><a name="id1"></a>Monitoring system with Prometheus and Grafana</h2> 
+        <h3><a name="id2"></a>Prometheus</h3> 
+        <p> <a href="https://prometheus.io/" rel="nofollow" target="_blank" class="external">https://prometheus.io/</a> </p> 
+        <p> Prometheus is a free software application used for event monitoring and alerting. It records metrics in a time series database (allowing for high dimensionality) built using an HTTP pull model, with flexible queries and real-time alerting. The project is written in Go and licensed under the Apache 2 License, with source code available on GitHub, and is a graduated project of the Cloud Native Computing Foundation, along with Kubernetes and Envoy.&#xa0; <a href="https://en.wikipedia.org/wiki/Prometheus_(software" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Prometheus_(software</a>) </p> 
+        <p><a href="https://github.com/prometheus/client_java" rel="nofollow" target="_blank" class="external"> https://github.com/prometheus/client_java</a> examples for java</p> 
+        <p><a href="https://hub.docker.com/r/prom/prometheus/" rel="nofollow" target="_blank" class="external"> https://hub.docker.com/r/prom/prometheus/</a> official docker image&#xa0; </p> 
+        <p><a href="https://docs.docker.com/config/daemon/prometheus/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/config/daemon/prometheus/</a>&#xa0; Collect Docker metrics with Prometheus </p> 
+        <h3><a name="id73"></a>&#xa0;</h3> 
+        <h3><a name="id3"></a>Exporters (for Prometheus)</h3> 
+        <p> <a href="https://prometheus.io/docs/instrumenting/exporters/" rel="nofollow" target="_blank" class="external">https://prometheus.io/docs/instrumenting/exporters/</a> <br /></p> 
+        <p> Some of the most popular exporters:</p> 
+        <ul> 
+            <li>node_exporter&#xa0;collects infrastructure metrics including CPU, memory and disk usage, as well as I/O and network statistics (such as the number of bytes read from disk or average server load). </li> 
+            <li>The&#xa0;WMI exporter&#xa0;is recommended for Windows users.</li> 
+            <li>blackbox_exporter&#xa0;generates metrics derived from protocols such as HTTP and HTTPS to determine endpoint availability, response times, etc. </li> 
+            <li>mysqld_exporter&#xa0;collects metrics related to the MySQL server, such as the number of queries executed , average response time and cluster replication status.</li> 
+            <li>rabbitmq_exporter&#xa0;gathers metrics about the RabbitMQ messaging system, including the number of messages published, the number of messages ready to be sent, and the size of all messages in the queue.</li> 
+            <li>nginx-vts-exporter&#xa0;gathers metrics about the Nginx web server using the&#xa0;module Nginx VTS, including the number of open connections, the number of responses sent (grouped by response codes), and the total size of requests sent or received in bytes.</li> 
+        </ul> 
+        <h4><a name="id4"></a>Exporter for windows</h4> 
+        <p> <a href="https://www.devopsschool.com/blog/how-to-install-windows-exporter-for-prometheus/" rel="nofollow" target="_blank" class="external"> https://www.devopsschool.com/blog/how-to-install-windows-exporter-for-prometheus/</a> </p> 
+        <p>You can view metrics on&#xa0; <a href="http://yourhost:9182/metrics" rel="nofollow" target="_blank" class="external"> http://yourhost:9182/metrics</a> </p> 
+        <p>Configuration in&#xa0; Prometheus (example for two hosts 192.168.1.74 and 192.168.1.75) : </p> 
+        <p> - job_name: "windows_exporter"<br>&#xa0; static_configs:<br>&#xa0; - targets: ["192.168.1.74:9182", "192.168.1.75:9182"]</br></br></p> 
+        <p> Dashboard for Grafana</p> 
+        <p> <a href="https://grafana.com/grafana/dashboards/14694-windows-exporter-dashboard/" rel="nofollow" target="_blank" class="external"> https://grafana.com/grafana/dashboards/14694-windows-exporter-dashboard/</a>&#xa0;&#xa0; ID: 14694</p> 
+        <h4><a name="id5"></a>Node exporter</h4> 
+        <p><a href="https://github.com/prometheus/node_exporter" rel="nofollow" target="_blank" class="external"> https://github.com/prometheus/node_exporter</a> </p> 
+        <p>Installation for Linux&#xa0; <a href="https://www.fosstechnix.com/install-prometheus-node-exporter-on-linux/" rel="nofollow" target="_blank" class="external"> https://www.fosstechnix.com/install-prometheus-node-exporter-on-linux/</a> </p> 
+        <h4><a name="id6"></a>cAdvisor</h4> 
+        <p><a href="https://github.com/google/cadvisor" rel="nofollow" target="_blank" class="external">https://github.com/google/cadvisor</a>&#xa0; <span>cAdvisor (Container Advisor) provides container users an understanding of the resource usage and performance characteristics of their running containers. It is a running daemon that collects, aggregates, processes, and exports information about running containers. Specifically, for each container it keeps resource isolation parameters, historical resource usage, histograms of complete historical resource usage and network statistics. This data is exported by container and machine-wide.</span></p> 
+        <pre>docker run \
+  --volume=/:/rootfs:ro \
+  --volume=/var/run:/var/run:ro \
+  --volume=/sys:/sys:ro \
+  --volume=/var/lib/docker/:/var/lib/docker:ro \
+  --volume=/dev/disk/:/dev/disk:ro \
+  --publish=8080:8080 \
+  --detach=true \
+  --name=cadvisor \
+  google/cadvisor:latest</pre> 
+        <h4><a name="id7"></a>blackbox_exporter</h4> <a href="https://github.com/prometheus/blackbox_exporter/blob/master/README.md" rel="nofollow" target="_blank" class="external"> https://github.com/prometheus/blackbox_exporter/blob/master/README.md</a> 
+        <p> <a href="https://medium.com/the-telegraph-engineering/how-prometheus-and-the-blackbox-exporter-makes-monitoring-microservice-endpoints-easy-and-free-of-a986078912ee" rel="nofollow" target="_blank" class="external"> https://medium.com/the-telegraph-engineering/how-prometheus-and-the-blackbox-exporter-makes-monitoring-microservice-endpoints-easy-and-free-of-a986078912ee</a></p> 
+        <p> <a href="https://gitlab.com/gitlab-com/runbooks/blob/master/alerts/test-alert.yml" rel="nofollow" target="_blank" class="external"> https://gitlab.com/gitlab-com/runbooks/blob/master/alerts/test-alert.yml</a> </p> 
+        <h3><a name="id8"></a>Micrometer</h3> 
+        <p> Micrometer provides a simple facade over the instrumentation clients for a number of popular monitoring systems. Currently, it supports the following monitoring systems: Atlas, Datadog, Graphite, Ganglia, Influx, JMX, and Prometheus. <a href="https://www.baeldung.com/micrometer" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/micrometer</a> </p> 
+        <p> Example urls:</p> 
+        <p> <a href="http://localhost:8080/actuator/metrics" rel="nofollow" target="_blank" class="external"> http://localhost:8080/actuator/metrics</a> main metrics</p> 
+        <p> <a href="http://localhost:8080/actuator/health" rel="nofollow" target="_blank" class="external"> http://localhost:8080/actuator/health</a>&#xa0; probes </p> 
+        <p class="auto-style1"> <a href="http://localhost:8080/actuator/health/readiness" rel="nofollow" target="_blank" class="external"> http://localhost:8080/actuator/health/readiness</a>&#xa0; </p> 
+        <p class="auto-style1"> <a href="http://localhost:8080/actuator/health/liveness" rel="nofollow" target="_blank" class="external"> http://localhost:8080/actuator/health/liveness</a> </p> 
+        <p> <a href="http://localhost:8080/actuator/info" rel="nofollow" target="_blank" class="external"> http://localhost:8080/actuator/info</a> information </p> 
+        <p> Configuration (example) in Prometheus</p> 
+        <pre><code>- job_name: "spring"
+  metrics_path: '/actuator/prometheus'
+  static_configs:
+    - targets: ['192.168.1.149:8080']
+</code></pre> 
+        <h3><a name="id35"></a>Grafana</h3> 
+        <p> Grafana is a multi-platform open source analytics and interactive visualization web application. It provides charts, graphs, and alerts for the web when connected to supported data sources.&#xa0; End users can create complex monitoring dashboards using interactive query builders. Grafana is divided into a front end and back end, written in TypeScript and Go, respectively.As a visualization tool, Grafana is a popular component in monitoring stacks, often used in combination with time series databases such as InfluxDB, Prometheus and Graphite; monitoring platforms such as Sensu, Icinga, Checkmk, Zabbix, Netdata, and PRTG; SIEMs such as Elasticsearchand Splunk; and other data sources. The Grafana user interface was originally based on version 3 of Kibana. <a href="https://en.wikipedia.org/wiki/Grafana" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Grafana</a> </p> 
+        <h4><a name="id9"></a>Userful dashboards (grafana)</h4> 
+        <p> <a href="https://grafana.com/grafana/dashboards/1860-node-exporter-full/" rel="nofollow" target="_blank" class="external"> https://grafana.com/grafana/dashboards/1860-node-exporter-full/</a>&#xa0;&#xa0; ( <a href="https://grafana.com/docs/grafana-cloud/quickstart/docker-compose-linux/" rel="nofollow" target="_blank" class="external"> https://grafana.com/docs/grafana-cloud/quickstart/docker-compose-linux/</a> ) </p> 
+        <p> <a href="https://grafana.com/grafana/dashboards/14282-cadvisor-exporter/" rel="nofollow" target="_blank" class="external"> https://grafana.com/grafana/dashboards/14282-cadvisor-exporter/</a> </p> 
+        <p><a name="id33"></a> <a href="https://grafana.com/grafana/dashboards/4701-jvm-micrometer/" rel="nofollow" target="_blank" class="external"> https://grafana.com/grafana/dashboards/4701-jvm-micrometer/</a> - 4701 </p> 
+        <p> <a href="https://grafana.com/grafana/dashboards/5373-micrometer-spring-throughput/" rel="nofollow" target="_blank" class="external"> https://grafana.com/grafana/dashboards/5373-micrometer-spring-throughput/</a> - 5373 <a name="id74"></a> </p> 
+        <p><a href="https://grafana.com/dashboards/1860" rel="nofollow" target="_blank" class="external"> https://grafana.com/dashboards/1860</a>&#xa0; <span lang="en-us">node exporter full </span></p> 
+        <p><span lang="en-us"><a href="https://grafana.com/dashboards/893" rel="nofollow" target="_blank" class="external"> https://grafana.com/dashboards/893</a> </span>cadvisor <span lang="en-us">+ System</span></p> 
+        <p><span lang="en-us"><a href="https://grafana.com/dashboards/193" rel="nofollow" target="_blank" class="external"> https://grafana.com/dashboards/193</a> </span>cadvisor </p> Importing pre-built dashboards from Grafana.com<a href="https://prometheus.io/docs/visualization/grafana/#importing-pre-built-dashboards-from-grafana-com" name="importing-pre-built-dashboards-from-grafana-com0" rel="nofollow" target="_blank" class="external"></a> 
+        <p> Grafana.com maintains<span>&#xa0;</span><a href="https://grafana.com/dashboards" rel="nofollow" target="_blank" class="external">a collection of shared dashboards</a><span>&#xa0;</span>which can be downloaded and used with standalone instances of Grafana. Use the Grafana.com "Filter" option to browse dashboards for the "Prometheus" data source only. You must currently manually edit the downloaded JSON files and correct the<span>&#xa0;</span>datasource:<span>&#xa0;</span>entries to reflect the Grafana data source name which you chose for your Prometheus server. Use the "Dashboards" → "Home" → "Import" option to import the edited dashboard file into your Grafana install.</p> 
+    </body>
+</html>

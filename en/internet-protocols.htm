@@ -1,0 +1,106 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Internet protocols</title>
+        <meta name="description" content="Using Internet protocols" />
+        <meta name="keywords" content="SSL, TLS, HTTPS, SSH" />
+    </head>
+    <body> 
+        <h1>Internet protocols</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Overview</a></li> 
+                <li><a href="#id1">SSL, TLS, HTTPS</a></li> 
+                <li><a href="#id2">SSH</a></li> 
+                <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Key generation</a></li> 
+                <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;Copy keys to remote host</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;Entrance with ssh and remote command execution</a></li> 
+                <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;Notes for Windows</a></li> 
+                <li><a href="#id7">Digital certificates (Public key certificate)</a></li> 
+                <li><a href="#id8">&#xa0;&#xa0;&#xa0;&#xa0;Let’s Encrypt</a></li> 
+                <li><a href="#id13">Host Windows</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>Overview</h2> 
+        <p><a href="https://en.wikipedia.org/wiki/Category:Internet_protocols" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Category:Internet_protocols</a></p> 
+        <h2><a name="id1"></a>SSL, TLS, HTTPS</h2> 
+        <p>SSL, or Secure Sockets Layer, is an encryption-based Internet security protocol. It was first developed by Netscape in 1995 for the purpose of ensuring privacy, authentication, and data integrity in Internet communications. SSL is the predecessor to the modern TLS encryption used today. A website that implements SSL/TLS has "HTTPS" in its URL instead of "HTTP." </p> SSL is the direct predecessor of another protocol called TLS (Transport Layer Security). In 1999 the Internet Engineering Task Force (IETF) proposed an update to SSL. Since this update was being developed by the IETF and Netscape was no longer involved, the name was changed to TLS. The differences between the final version of SSL (3.0) and the first version of TLS are not drastic; the name change was applied to signify the change in ownership. <a href="https://www.cloudflare.com/learning/ssl/what-is-ssl/" rel="nofollow" target="_blank" class="external">https://www.cloudflare.com/learning/ssl/what-is-ssl/</a> 
+        <br /> <a href="https://en.wikipedia.org/wiki/Transport_Layer_Security" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Transport_Layer_Security</a>&#xa0; 
+        <h2><a name="id2"></a>SSH</h2> The Secure Shell Protocol (SSH) is a cryptographic network protocol for operating network services securely over an unsecured network. Its most notable applications are remote login and command-line execution. 
+        <p>&#xa0;</p> 
+        <h3><a name="id3"></a>Key generation</h3> 
+        <p>Key generation&#xa0; ssh-keygen&#xa0; <a href="https://linux.die.net/man/1/ssh-keygen" rel="nofollow" target="_blank" class="external">https://linux.die.net/man/1/ssh-keygen</a>&#xa0;&#xa0; <a href="https://www.ssh.com/academy/ssh/keygen" rel="nofollow" target="_blank" class="external">https://www.ssh.com/academy/ssh/keygen</a>&#xa0; </p> 
+        <pre><code class="language-bash">ssh-keygen -t rsa -q -N '' -f ~/.ssh/id_rsa</code></pre>or with default 
+        <br /> 
+        <br /> 
+        <pre><code class="language-bash">ssh-keygen</code></pre>Key placement 
+        <br /> ~/.ssh 
+        <br /> ~/.ssh/id_rsa.pub - public key. It is copied to the server where you need to gain access. 
+        <br /> ~/.ssh/id_rsa - private key. It cannot be shown to anyone. 
+        <br /> 
+        <p>&#xa0;</p> There is an issue with ssh-keygen utility that comes with Windows 10 build 1909 and older that prevents it from working properly with newer SSH daemons (for example, the one that comes with Ubuntu 20.04 LTS and newer). The workaround is to use ECDSA-type key, not RSA-type key, for the SSH connection. You can generate an ECDSA SSH key and add it to SSH agent with the following commands: 
+        <br /> 
+        <pre><code class="language-bash">
+ssh-keygen -t ecdsa -b 521
+ssh-add id_ecdsa
+</code></pre>remote server keys are saved in 
+        <br /> ~/.ssh/known_hosts. 
+        <h3><a name="id4"></a>Copy keys to remote host</h3> 
+        <p>&#xa0;<br /> Linux</p> 
+        <pre><code class="language-bash">ssh-copy-id -i ~/.ssh/id_rsa root@192.168.1.10</code></pre> 
+        <p>или</p> 
+        <pre><code class="language-bash">ssh-copy-id -i /mnt/remotecontrol/ssh/id_rsa root@192.168.1.86</code></pre> 
+        <p>Windows</p> (ssh-copy-id does not work) 
+        <br /> In powershell 
+        <br /> 
+        <pre><code class="language-bash">type $env:USERPROFILE\.ssh\id_rsa.pub | ssh root@192.168.1.10 "cat &gt;&gt; .ssh/authorized_keys"</code></pre> Copying manually: for the root user, the home directory ~/ will be /root/ 
+        <br /> To see ".ssh" extension you need to enable showing hidden files (in WinSCP there is a link at the bottom of the panel) or ls -a 
+        <br /> 
+        <br /> Add ~/.ssh/authorized_keys to the end of the file. When manual and auto copying are combined, the keys may stick together. It is necessary to check the file and separate the keys with a line break&#xa0; 
+        <br /> 
+        <h3><a name="id5"></a>Entrance with ssh and remote command execution</h3> Entrance with ssh: 
+        <pre><code class="language-bash">ssh root@192.168.1.10</code></pre> 
+        <pre><code class="language-bash">ssh root@192.168.1.10 -p 22</code></pre> 
+        <p>if the server does not have our key, then the password to the server will be requested and the connection will be established, remembering this password</p> 
+        <p>Remote command execution </p> 
+        <pre><code class="language-bash">ssh user@server ls /etc/</code></pre> 
+        <p>(to run command: ls /etc/) </p> 
+        <h3><a name="id6"></a>Notes for Windows</h3> 
+        <p>If you want to use a tool other than Bash for Windows, you can install locally the shared Windows SSH clients included in the following packages: PuTTY; Git for Windows; MobaXterm; Cygwin</p> 
+        <p>Fast generation with default settings from anywhere </p> 
+        <pre><code class="language-bash">ssh-keygen</code></pre> 
+        <p>in this case, the keys end up in the default folder C:\Users\[User name]\.ssh </p> 
+        <p><strong>~/.ssh/id_rsa.pub</strong> - public key. It is copied to the server where you need to gain access.<br /> <strong>~/.ssh/id_rsa</strong> - private key. It cannot be shown to anyone.</p> 
+        <p>If you want to use different keys for different servers, and therefore have different names or different key locations, then you need to study more fine-tuning. The simplest option only works if the key is in the default location and is called by default<br /> </p> 
+        <h2><a name="id7"></a>Digital certificates (Public key certificate)</h2> 
+        <p><a href="https://en.wikipedia.org/wiki/Public_key_certificate" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Public_key_certificate</a> </p> 
+        <p><a href="https://www.cloudflare.com/learning/ssl/what-is-ssl/" rel="nofollow" target="_blank" class="external">https://www.cloudflare.com/learning/ssl/what-is-ssl/</a> </p> 
+        <p>There are several different<span>&#xa0;</span>types of SSL certificates. One certificate can apply to a single website or several websites, depending on the type:</p> 
+        <ul> 
+            <li>Single-domain:<span>&#xa0;</span>A single-domain SSL certificate applies to only one domain (a "domain" is the name of a website, like www.cloudflare.com).</li> 
+            <li>Wildcard:<span>&#xa0;</span>Like a single-domain certificate, a wildcard SSL certificate applies to only one domain. However, it also includes that domain's subdomains. For example, a wildcard certificate could cover www.cloudflare.com, blog.cloudflare.com, and developers.cloudflare.com, while a single-domain certificate could only cover the first.</li> 
+            <li>Multi-domain:<span>&#xa0;</span>As the name indicates, multi-domain SSL certificates can apply to multiple unrelated domains.</li> 
+        </ul> 
+        <p>SSL certificates also come with different validation levels. A validation level is like a background check, and the level changes depending on the thoroughness of the check.</p> 
+        <ul> 
+            <li>Domain Validation:<span>&#xa0;</span>This is the least-stringent level of validation, and the cheapest. All a business has to do is prove they control the domain.</li> 
+            <li>Organization Validation:<span>&#xa0;</span>This is a more hands-on process: The CA directly contacts the person or business requesting the certificate. These certificates are more trustworthy for users.</li> 
+            <li>Extended Validation:<span>&#xa0;</span>This requires a full background check of an organization before the SSL certificate can be issued.</li> 
+        </ul> 
+        <p>For resource owned by an individual - Domain Validation (DV) certificate. This certificate confirms ownership of the domain and. <br /> If the site is owned by a company, there may be several options:</p> 
+        <ul> 
+            <li>Business card website for a company or organization. The site does not collect any payment information. Exists for information purposes only. In this case, a certificate with the Domain Validation level of verification is suitable. It encrypts data, eliminates the “unsafe” stub in the browser, and that’s it. </li> 
+            <li>Websites of banks, payment systems, chain hypermarkets or media outlets. The site collects money or data that gives access to money. Fraudsters can copy it to gain access to money. Therefore, you need a certificate with organizational verification - Extended Validation (EV). It can only be received by the real organization that owns the site; its name and type of activity will be indicated in the certificate. A green bar with the company name will appear in the browser bar. </li> 
+            <li>A small online store, a charity website, a forum. The site is of no interest to scammers, but clients may want to verify the existence of the organization. Here you need a certificate with organization verification - Organization Validation (OV). The name of the organization will be reflected in the certificate, and a green padlock will appear in the browser line.</li> 
+        </ul> 
+        <h3><a name="id8"></a>Let’s Encrypt</h3> 
+        <p>Free DV certificates are issued by the <strong>Let’s Encrypt</strong> trusted authority. </p> 
+        <p><a href="https://letsencrypt.org/ru/getting-started/" rel="nofollow" target="_blank" class="external">https://letsencrypt.org/ru/getting-started/</a></p> 
+        <h2><a name="id13"></a>Host Windows</h2> 
+        <p>Host files are text files that are used to map domain names to IP addresses, precisely what the DNS servers do. You can use them to streamline connecting to websites, and as such, sometimes you'll need to edit one. </p> 
+        <p>C:\windows\system32\drivers\etc\hosts</p> 
+        <p>127.0.0.1 testedomain.com<br /> 192.168.1.10&#xa0; anothertesteddomain.com</p> 
+    </body>
+</html>

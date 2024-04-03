@@ -1,0 +1,131 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Java tips</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <h1>Java tips</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id1">Java text block</a></li> 
+                <li><a href="#id2">&#xa0;&#xa0;&#xa0;&#xa0;Using a text block</a></li> 
+                <li><a href="#id3">Java String Templates</a></li> 
+                <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;String Formatter</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;MessageFormat Class</a></li> 
+                <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;STR Template Processor</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id1"></a>Java text block</h2> 
+        <p><a href="https://docs.oracle.com/en/java/javase/21/text-blocks/index.html" rel="nofollow" target="_blank" class="external"> https://docs.oracle.com/en/java/javase/21/text-blocks/index.html</a> </p> 
+        <h3><a name="id2"></a>Using a text block</h3> 
+        <p>(java 15+)</p> 
+        <p>A text block can be used in place of a string literal to improve the readability and clarity of the code. This primarily occurs when a string literal is used to represent a multi-line string. In this case there is considerable clutter from quotation marks, newline escapes, and concatentation operators.<br /> </p> 
+        <pre><code class="language-java">
+// ORIGINAL
+String message = "'The time has come,' the Walrus said,\n" +
+                 "'To talk of many things:\n" +
+                 "Of shoes -- and ships -- and sealing-wax --\n" +
+                 "Of cabbages -- and kings --\n" +
+                 "And why the sea is boiling hot --\n" +
+                 "And whether pigs have wings.'\n";
+</code></pre> 
+        <p>Using text blocks removes much of the clutter:</p> 
+        <pre><code class="language-java">
+// BETTER
+String message = """
+    'The time has come,' the Walrus said,
+    'To talk of many things:
+    Of shoes -- and ships -- and sealing-wax --
+    Of cabbages -- and kings --
+    And why the sea is boiling hot --
+    And whether pigs have wings.'
+    """;
+</code></pre> 
+        <p>The example below uses "·" to visualize the incidental white space, with essential white space shown as actual white space.</p> 
+        <pre><code class="language-java">
+void writeHTML() {
+    String html = """
+········&lt;html&gt;
+········    &lt;body&gt;
+········        &lt;p&gt;Hello World.&lt;/p&gt;
+········    &lt;/body&gt;
+········&lt;/html&gt;
+········""";
+    writeOutput(html);
+}
+</code></pre> 
+        <p>After the incidental white space is stripped, the resulting contents of the text block are as follows:</p> 
+        <pre><code class="language-html">
+&lt;html&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hello World.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></pre> 
+        <p>How to avoid inserting last line break if it is not needed </p> 
+        <pre><code class="language-java">
+String html1 = """
+	&lt;a href=\
+	"""
+	+ hrefUrl +
+	"""
+        "&gt;""";
+</code></pre> 
+        <pre><code class="language-java">String html2 = """
+	&lt;a href=\""""
+	+ hrefUrl +
+	"""
+        "&gt;""";
+</code></pre> 
+        <pre><code class="language-java">String html3 = """
+	&lt;a href=" """
+	+ hrefUrl +
+	"""
+        "&gt;""";
+</code></pre> 
+        <pre>&#xa0;</pre> 
+        <p>Recommendation:</p> 
+        <ul> 
+            <li>You should use a text block when it improves the clarity of the code, particularly with multi-line strings </li> 
+            <li>If a string fits on a single line, without concatenation and escaped newlines, you should probably continue to use a string literal </li> 
+            <li>For most multi-line strings, place the opening delimiter at the right end of the previous line, and place the closing delimiter on its own line, at the left margin of the text block </li> 
+            <li>Either use only spaces or only tabs for the indentation of a text block. Mixing white space will lead to a result with irregular indentation </li> 
+        </ul> 
+        <p>Note: Show non-printable characters in IntelliJ&#xa0;IDEA <a href="https://intellij-support.jetbrains.com/hc/en-us/community/posts/207045165-Show-non-printable-characters-Tabs" rel="nofollow" target="_blank" class="external"> https://intellij-support.jetbrains.com/hc/en-us/community/posts/207045165-Show-non-printable-characters-Tabs</a> </p> 
+        <ul> 
+            <li>View | Active Editor | Show Whitespaces&#xa0;&#xa0;-- affects current tab only</li> 
+            <li>Settings | Editor | Appearance --&gt; Show whitespaces&#xa0;&#xa0;-- affects all (newly opened) tabs</li> 
+        </ul> 
+        <h2><a name="id3"></a>Java String Templates</h2> 
+        <p><a href="https://www.baeldung.com/java-21-string-templates" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/java-21-string-templates</a> </p> 
+        <p> <a href="https://belief-driven-design.com/looking-at-java-21-string-templates-c7cbc/" rel="nofollow" target="_blank" class="external"> https://belief-driven-design.com/looking-at-java-21-string-templates-c7cbc/</a> </p> 
+        <h3><a name="id4"></a>String Formatter</h3> 
+        <p>&#xa0;</p> 
+        <pre><code class="language-java">
+String html4 = String.format("""
+  			&lt;a href="%s"&gt;
+   			""", hrefUrl);
+</code></pre> 
+        <p>&#xa0;</p> 
+        <h3><a name="id5"></a>MessageFormat Class</h3> 
+        <pre>		String html5 = MessageFormat.format("""
+    			&lt;a href="{0}"&gt;
+    			""", hrefUrl);</pre> 
+        <h3><a name="id6"></a>STR Template Processor</h3> 
+        <p> <a href="https://docs.oracle.com/en/java/javase/21/language/string-templates.html#GUID-771D8AC4-EAE6-456D-A476-306717F75C0C" rel="nofollow" target="_blank" class="external"> https://docs.oracle.com/en/java/javase/21/language/string-templates.html#GUID-771D8AC4-EAE6-456D-A476-306717F75C0C</a> </p> 
+        <pre><code class="language-java">
+String  html6 = STR."""
+  			&lt;a href="\{hrefUrl}"&gt;
+  			""";
+</code></pre> 
+        <p>Note: in Java 21 use "--enable preview" to enable STR&#xa0; <a href="https://stackoverflow.com/questions/72083752/enable-preview-features-in-an-early-access-version-of-java-in-intellij" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/72083752/enable-preview-features-in-an-early-access-version-of-java-in-intellij</a> </p> 
+        <pre><code class="language-java">
+</code></pre> 
+        <p>&#xa0;</p> 
+        <p>&#xa0;</p> 
+    </body>
+</html>

@@ -1,0 +1,326 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Dionext software development notes</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">CSS</a></li> 
+                <li><a href="#id1">Overview</a></li> 
+                <li><a href="#id2">Tutorials, guides, reference books</a></li> 
+                <li><a href="#id3">Summary</a></li> 
+                <li><a href="#id4">Priority of style</a></li> 
+                <li><a href="#id5">Background</a></li> 
+                <li><a href="#id6">References</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>CSS</h2> 
+        <h2><a name="id1"></a>Overview</h2> 
+        <p>Cascading Style Sheets (CSS) is a style sheet language used for specifying the presentation and styling of a document written in a markup language such as HTML or XML (including XML dialects such as SVG, MathML or XHTML). CSS is a cornerstone technology of the World Wide Web, alongside HTML and JavaScript. CSS is designed to enable the separation of content and presentation, including layout, colors, and fonts. <br /> This separation can improve content accessibility;[further explanation needed] provide more flexibility and control in the specification of presentation characteristics; enable multiple web pages to share formatting by specifying the relevant CSS in a separate .css file, which reduces complexity and repetition in the structural content; and enable the .css file to be cached to improve the page load speed between the pages that share the file and its formatting.&#xa0; <a href="https://en.wikipedia.org/wiki/CSS" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/CSS</a> </p> 
+        <h2><a name="id2"></a>Tutorials, guides, reference books</h2> 
+        <p>For beginers <a href="https://www.w3.org/Style/Examples/011/firstcss" rel="nofollow" target="_blank" class="external"> https://www.w3.org/Style/Examples/011/firstcss</a> CSS tutorial starting with HTML + CSS </p> 
+        <p><a href="https://www.w3schools.com/css/" rel="nofollow" target="_blank" class="external">https://www.w3schools.com/css/</a> CSS Tutorial </p> 
+        <p><a href="https://cssreference.io/" rel="nofollow" target="_blank" class="external">https://cssreference.io/</a> A free visual guide to CSS. It features the most popular properties, and explains them with illustrated and animated examples. </p> 
+        <p><a href="https://tympanus.net/codrops/css_reference/" rel="nofollow" target="_blank" class="external">https://tympanus.net/codrops/css_reference/</a> CSS Reference. An extensive CSS reference with all the important properties and info to learn CSS from the basics </p> 
+        <p><a href="http://meiert.com/en/indices/css-properties/" rel="nofollow" target="_blank" class="external">List of CSS properties,</a><span>&#xa0;including those in working drafts, with links to the relevant specifications (by Jens Meiert).</span></p> 
+        <p><a href="https://www.cssportal.com/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/</a> CSS Portal is home to many examples of CSS / HTML and how it can be used in website design. Here you'll find all CSS properties and many CSS generators to help with all your design needs. </p> 
+        <p class="auto-style1"><a href="https://www.cssportal.com/css-color-converter/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/css-color-converter/</a> </p> 
+        <p class="auto-style1"><a href="https://www.cssportal.com/css-font-preview/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/css-font-preview/</a> </p> 
+        <p class="auto-style1"><a href="https://www.cssportal.com/css-style-editor/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/css-style-editor/</a> </p> 
+        <p class="auto-style1"><a href="https://www.cssportal.com/css-formatter/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/css-formatter/</a> <a href="https://www.cssportal.com/css-optimize/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/css-optimize/</a>&#xa0; <a href="https://www.cssportal.com/css-validator/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/css-validator/</a> </p> 
+        <p class="auto-style1"><a href="https://www.cssportal.com/image-to-data/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/image-to-data/</a> The Data URI Generator will produce base64 encoded data from an image file. This data can then be used in your CSS files which saves the browser from having to make additional HTTP requests for the external resources, and can therefore increase page loading speed. </p> 
+        <h2><a name="id3"></a>Summary</h2> 
+        <p>Summary of selector syntax (from <a href="https://en.wikipedia.org/wiki/CSS" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/CSS</a> )</p> 
+        <p> 
+            <table id="mwtA" class="wikitable"> 
+                <tbody id="mwtQ"> 
+                    <tr id="mwtg"> 
+                        <th id="mwtw">Pattern</th> 
+                        <th id="mwuA">Matches</th> 
+                        <th id="mwuQ">First defined<br id="mwug" /> in CSS level</th> 
+                    </tr> 
+                    <tr id="mwuw"> 
+                        <td id="mwvA"> <code id="mwvQ" about="#mwt112" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt112&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwvg" class="nt ve-pasteProtect">E</span></code></td> 
+                        <td id="mwvw">an element of type E</td> 
+                        <td id="mwwA">1</td> 
+                    </tr> 
+                    <tr id="mwwQ"> 
+                        <td id="mwwg"> <code id="mwww" about="#mwt115" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:link&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt115&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwxA" class="nt ve-pasteProtect">E</span><span id="mwxQ" class="p ve-pasteProtect">:</span><span id="mwxg" class="nd ve-pasteProtect">link</span></code></td> 
+                        <td id="mwxw">an E element that is the source anchor of a hyperlink whose target is either not yet visited (:link) or already visited (:visited)</td> 
+                        <td id="mwyA">1</td> 
+                    </tr> 
+                    <tr id="mwyQ"> 
+                        <td id="mwyg"> <code id="mwyw" about="#mwt118" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:active&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt118&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwzA" class="nt ve-pasteProtect">E</span><span id="mwzQ" class="p ve-pasteProtect">:</span><span id="mwzg" class="nd ve-pasteProtect">active</span></code></td> 
+                        <td id="mwzw">an E element during certain user actions</td> 
+                        <td id="mw0A">1</td> 
+                    </tr> 
+                    <tr id="mw0Q"> 
+                        <td id="mw0g"> <code id="mw0w" about="#mwt121" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E::first-line&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt121&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mw1A" class="nt ve-pasteProtect">E</span><span id="mw1Q" class="p ve-pasteProtect">::</span><span id="mw1g" class="nd ve-pasteProtect">first-line</span></code></td> 
+                        <td id="mw1w">the first formatted line of an E element</td> 
+                        <td id="mw2A">1</td> 
+                    </tr> 
+                    <tr id="mw2Q"> 
+                        <td id="mw2g"> <code id="mw2w" about="#mwt124" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E::first-letter&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt124&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mw3A" class="nt ve-pasteProtect">E</span><span id="mw3Q" class="p ve-pasteProtect">::</span><span id="mw3g" class="nd ve-pasteProtect">first-letter</span></code></td> 
+                        <td id="mw3w">the first formatted letter of an E element</td> 
+                        <td id="mw4A">1</td> 
+                    </tr> 
+                    <tr id="mw4Q"> 
+                        <td id="mw4g"> <code id="mw4w" about="#mwt127" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;.c&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt127&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mw5A" class="p ve-pasteProtect">.</span><span id="mw5Q" class="nc ve-pasteProtect">c</span></code></td> 
+                        <td id="mw5g">all elements with class="c"</td> 
+                        <td id="mw5w">1</td> 
+                    </tr> 
+                    <tr id="mw6A"> 
+                        <td id="mw6Q"> <code id="mw6g" about="#mwt130" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;#myid&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt130&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mw6w" class="p ve-pasteProtect">#</span><span id="mw7A" class="nn ve-pasteProtect">myid</span></code></td> 
+                        <td id="mw7Q">the element with id="myid"</td> 
+                        <td id="mw7g">1</td> 
+                    </tr> 
+                    <tr id="mw7w"> 
+                        <td id="mw8A"> <code id="mw8Q" about="#mwt133" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E.warning&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt133&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mw8g" class="nt ve-pasteProtect">E</span><span id="mw8w" class="p ve-pasteProtect">.</span><span id="mw9A" class="nc ve-pasteProtect">warning</span></code></td> 
+                        <td id="mw9Q">an E element whose class is "warning" (the document language specifies how class is determined)</td> 
+                        <td id="mw9g">1</td> 
+                    </tr> 
+                    <tr id="mw9w"> 
+                        <td id="mw-A"> <code id="mw-Q" about="#mwt136" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E#myid&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt136&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mw-g" class="nt ve-pasteProtect">E</span><span id="mw-w" class="p ve-pasteProtect">#</span><span id="mw_A" class="nn ve-pasteProtect">myid</span></code></td> 
+                        <td id="mw_Q">an E element with ID equal to "myid"</td> 
+                        <td id="mw_g">1</td> 
+                    </tr> 
+                    <tr id="mw_w"> 
+                        <td id="mwAQA"> <code id="mwAQE" about="#mwt139" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;.c#myid&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt139&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAQI" class="p ve-pasteProtect">.</span><span id="mwAQM" class="nc ve-pasteProtect">c</span><span id="mwAQQ" class="p ve-pasteProtect">#</span><span id="mwAQU" class="nn ve-pasteProtect">myid</span></code></td> 
+                        <td id="mwAQY">the element with class="c" and ID equal to "myid"</td> 
+                        <td id="mwAQc">1</td> 
+                    </tr> 
+                    <tr id="mwAQg"> 
+                        <td id="mwAQk"> <code id="mwAQo" about="#mwt142" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E F&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt142&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAQs" class="nt ve-pasteProtect">E</span><span id="mwAQw" class="w ve-pasteProtect"> </span><span id="mwAQ0" class="nt ve-pasteProtect">F</span></code></td> 
+                        <td id="mwAQ4">an F element descendant of an E element</td> 
+                        <td id="mwAQ8">1</td> 
+                    </tr> 
+                    <tr id="mwARA"> 
+                        <td id="mwARE"> <code id="mwARI" about="#mwt145" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;*&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt145&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwARM" class="o ve-pasteProtect">*</span></code></td> 
+                        <td id="mwARQ">any element</td> 
+                        <td id="mwARU">2</td> 
+                    </tr> 
+                    <tr id="mwARY"> 
+                        <td id="mwARc"> <code id="mwARg" about="#mwt148" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E[foo]&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt148&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwARk" class="nt ve-pasteProtect">E</span><span id="mwARo" class="o ve-pasteProtect">[</span><span id="mwARs" class="nt ve-pasteProtect">foo</span><span id="mwARw" class="o ve-pasteProtect">]</span></code></td> 
+                        <td id="mwAR0">an E element with a "foo" attribute</td> 
+                        <td id="mwAR4">2</td> 
+                    </tr> 
+                    <tr id="mwAR8"> 
+                        <td id="mwASA"> <code id="mwASE" about="#mwt151" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E[foo=\&quot;bar\&quot;]&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt151&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwASI" class="nt ve-pasteProtect">E</span><span id="mwASM" class="o ve-pasteProtect">[</span><span id="mwASQ" class="nt ve-pasteProtect">foo</span><span id="mwASU" class="o ve-pasteProtect">=</span><span id="mwASY" class="s2 ve-pasteProtect">"bar"</span><span id="mwASc" class="o ve-pasteProtect">]</span></code></td> 
+                        <td id="mwASg">an E element whose "foo" attribute value is exactly equal to "bar"</td> 
+                        <td id="mwASk">2</td> 
+                    </tr> 
+                    <tr id="mwASo"> 
+                        <td id="mwASs"> <code id="mwASw" about="#mwt154" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E[foo~=\&quot;bar\&quot;]&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt154&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAS0" class="nt ve-pasteProtect">E</span><span id="mwAS4" class="o ve-pasteProtect">[</span><span id="mwAS8" class="nt ve-pasteProtect">foo</span><span id="mwATA" class="o ve-pasteProtect">~=</span><span id="mwATE" class="s2 ve-pasteProtect">"bar"</span><span id="mwATI" class="o ve-pasteProtect">]</span></code></td> 
+                        <td id="mwATM">an E element whose "foo" attribute value is a list of whitespace-separated values, one of which is exactly equal to "bar"</td> 
+                        <td id="mwATQ">2</td> 
+                    </tr> 
+                    <tr id="mwATU"> 
+                        <td id="mwATY"> <code id="mwATc" about="#mwt159" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E&lt;nowiki>[foo|=\&quot;en\&quot;]&lt;/nowiki>&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt159&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwATg" class="nt ve-pasteProtect">E</span><span id="mwATk" class="o ve-pasteProtect">&lt;</span><span id="mwATo" class="nt ve-pasteProtect">nowiki</span><span id="mwATs" class="o ve-pasteProtect">&gt;[</span><span id="mwATw" class="nt ve-pasteProtect">foo</span><span id="mwAT0" class="o ve-pasteProtect">|=</span><span id="mwAT4" class="s2 ve-pasteProtect">"en"</span><span id="mwAT8" class="o ve-pasteProtect">]&lt;/</span><span id="mwAUA" class="nt ve-pasteProtect">nowiki</span><span id="mwAUE" class="o ve-pasteProtect">&gt;</span></code></td> 
+                        <td id="mwAUI">an E element whose "foo" attribute has a hyphen-separated list of values beginning (from the left) with "en"</td> 
+                        <td id="mwAUM">2</td> 
+                    </tr> 
+                    <tr id="mwAUQ"> 
+                        <td id="mwAUU"> <code id="mwAUY" about="#mwt162" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:first-child&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt162&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAUc" class="nt ve-pasteProtect">E</span><span id="mwAUg" class="p ve-pasteProtect">:</span><span id="mwAUk" class="nd ve-pasteProtect">first-child</span></code></td> 
+                        <td id="mwAUo">an E element, first child of its parent</td> 
+                        <td id="mwAUs">2</td> 
+                    </tr> 
+                    <tr id="mwAUw"> 
+                        <td id="mwAU0"> <code id="mwAU4" about="#mwt165" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:lang(fr)&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt165&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAU8" class="nt ve-pasteProtect">E</span><span id="mwAVA" class="p ve-pasteProtect">:</span><span id="mwAVE" class="nd ve-pasteProtect">lang</span><span id="mwAVI" class="o ve-pasteProtect">(</span><span id="mwAVM" class="nt ve-pasteProtect">fr</span><span id="mwAVQ" class="o ve-pasteProtect">)</span></code></td> 
+                        <td id="mwAVU">an element of type E in language "fr" (the document language specifies how language is determined)</td> 
+                        <td id="mwAVY">2</td> 
+                    </tr> 
+                    <tr id="mwAVc"> 
+                        <td id="mwAVg"> <code id="mwAVk" about="#mwt168" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E::before&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt168&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAVo" class="nt ve-pasteProtect">E</span><span id="mwAVs" class="p ve-pasteProtect">::</span><span id="mwAVw" class="nd ve-pasteProtect">before</span></code></td> 
+                        <td id="mwAV0">generated content before an E element's content</td> 
+                        <td id="mwAV4">2</td> 
+                    </tr> 
+                    <tr id="mwAV8"> 
+                        <td id="mwAWA"> <code id="mwAWE" about="#mwt171" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E::after&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt171&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAWI" class="nt ve-pasteProtect">E</span><span id="mwAWM" class="p ve-pasteProtect">::</span><span id="mwAWQ" class="nd ve-pasteProtect">after</span></code></td> 
+                        <td id="mwAWU">generated content after an E element's content</td> 
+                        <td id="mwAWY">2</td> 
+                    </tr> 
+                    <tr id="mwAWc"> 
+                        <td id="mwAWg"> <code id="mwAWk" about="#mwt174" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E > F&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt174&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAWo" class="nt ve-pasteProtect">E</span><span id="mwAWs" class="w ve-pasteProtect"> </span><span id="mwAWw" class="o ve-pasteProtect">&gt;</span><span id="mwAW0" class="w ve-pasteProtect"> </span><span id="mwAW4" class="nt ve-pasteProtect">F</span></code></td> 
+                        <td id="mwAW8">an F element child of an E element</td> 
+                        <td id="mwAXA">2</td> 
+                    </tr> 
+                    <tr id="mwAXE"> 
+                        <td id="mwAXI"> <code id="mwAXM" about="#mwt177" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E + F&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt177&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAXQ" class="nt ve-pasteProtect">E</span><span id="mwAXU" class="w ve-pasteProtect"> </span><span id="mwAXY" class="o ve-pasteProtect">+</span><span id="mwAXc" class="w ve-pasteProtect"> </span><span id="mwAXg" class="nt ve-pasteProtect">F</span></code></td> 
+                        <td id="mwAXk">an F element immediately preceded by an E element</td> 
+                        <td id="mwAXo">2</td> 
+                    </tr> 
+                    <tr id="mwAXs"> 
+                        <td id="mwAXw"> <code id="mwAX0" about="#mwt180" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E[foo^=\&quot;bar\&quot;]&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt180&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAX4" class="nt ve-pasteProtect">E</span><span id="mwAX8" class="o ve-pasteProtect">[</span><span id="mwAYA" class="nt ve-pasteProtect">foo</span><span id="mwAYE" class="o ve-pasteProtect">^=</span><span id="mwAYI" class="s2 ve-pasteProtect">"bar"</span><span id="mwAYM" class="o ve-pasteProtect">]</span></code></td> 
+                        <td id="mwAYQ">an E element whose "foo" attribute value begins exactly with the string "bar"</td> 
+                        <td id="mwAYU">3</td> 
+                    </tr> 
+                    <tr id="mwAYY"> 
+                        <td id="mwAYc"> <code id="mwAYg" about="#mwt183" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E[foo$=\&quot;bar\&quot;]&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt183&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAYk" class="nt ve-pasteProtect">E</span><span id="mwAYo" class="o ve-pasteProtect">[</span><span id="mwAYs" class="nt ve-pasteProtect">foo</span><span id="mwAYw" class="o ve-pasteProtect">$=</span><span id="mwAY0" class="s2 ve-pasteProtect">"bar"</span><span id="mwAY4" class="o ve-pasteProtect">]</span></code></td> 
+                        <td id="mwAY8">an E element whose "foo" attribute value ends exactly with the string "bar"</td> 
+                        <td id="mwAZA0">3</td> 
+                    </tr> 
+                    <tr id="mwAZE"> 
+                        <td id="mwAZI0"> <code id="mwAZM0" about="#mwt186" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E[foo*=\&quot;bar\&quot;]&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt186&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAZQ0" class="nt ve-pasteProtect">E</span><span id="mwAZU0" class="o ve-pasteProtect">[</span><span id="mwAZY0" class="nt ve-pasteProtect">foo</span><span id="mwAZc0" class="o ve-pasteProtect">*=</span><span id="mwAZg0" class="s2 ve-pasteProtect">"bar"</span><span id="mwAZk0" class="o ve-pasteProtect">]</span></code></td> 
+                        <td id="mwAZo0">an E element whose "foo" attribute value contains the substring "bar"</td> 
+                        <td id="mwAZs0">3</td> 
+                    </tr> 
+                    <tr id="mwAZw0"> 
+                        <td id="mwAZ9"> <code id="mwAZ10" about="#mwt189" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:root&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt189&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAZ11" class="nt ve-pasteProtect">E</span><span id="mwAaA" class="p ve-pasteProtect">:</span><span id="mwAaE" class="nd ve-pasteProtect">root</span></code></td> 
+                        <td id="mwAaI">an E element, root of the document</td> 
+                        <td id="mwAaM">3</td> 
+                    </tr> 
+                    <tr id="mwAaQ"> 
+                        <td id="mwAaU"> <code id="mwAaY" about="#mwt192" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:nth-child(n)&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt192&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAac" class="nt ve-pasteProtect">E</span><span id="mwAag" class="p ve-pasteProtect">:</span><span id="mwAak" class="nd ve-pasteProtect">nth-child</span><span id="mwAao" class="o ve-pasteProtect">(</span><span id="mwAas" class="nt ve-pasteProtect">n</span><span id="mwAaw" class="o ve-pasteProtect">)</span></code></td> 
+                        <td id="mwAa0">an E element, the n-th child of its parent</td> 
+                        <td id="mwAa4">3</td> 
+                    </tr> 
+                    <tr id="mwAa8"> 
+                        <td id="mwAbA"> <code id="mwAbE" about="#mwt195" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:nth-last-child(n)&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt195&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAbI" class="nt ve-pasteProtect">E</span><span id="mwAbM" class="p ve-pasteProtect">:</span><span id="mwAbQ" class="nd ve-pasteProtect">nth-last-child</span><span id="mwAbU" class="o ve-pasteProtect">(</span><span id="mwAbY" class="nt ve-pasteProtect">n</span><span id="mwAbc" class="o ve-pasteProtect">)</span></code></td> 
+                        <td id="mwAbg">an E element, the n-th child of its parent, counting from the last one</td> 
+                        <td id="mwAbk">3</td> 
+                    </tr> 
+                    <tr id="mwAbo"> 
+                        <td id="mwAbs"> <code id="mwAbw" about="#mwt198" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:nth-of-type(n)&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt198&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAb0" class="nt ve-pasteProtect">E</span><span id="mwAb4" class="p ve-pasteProtect">:</span><span id="mwAb8" class="nd ve-pasteProtect">nth-of-type</span><span id="mwAcA" class="o ve-pasteProtect">(</span><span id="mwAcE" class="nt ve-pasteProtect">n</span><span id="mwAcI" class="o ve-pasteProtect">)</span></code></td> 
+                        <td id="mwAcM">an E element, the n-th sibling of its type</td> 
+                        <td id="mwAcQ">3</td> 
+                    </tr> 
+                    <tr id="mwAcU"> 
+                        <td id="mwAcY"> <code id="mwAcc" about="#mwt201" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:nth-last-of-type(n)&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt201&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAcg" class="nt ve-pasteProtect">E</span><span id="mwAck" class="p ve-pasteProtect">:</span><span id="mwAco" class="nd ve-pasteProtect">nth-last-of-type</span><span id="mwAcs" class="o ve-pasteProtect">(</span><span id="mwAcw" class="nt ve-pasteProtect">n</span><span id="mwAc0" class="o ve-pasteProtect">)</span></code></td> 
+                        <td id="mwAc4">an E element, the n-th sibling of its type, counting from the last one</td> 
+                        <td id="mwAc8">3</td> 
+                    </tr> 
+                    <tr id="mwAdA"> 
+                        <td id="mwAdE"> <code id="mwAdI" about="#mwt204" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:last-child&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt204&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAdM" class="nt ve-pasteProtect">E</span><span id="mwAdQ" class="p ve-pasteProtect">:</span><span id="mwAdU" class="nd ve-pasteProtect">last-child</span></code></td> 
+                        <td id="mwAdY">an E element, last child of its parent</td> 
+                        <td id="mwAdc">3</td> 
+                    </tr> 
+                    <tr id="mwAdg"> 
+                        <td id="mwAdk"> <code id="mwAdo" about="#mwt207" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:first-of-type&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt207&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAds" class="nt ve-pasteProtect">E</span><span id="mwAdw" class="p ve-pasteProtect">:</span><span id="mwAd0" class="nd ve-pasteProtect">first-of-type</span></code></td> 
+                        <td id="mwAd4">an E element, first sibling of its type</td> 
+                        <td id="mwAd8">3</td> 
+                    </tr> 
+                    <tr id="mwAeA"> 
+                        <td id="mwAeE"> <code id="mwAeI" about="#mwt210" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:last-of-type&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt210&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAeM" class="nt ve-pasteProtect">E</span><span id="mwAeQ" class="p ve-pasteProtect">:</span><span id="mwAeU" class="nd ve-pasteProtect">last-of-type</span></code></td> 
+                        <td id="mwAeY">an E element, last sibling of its type</td> 
+                        <td id="mwAec">3</td> 
+                    </tr> 
+                    <tr id="mwAeg"> 
+                        <td id="mwAek"> <code id="mwAeo" about="#mwt213" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:only-child&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt213&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAes" class="nt ve-pasteProtect">E</span><span id="mwAew" class="p ve-pasteProtect">:</span><span id="mwAe0" class="nd ve-pasteProtect">only-child</span></code></td> 
+                        <td id="mwAe4">an E element, only child of its parent</td> 
+                        <td id="mwAe8">3</td> 
+                    </tr> 
+                    <tr id="mwAfA"> 
+                        <td id="mwAfE"> <code id="mwAfI" about="#mwt216" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:only-of-type&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt216&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAfM" class="nt ve-pasteProtect">E</span><span id="mwAfQ" class="p ve-pasteProtect">:</span><span id="mwAfU" class="nd ve-pasteProtect">only-of-type</span></code></td> 
+                        <td id="mwAfY">an E element, only sibling of its type</td> 
+                        <td id="mwAfc">3</td> 
+                    </tr> 
+                    <tr id="mwAfg"> 
+                        <td id="mwAfk"> <code id="mwAfo" about="#mwt219" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:empty&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt219&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAfs" class="nt ve-pasteProtect">E</span><span id="mwAfw" class="p ve-pasteProtect">:</span><span id="mwAf0" class="nd ve-pasteProtect">empty</span></code></td> 
+                        <td id="mwAf4">an E element that has no children (including text nodes)</td> 
+                        <td id="mwAf8">3</td> 
+                    </tr> 
+                    <tr id="mwAgA"> 
+                        <td id="mwAgE"> <code id="mwAgI" about="#mwt222" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:target&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt222&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAgM" class="nt ve-pasteProtect">E</span><span id="mwAgQ" class="p ve-pasteProtect">:</span><span id="mwAgU" class="nd ve-pasteProtect">target</span></code></td> 
+                        <td id="mwAgY">an E element being the target of the referring URI</td> 
+                        <td id="mwAgc">3</td> 
+                    </tr> 
+                    <tr id="mwAgg"> 
+                        <td id="mwAgk"> <code id="mwAgo" about="#mwt225" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:enabled&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt225&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAgs" class="nt ve-pasteProtect">E</span><span id="mwAgw" class="p ve-pasteProtect">:</span><span id="mwAg0" class="nd ve-pasteProtect">enabled</span></code></td> 
+                        <td id="mwAg4">a user interface element E that is enabled</td> 
+                        <td id="mwAg8">3</td> 
+                    </tr> 
+                    <tr id="mwAhA"> 
+                        <td id="mwAhE"> <code id="mwAhI" about="#mwt228" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:disabled&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt228&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAhM" class="nt ve-pasteProtect">E</span><span id="mwAhQ" class="p ve-pasteProtect">:</span><span id="mwAhU" class="nd ve-pasteProtect">disabled</span></code></td> 
+                        <td id="mwAhY">a user interface element E that is disabled</td> 
+                        <td id="mwAhc">3</td> 
+                    </tr> 
+                    <tr id="mwAhg"> 
+                        <td id="mwAhk"> <code id="mwAho" about="#mwt231" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:checked&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt231&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAhs" class="nt ve-pasteProtect">E</span><span id="mwAhw" class="p ve-pasteProtect">:</span><span id="mwAh0" class="nd ve-pasteProtect">checked</span></code></td> 
+                        <td id="mwAh4">a user interface element E that is checked (for instance a radio button or checkbox)</td> 
+                        <td id="mwAh8">3</td> 
+                    </tr> 
+                    <tr id="mwAiA"> 
+                        <td id="mwAiE"> <code id="mwAiI" about="#mwt234" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E:not(s)&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt234&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAiM" class="nt ve-pasteProtect">E</span><span id="mwAiQ" class="p ve-pasteProtect">:</span><span id="mwAiU" class="nd ve-pasteProtect">not</span><span id="mwAiY" class="o ve-pasteProtect">(</span><span id="mwAic" class="nt ve-pasteProtect">s</span><span id="mwAig" class="o ve-pasteProtect">)</span></code></td> 
+                        <td id="mwAik">an E element that does not match simple selector s</td> 
+                        <td id="mwAio">3</td> 
+                    </tr> 
+                    <tr id="mwAis"> 
+                        <td id="mwAiw"> <code id="mwAi0" about="#mwt237" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;1&quot;:{&quot;wt&quot;:&quot;E ~ F&quot;},&quot;2&quot;:{&quot;wt&quot;:&quot;css&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt237&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"> <span id="mwAi4" class="nt ve-pasteProtect">E</span><span id="mwAi8" class="w ve-pasteProtect"> </span><span id="mwAjA" class="o ve-pasteProtect">~</span><span id="mwAjE" class="w ve-pasteProtect"> </span><span id="mwAjI" class="nt ve-pasteProtect">F</span></code></td> 
+                        <td id="mwAjM">an F element preceded by an E element</td> 
+                        <td id="mwAjQ">3</td> 
+                    </tr> 
+                </tbody> 
+            </table> </p> 
+        <h2><a name="id4"></a>Priority of style</h2> 
+        <p><a href="https://www.w3schools.com/css/css_specificity.asp" rel="nofollow" target="_blank" class="external"> https://www.w3schools.com/css/css_specificity.asp</a>&#xa0; CSS Specificity </p> 
+        <p> 
+            <table id="mwAzA" class="wikitable"> 
+                <tbody id="mwAzI"> 
+                    <tr id="mwAzM"> 
+                        <th id="mwAzQ">Priority</th> 
+                        <th id="mwAzU">CSS source type</th> 
+                        <th id="mwAzY">Description</th> 
+                    </tr> 
+                    <tr id="mwAzc"> 
+                        <td id="mwAzg">1</td> 
+                        <td id="mwAzk">Importance</td> 
+                        <td id="mwAzo">The "<code id="mwAzs" about="#mwt321" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;lang&quot;:{&quot;wt&quot;:&quot;css&quot;},&quot;code&quot;:{&quot;wt&quot;:&quot;!important&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt321&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"><span id="mwAzw" class="o ve-pasteProtect">!</span><span id="mwAz0" class="nt ve-pasteProtect">important</span></code>" annotation overwrites the previous priority types</td> 
+                    </tr> 
+                    <tr id="mwAz4"> 
+                        <td id="mwAz8">2</td> 
+                        <td id="mwA0A">Inline</td> 
+                        <td id="mwA0E">A style applied to an HTML element via HTML "style" attribute</td> 
+                    </tr> 
+                    <tr id="mwA0I"> 
+                        <td id="mwA0M">3</td> 
+                        <td id="mwA0Q">Media Type</td> 
+                        <td id="mwA0U">A property definition applies to all media types unless a media-specific CSS is defined</td> 
+                    </tr> 
+                    <tr id="mwA0Y"> 
+                        <td id="mwA0c">4</td> 
+                        <td id="mwA0g">User defined</td> 
+                        <td id="mwA0k">Most browsers have the accessibility feature: a user-defined CSS</td> 
+                    </tr> 
+                    <tr id="mwA0o"> 
+                        <td id="mwA0s">5</td> 
+                        <td id="mwA0w">Selector specificity</td> 
+                        <td id="mwA00">A specific contextual selector (<code id="mwA04" about="#mwt324" class="mw-highlight mw-highlight-lang-css mw-content-ltr" data-mw="{&quot;parts&quot;:[{&quot;template&quot;:{&quot;target&quot;:{&quot;wt&quot;:&quot;code&quot;,&quot;href&quot;:&quot;./Template:Code&quot;},&quot;params&quot;:{&quot;lang&quot;:{&quot;wt&quot;:&quot;css&quot;},&quot;code&quot;:{&quot;wt&quot;:&quot;#heading p&quot;}},&quot;i&quot;:0}}]}" data-ve-attributes="{&quot;style&quot;:&quot;&quot;,&quot;typeof&quot;:&quot;mw:Transclusion&quot;,&quot;about&quot;:&quot;#mwt324&quot;}" data-ve-no-generated-contents="true" dir="ltr" style="" typeof="mw:Transclusion"><span id="mwA08" class="p ve-pasteProtect">#</span><span id="mwA1A" class="nn ve-pasteProtect">heading</span><span id="mwA1E" class="w ve-pasteProtect"> </span><span id="mwA1I" class="nt ve-pasteProtect">p</span></code>) overwrites generic definition</td> 
+                    </tr> 
+                    <tr id="mwA1M"> 
+                        <td id="mwA1Q">6</td> 
+                        <td id="mwA1U">Rule order</td> 
+                        <td id="mwA1Y">Last rule declaration has a higher priority</td> 
+                    </tr> 
+                    <tr id="mwA1c"> 
+                        <td id="mwA1g">7</td> 
+                        <td id="mwA1k">Parent inheritance</td> 
+                        <td id="mwA1o">If a property is not specified, it is inherited from a parent element</td> 
+                    </tr> 
+                    <tr id="mwA1s"> 
+                        <td id="mwA1w">8</td> 
+                        <td id="mwA10">CSS property definition in HTML document</td> 
+                        <td id="mwA14">CSS rule or CSS inline style overwrites a default browser value</td> 
+                    </tr> 
+                    <tr id="mwA18"> 
+                        <td id="mwA2A">9</td> 
+                        <td id="mwA2E">Browser default</td> 
+                        <td id="mwA2I">The lowest priority: browser default value is determined by W3C initial value specifications</td> 
+                    </tr> 
+                </tbody> 
+            </table> </p> 
+        <p><a href="https://vecta.io/blog/definitive-guide-to-css-styling-order" rel="nofollow" target="_blank" class="external"> https://vecta.io/blog/definitive-guide-to-css-styling-order</a> Having a diagram helps us visualize how everything is ordered in terms of priority, and hopefully it has helped you too! <a href="https://css-tricks.com/the-c-in-css-the-cascade/" rel="nofollow" target="_blank" class="external">https://css-tricks.com/the-c-in-css-the-cascade/</a> </p> 
+        <p><img alt="" src="../images/css-styling-order.svg" class=" img-fluid rounded" style="" /></p> 
+        <p>&#xa0;</p> 
+        <h2><a name="id5"></a>Background</h2> 
+        <p><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/background-size" rel="nofollow" target="_blank" class="external"> https://developer.mozilla.org/en-US/docs/Web/CSS/background-size</a>&#xa0; </p> 
+        <p> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Using_multiple_backgrounds" rel="nofollow" target="_blank" class="external"> https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Backgrounds_and_Borders/Using_multiple_backgrounds</a> </p> 
+        <h2><a name="id6"></a>References</h2> 
+        <p> &#xa0;</p> 
+        <p></p> 
+    </body>
+</html>

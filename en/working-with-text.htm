@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Working with text</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <h1>Working with text</h1> 
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">HTML</a></li> 
+                <li><a href="#id1">Markdown</a></li> 
+                <li><a href="#id2">Mediawiki format</a></li> 
+                <li><a href="#id3">LaTeX</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>HTML</h2> 
+        <p>See <a href="web-html.htm">HTML</a></p> 
+        <h2><a name="id1"></a>Markdown</h2> 
+        <p>Markdown is a lightweight markup language for creating formatted text using a plain-text editor. John Gruber and Aaron Swartz&#xa0; created Markdown in 2004 as a markup language that is intended to be easy to read in its source code form. Markdown is widely used for blogging and instant messaging, and also used elsewhere in online forums, collaborative software, documentation pages, and readme files </p> 
+        <p>GitHub had been using its own variant of Markdown since as early as 2009, which added support for additional formatting such as tables and nesting block content inside list elements, as well as GitHub-specific features such as auto-linking references to commits, issues, usernames, etc. In 2017, GitHub released a formal specification of its GitHub Flavored Markdown (GFM) that is based on CommonMark. It is a strict superset of CommonMark, following its specification exactly except for tables, strikethrough, autolinks and task lists, which GFM adds as extensions. Accordingly, GitHub also changed the parser used on their sites, which required that some documents be changed. For instance, GFM now requires that the hash symbol that creates a heading be separated from the heading text by a space character.&#xa0; </p> 
+        <p>Some apps, services and editors support Markdown as an editing format. ChatGPT: Output from the AI model formatted in Markdown will be rendered in LaTeX and HTML by the ChatGPT client, and the model is encouraged to use Markdown to format its output. Markdown provided by the user will not be formatted by the client, but will still be passed to the AI model unaltered. <a href="https://en.wikipedia.org/wiki/Markdown" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Markdown</a> </p> 
+        <p>Example </p> 
+        <pre><code>Heading
+=======
+
+Sub-heading
+-----------
+
+# Alternative heading
+
+## Alternative sub-heading
+
+Paragraphs are separated 
+by a blank line.
+
+Two spaces at the end of a line  
+produce a line break.
+</code></pre> 
+        <p>HTML to/from Markdown converters </p> 
+        <p><a href="https://www.cssportal.com/markdown-to-html/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/markdown-to-html/</a> </p> 
+        <p><a href="https://www.cssportal.com/html-to-markdown/" rel="nofollow" target="_blank" class="external">https://www.cssportal.com/html-to-markdown/</a> </p> 
+        <p>&#xa0;</p> 
+        <p class="MsoNormal"> <a href="http://www.chriskrycho.com/2015/academic-markdown-and-citations.html" rel="nofollow" target="_blank" class="external"> http://www.chriskrycho.com/2015/academic-markdown-and-citations.html</a> Academic Markdown and Citations </p> 
+        <div>
+             Footnotes in Markdown look like this: 
+            <pre class="markdown"><code class="markdown hljs">Here is some text.[^fn]
+
+[<span class="hljs-symbol">^fn</span><span class="hljs-link">]: And the footnote!</span></code></pre> 
+        </div> 
+        <p class="MsoNormal">GitHub Flavored Markdown doesn't support footnotes, but you can manually fake it¹ with Unicode characters or superscript tags, e.g. <code><sup>1</sup></code>.</p> 
+        <table> 
+            <tr> 
+                <td> <pre><code><a name="myfootnote1">1</a>: Footnote content goes here
+</code></pre> <p>Then reference it at some other place in the document like this</p> <pre><code><sup>[1](#myfootnote1)</sup>
+</code></pre> </td> 
+            </tr> 
+        </table> 
+        <p>&#xa0;</p> 
+        <h2><a name="id2"></a>Mediawiki format</h2> 
+        <p><a href="https://www.mediawiki.org/wiki/Help:Formatting/ru" rel="nofollow" target="_blank" class="external">https://www.mediawiki.org/wiki/Help:Formatting</a></p> 
+        <h2><a name="id3"></a>LaTeX</h2> 
+        <p>LaTeX&#xa0; is a software system for typesetting documents. LaTeX markup describes the content and layout of the document, as opposed to the formatted text found in WYSIWYG word processors like Microsoft Word, LibreOffice Writer and Apple Pages. The writer uses markup tagging conventions to define the general structure of a document, to stylise text throughout a document (such as bold and italics), and to add citations and cross-references. A TeX distribution such as TeX Live or MiKTeX is used to produce an output file (such as PDF or DVI) suitable for printing or digital distribution. <a href="https://en.wikipedia.org/wiki/LaTeX" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/LaTeX</a> </p> 
+        <p>&#xa0;</p> 
+    </body>
+</html>
