@@ -47,6 +47,9 @@
 		https://git-scm.com/docs/git-remote</a> </p>
 		<p>The git remote command is used to manage the list of remote repositories. It allows you to save long repository URLs as understandable short strings, such as "origin", so that you don't have to fill your head with all sorts of nonsense and type it every time to contact the server. You can use multiple remote repositories for work and git remote will help you add, change and delete them.<br /> </p>
 		<p>git remote -v </p>
+		<p>git remote remove &lt;name&gt; Remove the remote named &lt;name&gt;. All 
+		remote-tracking branches and configuration settings for the remote are 
+		removed. </p>
 		<p>git remote add origin git@github.com:dionext/lib-ms-spring-starter.git</p>
 		<p><br /> Clone a remote repository - git clone [link to remote repository]. The project will appear in the directory where you were at the time of cloning.<br /> Link remote and local repositories - git remote add origin [link to remote repository].<br /> <br /> </p>
 		<p>View commit history - git log. Lists all commits. This command has different options, the most used one is<br /> --oneline. It shows the hash in a shortened format, the branch in which the commit was made, and the text of the commit. To use this option (like any other), you need to add it after the command: git log--oneline.</p> 
