@@ -1,0 +1,369 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>Spring: Advanced</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <h1><a name="id1"></a>Spring: Security</h1>
+		<h2>Overview </h2>
+		<p>Spring Security is a Java/Java EE framework that provides 
+		authentication, authorization and other security features for enterprise 
+		applications. </p>
+		<p>Spring Security is a powerful and highly customizable authentication 
+		and access-control framework. It is the de-facto standard for securing 
+		Spring-based applications. Spring Security is a framework that focuses 
+		on providing both authentication and authorization to Java applications. 
+		Like all Spring projects, the real power of Spring Security is found in 
+		how easily it can be extended to meet custom requirements </p>
+		<p>&nbsp;</p>
+		<p><strong>Authentication</strong>&nbsp; is the act of proving an 
+		assertion, such as the identity of a computer system user. </p>
+		<p><strong>Authorization</strong> or authorisation&nbsp; is the function 
+		of specifying access rights/privileges to resources, which is related to 
+		general information security and computer security, and to access 
+		control in particular. More formally, "to authorize" is to define an 
+		access policy. For example, human resources staff are normally 
+		authorized to access employee records and this policy is often 
+		formalized as access control rules in a computer system. During 
+		operation, the system uses the access control rules to decide whether 
+		access requests from (authenticated) consumers shall be approved 
+		(granted) or disapproved (rejected).
+		<a href="https://en.wikipedia.org/wiki/Authorization">https://en.wikipedia.org/wiki/Authorization</a> </p>
+		<h2>Dependencies </h2>
+		<pre><code class="language-html">&lt;dependency&gt;
+	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+	&lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+</code>Basic</pre>
+		<p>In the context of an HTTP transaction, basic access authentication is 
+		a method for an HTTP user agent (e.g. a web browser) to provide a user 
+		name and password when making a request. In basic HTTP authentication, a 
+		request contains a header field in the form of Authorization: Basic 
+		&lt;credentials&gt;, where &lt;credentials&gt; is the Base64 encoding of ID and 
+		password joined by a single colon :.&nbsp;
+		<a href="https://en.wikipedia.org/wiki/Basic_access_authentication">
+		https://en.wikipedia.org/wiki/Basic_access_authentication</a> </p>
+		<p>User managment:</p>
+		<pre><code class="language-java">    @Bean
+    public InMemoryUserDetailsManager userDetailsService(PasswordEncoder passwordEncoder) {
+        UserDetails user = User.withUsername("user")
+                .password(passwordEncoder.encode("password"))
+                .roles("USER")
+                .build();
+
+        UserDetails admin = User.withUsername("admin1")
+                .password(passwordEncoder.encode("admin1"))
+                .roles("USER", "ADMIN")
+                .build();
+
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        return encoder;
+    }
+</code></pre>
+		<p>Basic filter: </p>
+		<pre><code class="language-java">    @Bean
+    public SecurityFilterChain actuatorSecurityFilterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authorizeHttpRequests -&gt; authorizeHttpRequests
+                 .requestMatchers(prefix + "/actuator/**").authenticated()
+                        .anyRequest().permitAll());
+        http.httpBasic(withDefaults())
+             .formLogin(withDefaults())
+             .csrf(AbstractHttpConfigurer::disable);
+        return http.build();
+    }
+</code>&nbsp;</pre>
+		<p>How to Solve 403 Error in Spring Boot POST Request&nbsp;
+		<a href="https://www.baeldung.com/java-spring-fix-403-error">
+		https://www.baeldung.com/java-spring-fix-403-error</a> </p>
+		<h2>OAuth, OAuth2, OpenID, OIDC</h2>
+		<h3>Overview</h3>
+		<p><strong>OAuth </strong>(short for "Open Authorization") is an open standard for access 
+		delegation, commonly used as a way for internet users to grant websites 
+		or applications access to their information on other websites but 
+		without giving them the passwords. This mechanism is used by companies 
+		such as Amazon, Google, Meta Platforms, Microsoft, and Twitter to permit 
+		users to share information about their accounts with third-party 
+		applications or websites. Generally, the OAuth protocol provides a way 
+		for resource owners to provide a client [application] with secure 
+		delegated access to server resources. It specifies a process for 
+		resource owners to authorize third-party access to their server 
+		resources without providing credentials. Designed specifically to work 
+		with Hypertext Transfer Protocol (HTTP), OAuth essentially allows access 
+		tokens to be issued to third-party clients by an authorization server, 
+		with the approval of the resource owner. The third party then uses the 
+		access token to access the protected resources hosted by the resource 
+		server. </p>
+		<p>The <strong>OAuth 2.0</strong> framework was published considering additional use 
+		cases and extensibility requirements gathered from the wider IETF 
+		community. Albeit being built on the OAuth 1.0 deployment experience, 
+		OAuth 2.0 is not backwards compatible with OAuth 1.0. OAuth 2.0 was 
+		published as RFC 6749 and the Bearer Token Usage as RFC 6750, both 
+		standards track Requests for Comments, in October 2012 </p>
+		<p><a href="https://en.wikipedia.org/wiki/OAuth">https://en.wikipedia.org/wiki/OAuth</a> </p>
+		<p><strong>OpenID</strong> is an open standard and decentralized authentication protocol 
+		promoted by the non-profit OpenID Foundation. It allows users to be 
+		authenticated by co-operating sites (known as relying parties, or RP) 
+		using a third-party identity provider (IDP) service, eliminating the 
+		need for webmasters to provide their own ad hoc login systems, and 
+		allowing users to log in to multiple unrelated websites without having 
+		to have a separate identity and password for each. Users create accounts 
+		by selecting an OpenID identity provider, and then use those accounts to 
+		sign on to any website that accepts OpenID authentication. Several large 
+		organizations either issue or accept OpenIDs on their websites</p>
+		<p><strong>OpenID Connect (OIDC)</strong> is the third generation of OpenID technology. 
+		It is an authentication layer on top of the OAuth 2.0 authorization 
+		framework. It allows computing clients to verify the identity of an end 
+		user based on the authentication performed by an authorization server, 
+		as well as to obtain the basic profile information about the end user in 
+		an interoperable and REST-like manner. In technical terms, OpenID 
+		Connect specifies a RESTful HTTP API, using JSON as a data format. </p>
+		<p>&nbsp;<a href="https://en.wikipedia.org/wiki/OpenID">https://en.wikipedia.org/wiki/OpenID</a> </p>
+		<h3>Keycloak integration </h3>
+		<h4>Overview</h4>
+<p>
+		Keycloak is an open source software product to allow single sign-on with 
+		identity and access management aimed at modern applications and 
+		services.&nbsp; Keycloak supports various protocols such as OpenID, 
+		OAuth version 2.0 and SAML and provides features such as user 
+		management, two-factor authentication, permissions and roles management, 
+		creating token services, etc.
+		<a href="https://en.wikipedia.org/wiki/Keycloak">
+		https://en.wikipedia.org/wiki/Keycloak</a> </p>
+		<p><a href="https://www.keycloak.org/guides">https://www.keycloak.org/guides</a> 
+		Documentation on official website </p>
+		<p>&nbsp;</p>
+		<div>
+			<div>
+				<div>
+					<h4 id="core-concepts-and-terms">Core concepts and terms</h4>
+					<div>
+						<dl>
+							<dt>users</dt>
+							<dd>
+							<p>Users are entities that are able to log into your 
+							system. They can have attributes associated with 
+							themselves like email, username, address, phone 
+							number, and birthday. They can be assigned group 
+							membership and have specific roles assigned to them.</p>
+							</dd>
+							<dt>credentials</dt>
+							<dd>
+							<p>Credentials are pieces of data that Keycloak uses 
+							to verify the identity of a user. Some examples are 
+							passwords, one-time-passwords, digital certificates, 
+							or even fingerprints.</p>
+							</dd>
+							<dt>roles</dt>
+							<dd>
+							<p>Roles identify a type or category of user.<span>&nbsp;</span>Admin,<span>&nbsp;</span>user,<span>&nbsp;</span>manager, 
+							and<span>&nbsp;</span>employee<span>&nbsp;</span>are all 
+							typical roles that may exist in an organization. 
+							Applications often assign access and permissions to 
+							specific roles rather than individual users as 
+							dealing with users can be too fine-grained and hard 
+							to manage.</p>
+							</dd>
+							<dt>user role mapping</dt>
+							<dd>
+							<p>A user role mapping defines a mapping between a 
+							role and a user. A user can be associated with zero 
+							or more roles. This role mapping information can be 
+							encapsulated into tokens and assertions so that 
+							applications can decide access permissions on 
+							various resources they manage.</p>
+							</dd>
+							<dt>groups</dt>
+							<dd>
+							<p>Groups manage groups of users. Attributes can be 
+							defined for a group. You can map roles to a group as 
+							well. Users that become members of a group inherit 
+							the attributes and role mappings that group defines.</p>
+							</dd>
+							<dt>realms</dt>
+							<dd>
+							<p>A realm manages a set of users, credentials, 
+							roles, and groups. A user belongs to and logs into a 
+							realm. Realms are isolated from one another and can 
+							only manage and authenticate the users that they 
+							control.</p>
+							</dd>
+							<dt>clients</dt>
+							<dd>
+							<p>Clients are entities that can request Keycloak to 
+							authenticate a user. Most often, clients are 
+							applications and services that want to use Keycloak 
+							to secure themselves and provide a single sign-on 
+							solution. Clients can also be entities that just 
+							want to request identity information or an access 
+							token so that they can securely invoke other 
+							services on the network that are secured by Keycloak.</p>
+							</dd>
+							<dt>client scopes</dt>
+							<dd>
+							<p>When a client is registered, you must define 
+							protocol mappers and role scope mappings for that 
+							client. It is often useful to store a client scope, 
+							to make creating new clients easier by sharing some 
+							common settings. This is also useful for requesting 
+							some claims or roles to be conditionally based on 
+							the value of<span>&nbsp;</span>scope<span>&nbsp;</span>parameter. 
+							Keycloak provides the concept of a client scope for 
+							this.</p>
+							</dd>
+							<dt>client role</dt>
+							<dd>
+							<p>Clients can define roles that are specific to 
+							them. This is basically a role namespace dedicated 
+							to the client.</p>
+							</dd>
+							<dt>identity token</dt>
+							<dd>
+							<p>A token that provides identity information about 
+							the user. Part of the OpenID Connect specification.</p>
+							</dd>
+							<dt>access token</dt>
+							<dd>
+							<p>A token that can be provided as part of an HTTP 
+							request that grants access to the service being 
+							invoked on. This is part of the OpenID Connect and 
+							OAuth 2.0 specification.</p>
+							</dd>
+							<dt>direct grant</dt>
+							<dd>
+							<p>A way for a client to obtain an access token on 
+							behalf of a user via a REST invocation.</p>
+							</dd>
+						</dl>
+					</div>
+				</div>
+			</div>
+		</div>
+		<h4>Dependencies</h4>
+		<p>Client dependencies:</p>
+		<pre><code class="language-html">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-oauth2-client&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+  	<p>Server dependencies:</p>
+
+		<pre><code class="language-html">&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-oauth2-resource-server&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+		<h4>Special keycloak settings</h4>
+		<p>we need to set the Client Scopes properly so that KeyCloak passes all 
+		the roles for the authenticating user to the token. So we need to 
+		navigate to the Client Scopes page and then set microprofile-jwt to 
+		“default” , as shown in the picture below. </p>
+		<p><img alt="" src="../images/keycloak_scope.jpg"></p>
+		<p>Important client settings: </p>
+		<p style="width: 845px; height: 380px">
+		<img alt="" src="../images/keycloak_client_settings.jpg"></p>
+		
+		<p>&nbsp;</p>
+		<p>Direct access grant for entrance with grant_type=client_credentials</p>
+		<p style="width: 867px">
+		<img alt="" src="../images/keycloak_client_settings1.jpg"></p>
+		<p>&nbsp;</p>
+		<p>How to see token details</p>
+		<p><img alt="" src="../images/keycloak_evaluate.jpg"></p>
+		<p>Alternate: use online tool - <a href="https://jwt.io/">https://jwt.io/</a> JWT.IO allows you to 
+		decode, verify and generate JWT </p>
+		<p>&nbsp;</p>
+		<p>Token details example (with given role "DIONEXT"):</p>
+		<pre><code class="language-json">		
+{
+  "exp": 1714506095,
+  "iat": 1714505795,
+  "jti": "b146e092-451e-44f8-85c3-bfa8d529af6d",
+  "iss": "http://192.168.1.149:8282/realms/dionext",
+  "aud": "account",
+  "sub": "49053b7f-dfb0-4eb5-a0ed-631aeadf7917",
+  "typ": "Bearer",
+  "azp": "dionext-client",
+  "session_state": "f677d4cc-8a08-4c89-8649-03f64acd0e4d",
+  "acr": "1",
+  "realm_access": {
+    "roles": [
+      "offline_access",
+      "DIONEXT",
+      "default-roles-dionext",
+      "uma_authorization"
+    ]
+  },
+  "resource_access": {
+    "account": {
+      "roles": [
+        "manage-account",
+        "manage-account-links",
+        "view-profile"
+      ]
+    }
+  },
+  "scope": "openid microprofile-jwt email profile dionext-scope",
+  "sid": "f677d4cc-8a08-4c89-8649-03f64acd0e4d",
+  "upn": "dionext-user",
+  "email_verified": false,
+  "name": "dionext-user",
+  "groups": [
+    "offline_access",
+    "DIONEXT",
+    "default-roles-dionext",
+    "uma_authorization"
+  ],
+  "preferred_username": "dionext-user",
+  "given_name": "Dio",
+  "family_name": "Genus"
+}		
+		
+</code></pre>
+		<p>Curl examples:</p>
+		<pre>curl --location 'http://192.168.1.149:8282/realms/dionext/protocol/openid-connect/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=dionext-client' \
+--data-urlencode 'client_secret=OXqaLvZV4aDfbmn4w6Kvk6tIXRBTCDPZ' \
+--data-urlencode 'grant_type=client_credentials'</pre>
+		<p>&nbsp;</p>
+		<pre>curl --location 'http://192.168.1.149:8282/realms/dionext/protocol/openid-connect/token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'client_id=dionext-client' \
+--data-urlencode 'client_secret=OXqaLvZV4aDfbmn4w6Kvk6tIXRBTCDPZ' \
+--data-urlencode 'grant_type=password' \
+--data-urlencode 'username=dionext-user' \
+--data-urlencode 'password=dionext-user'</pre>
+		<p>&nbsp;</p>
+		<p>&nbsp;</p>
+		<p>Spring with both oauth2Login and Basic authentication - is it 
+		possible? There is some solution:&nbsp; 		<a href="https://stackoverflow.com/questions/76989057/spring-with-both-oauth2login-and-basic-authentication">
+		https://stackoverflow.com/questions/76989057/spring-with-both-oauth2login-and-basic-authentication</a>&nbsp;&nbsp; 
+		But we were unable to apply it successfully.</p>
+		<h4>Keycloak references</h4>
+		<p><a href="https://keycloak.ch/keycloak-tutorials/">https://keycloak.ch/keycloak-tutorials/</a> 
+		Free Keycloak tutorials </p>
+		<p><a href="https://www.baeldung.com/spring-boot-keycloak">
+		https://www.baeldung.com/spring-boot-keycloak</a> A Quick Guide to Using 
+		Keycloak With Spring Boot </p>
+		<p><a href="https://habr.com/ru/articles/716232/">https://habr.com/ru/articles/716232/</a> 
+		Example (ru)</p>
+		<p>&nbsp;</p>
+		<h2>References </h2>
+		<p>
+		<a href="https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html">
+		https://docs.spring.io/spring-security/reference/servlet/authorization/authorize-http-requests.html</a> </p>
+		<p>
+		<a href="https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html">
+		https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/form.html</a> </p> 
+        <p>
+		<a href="https://www.codejava.net/frameworks/spring-boot/multiple-login-pages-examples">
+		https://www.codejava.net/frameworks/spring-boot/multiple-login-pages-examples</a> 
+		Spring Security Multiple Login Pages Examples </p>
+        </body>
+</html>
