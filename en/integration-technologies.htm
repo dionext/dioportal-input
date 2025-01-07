@@ -207,7 +207,22 @@
         <p> <a href="https://devblogs.microsoft.com/odata/up-running-w-odata-in-asp-net-6/" rel="nofollow" target="_blank" class="external"> https://devblogs.microsoft.com/odata/up-running-w-odata-in-asp-net-6/</a> <br /> </p> 
         <h3><a name="id8"></a>gRPC</h3> 
         <p><a href="https://grpc.io/" rel="nofollow" target="_blank" class="external">https://grpc.io</a> </p> 
-        <p>gRPC is an open-source API architecture and system governed by the Cloud Native Computing Foundation. It’s based on the Remote Procedure Call (RPC) model. While the RPC model is broad, gRPC is a specific implementation. <a href="https://aws.amazon.com/compare/the-difference-between-grpc-and-rest" rel="nofollow" target="_blank" class="external"> https://aws.amazon.com/compare/the-difference-between-grpc-and-rest</a> </p> 
+        <p>gRPC is an open-source API architecture and system governed by the Cloud Native Computing Foundation. It’s based on the Remote Procedure Call (RPC) model. While the RPC model is broad, gRPC is a specific implementation. <a href="https://aws.amazon.com/compare/the-difference-between-grpc-and-rest" rel="nofollow" target="_blank" class="external"> https://aws.amazon.com/compare/the-difference-between-grpc-and-rest</a> </p>
+		<p>gRPC (recursive acronym for gRPC Remote Procedure Calls) is a 
+		cross-platform high-performance remote procedure call (RPC) framework. 
+		gRPC was initially created by Google, but is open source and is used in 
+		many organizations. Use cases range from microservices to the "last 
+		mile" of computing (mobile, web, and Internet of Things). gRPC uses 
+		HTTP/2 for transport, Protocol Buffers as the interface description 
+		language, and provides features such as authentication, bidirectional 
+		streaming and flow control, blocking or nonblocking bindings, and 
+		cancellation and timeouts. It generates cross-platform client and server 
+		bindings for many languages. Most common usage scenarios include 
+		connecting services in a microservices style architecture, or connecting 
+		mobile device clients to backend services
+		<a href="https://en.wikipedia.org/wiki/GRPC">https://en.wikipedia.org/wiki/GRPC</a>
+		</p>
+		<p>&nbsp;</p> 
         <h3><a name="id9"></a>SOAP</h3> 
         <p><a href="https://en.wikipedia.org/wiki/SOAP" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/SOAP</a> </p> 
         <p>SOAP (formerly an acronym for Simple Object Access Protocol) is a messaging protocol specification for exchanging structured information in the implementation of web services in computer networks. It uses XML Information Set for its message format, and relies on application layer protocols, most often Hypertext Transfer Protocol (HTTP), although some legacy systems communicate over Simple Mail Transfer Protocol (SMTP), for message negotiation and transmission. </p> 
@@ -439,90 +454,58 @@
                               <td> <p>author[(degree or award) and publication]</p> </td> 
                               <td> <p><font>All &lt;author&gt; elements that contain at least one &lt;degree&gt; or &lt;award&gt; child element and at least one &lt;publication&gt; child element.</font></p> </td> 
                               </tr> 
-                              <tr> 
-                              <td> <p>author[degree and not(publication)]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements that contain at least one &lt;degree&gt; child element and no &lt;publication&gt; child elements.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[not(degree or award) and publication]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements that contain at least one child &lt;publication&gt; element and do not contain any &lt;degree&gt; elements or &lt;award&gt; elements.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[last-name = "Bob"]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements that contain at least one child &lt;last-name&gt; element with the value Bob.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[last-name[1] = "Bob"]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements whose first child &lt;last-name&gt; is Bob.<span>&#xa0;</span>Note that this is equivalent to the expression on the next line.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[last-name [position()=1]= "Bob"]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements whose first child &lt;last-name&gt; is Bob.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>degree[@from != "Harvard"]</p> </td> 
-                              <td> <p><font>All &lt;degree&gt; elements whose from attribute is not equal to "Harvard".</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[. = "Matthew Bob"]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements with the value Matthew Bob.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[last-name = "Bob" and ../price &amp;gt; 50]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements that have a child &lt;last-name&gt; element with a value of Bob and a sibling &lt;price&gt; element with a value greater than 50.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>book[position() &amp;lt;= 3]</p> </td> 
-                              <td> <p><font>The first three books (1, 2, 3).</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[not(last-name = "Bob")]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements that do not contain child &lt;last-name&gt; elements with the value Bob.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[first-name = "Bob"]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements that contain at least one child &lt;first-name&gt; element with the value Bob.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[* = "Bob"]</p> </td> 
-                              <td> <p><font>all author elements that have any child element with the value Bob.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>author[last-name = "Bob" and first-name = "Joe"]</p> </td> 
-                              <td> <p><font>All &lt;author&gt; elements that have a &lt;last-name&gt; child value of Bob and a &lt;first-name&gt; child element of value Joe.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>price[@intl = "Canada"]</p> </td> 
-                              <td> <p><font>All &lt;price&gt; elements in the context node that have an intl attribute with the value "Canada".</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>degree[position() &amp;lt; 3]</p> </td> 
-                              <td> <p><font>The first two &lt;degree&gt; elements that are children of the context node.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>p/text()[2]</p> </td> 
-                              <td> <p><font>The second text node in each context node's &lt;p&gt; element.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>ancestor::book[1]</p> </td> 
-                              <td> <p><font>The closest &lt;book&gt; element that is the ancestor of the context node.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>ancestor::book[author][1]</p> </td> 
-                              <td> <p><font>The closest &lt;book&gt; element that is an ancestor of the context node and contains a child &lt;author&gt; element.</font></p> </td> 
-                              </tr> 
-                              <tr> 
-                              <td> <p>ancestor::author[parent::book][1]</p> </td> 
-                              <td> <p><font>The closest &lt;author&gt; element that is an ancestor in the current context and a child of the &lt;book&gt; element.</font></p> </td> 
-                              </tr> 
-                              </table> </p> 
-                            </div> 
-                        </div> 
-                    </div> 
-                </div> 
-            </div> 
-        </div> 
-        <h2><a name="id12"></a>References</h2> 
+                              </table>
+								</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<h2>Api definition</h2>
+		<h3>Overview </h3>
+		<p><a href="https://en.wikipedia.org/wiki/Data_modeling">https://en.wikipedia.org/wiki/Data_modeling</a>
+		</p>
+		<p>References:</p>
+		<p><a href="https://twirl.github.io/The-API-Book/API.en.html">https://twirl.github.io/The-API-Book/API.en.html</a> 
+		Sergey Konstantinov. The API. </p>
+		<h3>OpenAPI </h3>
+		<p><a href="https://www.openapis.org/">https://www.openapis.org/</a> The 
+		OpenAPI Specifications provide a formal standard for describing HTTP 
+		APIs. This allows people to understand how an API works, how a sequence 
+		of APIs work together, generate client code, create tests, apply design 
+		standards, and much, much more. </p>
+		<p>The OpenAPI Specification, previously known as the Swagger 
+		Specification, is a specification for a machine-readable interface 
+		definition language for describing, producing, consuming and visualizing 
+		web services. Originally developed to support the Swagger framework, it 
+		became a separate project in 2015, overseen by the OpenAPI Initiative, 
+		an open-source collaboration project of the Linux Foundation
+		<a href="https://en.wikipedia.org/wiki/OpenAPI_Specification">https://en.wikipedia.org/wiki/OpenAPI_Specification</a>
+		</p>
+		<p>
+		<span class="yt-core-attributed-string yt-core-attributed-string--white-space-pre-wrap" dir="auto">
+		<span class="yt-core-attributed-string--link-inherit-color" dir="auto" style="color: rgb(19, 19, 19);">
+		OpenAPI Tools </span>
+		<span class="yt-core-attributed-string--link-inherit-color" dir="auto" style="color: rgb(6, 95, 212);">
+		<a class="yt-core-attributed-string__link yt-core-attributed-string__link--call-to-action-color" force-new-state="true" href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqa0VEZmFCUWlNbXRGYUdVX1hkY19jM1FST1o2d3xBQ3Jtc0tuVHRoRlUzdlpLM1J3dmpNT0Z1enRNZGI4dUpJeXlIdkwyWW8weGNLNHl4WWFkRWNZTVVlc25SU0U3cjBtdnJGdVVQSEJjY0RXV2g2TmtZQW1YaVBWbm1XSE1RZEFydHduVkhPRGV3WUNCTUdmWk1zTQ&amp;q=https%3A%2F%2Fopenapi.tools%2F&amp;v=W9sYAdiLnt8" rel="nofollow" tabindex="0" target="_blank">
+		https://openapi.tools/</a></span></span></p>
+		<h3>TypeSpec</h3>
+		<p><a href="https://typespec.io/">https://typespec.io/</a> API-First for 
+		developers. With TypeSpec, remove the handwritten files that slow you 
+		down, and generate standards-compliant API schemas in seconds. </p>
+		<p>A New Language Developed by Microsoft. TypeSpec is a language that 
+		generates other API description languages, client and service code, 
+		documentation, and other resources. TypeSpec is used to describe cloud 
+		service APIs. Here, GraphQL, REST, gRPC, and other common APIS forms can 
+		be described by TypeSpec’s extremely flexible core language primitives.
+		<a href="https://radixweb.com/blog/typespec-language-for-api-development">
+		https://radixweb.com/blog/typespec-language-for-api-development</a> </p>
+		<h3>JSON:API </h3>
+		<p>&nbsp;A specification for building APIs in JSON </p>
+		<p><a href="https://jsonapi.org/">https://jsonapi.org/</a> </p>
+		<h2>&nbsp;</h2>
+		<h2><a name="id12"></a>References</h2> 
         <p> <a href="https://en.wikipedia.org/wiki/Category:Enterprise_application_integration" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/Category:Enterprise_application_integration</a>&#xa0; Category:Enterprise application integration</p> 
         <p><a href="https://en.wikipedia.org/wiki/Category:Message-oriented_middleware" rel="nofollow" target="_blank" class="external"> https://en.wikipedia.org/wiki/Category:Message-oriented_middleware</a> Category:Message-oriented middleware</p> 
         <p><a href="https://aosabook.org/en/v2/distsys.html" rel="nofollow" target="_blank" class="external">https://aosabook.org/en/v2/distsys.html</a> Kate Matsudaira The Architecture of Open Source Applications (Volume 2) Scalable Web Architecture and Distributed Systems</p> 

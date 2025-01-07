@@ -32,7 +32,8 @@
             <li>Setting sync - to store settings on Gitlab</li> 
             <li>vscode-solution-explorer </li> 
             <li>NuGet Package Manager </li> 
-            <li>Visual Studio IntelliCode </li> 
+            <li>Visual Studio IntelliCode </li>
+			<li>Spring Boot Extension Pack VMware</li> 
         </ul> 
         <p>&#xa0;</p> 
         <h2><a name="id3"></a>Dev Containers</h2> 
@@ -45,7 +46,74 @@
             <li>The selected folder is mounted in the container, that is, any changes to files inside the container occur with files located on the file system of your operating system. </li> 
             <li>All processes associated working with code, formatting and debugging are run inside the container.</li> 
         </ul> 
-        <p>&#xa0;</p> 
+        <h2>Spring boot application</h2>
+		<p>Spring Boot Extension Pack VMware
+		<a href="https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack">
+		https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack</a> </p>
+		<p>
+		<a href="https://kastroud.hashnode.dev/adding-env-variables-to-your-spring-boot-project-on-vs-code">
+		https://kastroud.hashnode.dev/adding-env-variables-to-your-spring-boot-project-on-vs-code</a>
+		</p>
+		<p>To setup VS Code for using Java and Spring Boot have a look at these 
+		links</p>
+		<ol>
+			<li>
+			<p>
+			<a href="https://code.visualstudio.com/docs/languages/java" rel="nofollow ugc" target="_blank">
+			https://code.visualstudio.com/docs/languages/java</a></p>
+			</li>
+			<li>
+			<p>
+			<a href="https://code.visualstudio.com/docs/java/java-tutorial" rel="nofollow ugc" target="_blank">
+			https://code.visualstudio.com/docs/java/java-tutorial</a></p>
+			</li>
+			<li>
+			<p>
+			<a href="https://code.visualstudio.com/docs/java/java-spring-boot" rel="nofollow ugc" target="_blank">
+			https://code.visualstudio.com/docs/java/java-spring-boot</a></p>
+			</li>
+		</ol>
+		<p>To add Environment variables to your java project in vs code there 
+		are two methods</p>
+		<p>Visual Studio Code is an ideal lightweight development environment 
+		for Spring Boot application developers and there are several useful VS 
+		Code extensions including:</p>
+		<ul>
+			<li>
+			<a href="https://marketplace.visualstudio.com/items?itemName=vmware.vscode-spring-boot" target="_blank">
+			Spring Boot Tools</a></li>
+			<li>
+			<a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-spring-initializr" target="_blank">
+			Spring Initializr</a></li>
+			<li>
+			<a href="https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-spring-boot-dashboard" target="_blank">
+			Spring Boot Dashboard</a></li>
+		</ul>
+		<p>We recommend installing the<span>&nbsp;</span><a href="https://marketplace.visualstudio.com/items?itemName=vmware.vscode-boot-dev-pack" target="_blank">Spring 
+		Boot Extension Pack</a><span>&nbsp;</span>that includes all of the extensions 
+		above.</p>
+		<p>&nbsp;</p>
+		<h3>Env</h3>
+		<p id="heading-add-env-files-in-launchjson">Add env files in launch.json</p>
+		<p>opening run -&gt; add configuration. This will create a launch.json file 
+		in the .vscode folder </p>
+		<div>
+			<div>
+				<span>&nbsp;"envFile": "${workspaceFolder}/.env"</span></div>
+		</div>
+		<h3>Create application</h3>
+		<p>open the Command Palette (Ctrl+Shift+P) and type Spring Initializr to 
+		start generating a Maven or Gradle project and then follow the wizard. </p>
+		<h3>Run the application</h3>
+		<p>&nbsp;In addition to using F5 to run your application, there's the 
+		Spring Boot Dashboard extension, which lets you view and manage all 
+		available Spring Boot projects in your workspace as well as quickly 
+		start, stop, or debug your project. </p>
+		<p>Alt </p>
+		<p>./mvnw spring-boot:run </p>
+		<p>mvn spring-boot:run </p>
+		<p>java -jar target/app-0.0.1-SNAPSHOT.jar </p>
+		<p>java -jar target/idea-ms-app-1.0.0.jar 'com.dionext.MainMsAppApplication' </p> 
         <h2><a name="id4"></a>References</h2> 
         <p><a href="https://www.youtube.com/watch?v=y-JNavSnjkQ" rel="nofollow" target="_blank" class="external">https://www.youtube.com/watch?v=y-JNavSnjkQ</a>&#xa0; Development Tools: Coding Spring Boot Applications in Visual Studio Code Microsoft Developer </p> 
         <p> <a href="https://learn.microsoft.com/en-us/training/modules/use-docker-container-dev-env-vs-code/" rel="nofollow" target="_blank" class="external"> https://learn.microsoft.com/en-us/training/modules/use-docker-container-dev-env-vs-code/</a> </p> 

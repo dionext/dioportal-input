@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+</head>
+
+<body>
+
+<h1>Database migration</h1>
+<h2>Overview </h2>
+<p>See
+<a href="https://documentation.red-gate.com/fd/why-database-migrations-184127574.html">
+https://documentation.red-gate.com/fd/why-database-migrations-184127574.html</a>
+</p>
+<h2><span>Hibernate auto-ddl</span></h2>
+<p>spring.jpa.hibernate.ddl-auto=update </p>
+<p>You can set spring.jpa.hibernate.ddl-auto explicitly and the standard 
+Hibernate property values are none, validate, update, create, and create-drop. 
+Spring Boot chooses a default value for you based on whether it thinks your 
+database is embedded. It defaults to create-drop if no schema manager has been 
+detected or none in all other cases. An embedded database is detected by looking 
+at the Connection type. hsqldb, h2, and derby are embedded, and others are not. 
+Be careful when switching from in-memory to a ‘real’ database that you do not 
+make assumptions about the existence of the tables and data in the new platform. 
+You either have to set ddl-auto explicitly or use one of the other mechanisms to 
+initialize the database.</p>
+<p>In addition, a file named import.sql in the root of the classpath is executed 
+on startup if Hibernate creates the schema from scratch (that is, if the ddl-auto 
+property is set to create or create-drop). This can be useful for demos and for 
+testing if you are careful but is probably not something you want to be on the 
+classpath in production. It is a Hibernate feature (and has nothing to do with 
+Spring).&nbsp; </p>
+<p>Spring Boot can automatically create the schema (DDL scripts) of your<span>&nbsp;</span>DataSource<span>&nbsp;</span>and 
+initialize it (DML scripts). It loads SQL from the standard root classpath 
+locations:<span>&nbsp;</span>schema.sql<span>&nbsp;</span>and<span>&nbsp;</span>data.sql, 
+respectively. In addition, Spring Boot processes the<span>&nbsp;</span>schema-${platform}.sql<span>&nbsp;</span>and<span>&nbsp;</span>data-${platform}.sql<span>&nbsp;</span>files 
+(if present), where<span>&nbsp;</span>platform<span>&nbsp;</span>is the value of<span>&nbsp;</span>spring.datasource.platform. 
+This allows you to switch to database-specific scripts if necessary. For 
+example, you might choose to set it to the vendor name of the database (hsqldb,<span>&nbsp;</span>h2,<span>&nbsp;</span>oracle,<span>&nbsp;</span>mysql,<span>&nbsp;</span>postgresql, 
+and so on).</p>
+<p>Spring Boot automatically creates the schema of an embedded<span>&nbsp;</span>DataSource. 
+This behavior can be customized by using the<span>&nbsp;</span>spring.datasource.initialization-mode<span>&nbsp;</span>property 
+(and it can also be<span>&nbsp;</span>always<span>&nbsp;</span>or<span>&nbsp;</span>never).</p>
+<p>By default, Spring Boot enables the fail-fast feature of the Spring JDBC 
+initializer, so, if the scripts cause exceptions, the application fails to 
+start. You can tune that behavior by setting<span>&nbsp;</span>spring.datasource.continue-on-error.</p>
+<div>
+	<table border="0" summary="Note">
+		<tr>
+			<td rowspan="2" valign="top" width="25">&nbsp;</td>
+		</tr>
+		<tr>
+			<td align="left" valign="top">
+			<p>In a JPA-based app, you can choose to let Hibernate create the 
+			schema or use<span>&nbsp;</span>schema.sql, but you cannot do both. Make 
+			sure to disable<span>&nbsp;</span>spring.jpa.hibernate.ddl-auto<span>&nbsp;</span>if 
+			you use<span>&nbsp;</span>schema.sql.</p>
+			</td>
+		</tr>
+	</table>
+</div>
+<p>&nbsp;</p>
+<h2>Flyway</h2>
+<p><a href="https://www.baeldung.com/database-migrations-with-flyway">https://www.baeldung.com/database-migrations-with-flyway</a> 
+Database Migrations with Flyway </p>
+<div style="background-color:#ffffff;color:#080808">
+	<div style="background-color:#ffffff;color:#080808">
+		<pre style="font-family:'JetBrains Mono',monospace;font-size:10,5pt;"><span style="color:#8c8c8c;font-style:italic;">&lt;!-- for database migration --&gt;
+</span>&lt;<span style="color:#0033b3;">dependency</span>&gt;
+    &lt;<span style="color:#0033b3;">groupId</span>&gt;org.flywaydb&lt;/<span style="color:#0033b3;">groupId</span>&gt;
+    &lt;<span style="color:#0033b3;">artifactId</span>&gt;flyway-maven-plugin&lt;/<span style="color:#0033b3;">artifactId</span>&gt;
+    &lt;<span style="color:#0033b3;">version</span>&gt;9.22.3&lt;/<span style="color:#0033b3;">version</span>&gt;<span style="color:#8c8c8c;font-style:italic;">&lt;!-- do not use higher version until bug will be resolved  --&gt;
+</span>&lt;/<span style="color:#0033b3;">dependency</span>&gt;
+<span style="color:#8c8c8c;font-style:italic;">&lt;!-- for database migration mysql --&gt;
+</span>&lt;<span style="color:#0033b3;">dependency</span>&gt;
+    &lt;<span style="color:#0033b3;">groupId</span>&gt;org.flywaydb&lt;/<span style="color:#0033b3;">groupId</span>&gt;
+    &lt;<span style="color:#0033b3;">artifactId</span>&gt;flyway-mysql&lt;/<span style="color:#0033b3;">artifactId</span>&gt;
+    &lt;<span style="color:#0033b3;">version</span>&gt;9.22.3&lt;/<span style="color:#0033b3;">version</span>&gt;<span style="color:#8c8c8c;font-style:italic;">&lt;!-- do not use higher version until bug will be resolved  --&gt;
+</span>&lt;/<span style="color:#0033b3;">dependency</span>&gt;
+</pre>
+	</div>
+	<pre style="font-family:'JetBrains Mono',monospace;font-size:10,5pt;">&nbsp;</pre>
+</div>
+<p>Property:</p>
+<p>spring:</p>
+<p>&nbsp; flyway: </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; baseline-on-migrate: true </p>
+<p>&nbsp;</p>
+<p>The migrations are scripts in the form<span>&nbsp;</span>V&lt;VERSION&gt;__&lt;NAME&gt;.sql<span>&nbsp;</span>(with<span>&nbsp;</span>&lt;VERSION&gt;<span>&nbsp;</span>an 
+underscore-separated version, such as ‘1’ or ‘2_1’). By default, they live in a 
+folder called<span>&nbsp;</span>classpath:db/migration, but you can modify that 
+location by setting<span>&nbsp;</span>spring.flyway.locations. You can also add a 
+special<span>&nbsp;</span>{vendor}<span>&nbsp;</span>placeholder to use vendor-specific 
+scripts. Assume the following:</p>
+<pre><span xmlns:d="http://docbook.org/ns/docbook">spring.flyway.locations</span>=db/migration/{vendor}</pre>
+<p>Rather than using<span>&nbsp;</span>db/migration, the preceding configuration sets 
+the folder to use according to the type of the database (such as<span>&nbsp;</span>db/migration/mysql<span>&nbsp;</span>for 
+MySQL).</p>
+<p>&nbsp;</p>
+<p>Tips: How to use Flyway when working with feature branches
+<a href="https://stackoverflow.com/questions/9497035/how-to-use-flyway-when-working-with-feature-branches">
+https://stackoverflow.com/questions/9497035/how-to-use-flyway-when-working-with-feature-branches</a> 
+(For example, using a pattern such as yyyyMMddHHmmssSSS the migrations above now 
+look like… 1.0.0.20130704144750766__add_customers_table.sql&nbsp; ) </p>
+<p>Tips: Spring Boot: Hibernate and Flyway boot order
+<a href="https://stackoverflow.com/questions/37097876/spring-boot-hibernate-and-flyway-boot-order">
+https://stackoverflow.com/questions/37097876/spring-boot-hibernate-and-flyway-boot-order</a>
+</p>
+<p>Java migration example </p>
+<pre style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; font-family: monospace, monospace; font-size: 0.875rem; quotes: &quot;«&quot; &quot;»&quot;; background: var(--desert-storm); border: 1px solid var(--seashell); border-radius: 4px; box-sizing: border-box; line-height: 1.6; margin: 32px 0px 0px; overflow: auto; padding: 17px 20px; tab-size: 4; white-space: pre; word-break: normal; word-spacing: 0px; overflow-wrap: normal; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"><code class="java" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; font-family: Menlo, Monaco, Consolas, &quot;Courier New&quot;, Courier, monospace; font-size: inherit; quotes: &quot;«&quot; &quot;»&quot;; background: none; color: var(--mine-shaft); border-radius: 4px; overflow-wrap: normal; padding: 0px; white-space: pre; tab-size: 4; word-break: normal; word-spacing: normal;"><span class="ͼ4" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: rgb(137, 89, 168); font-weight: bold;">package</span> <span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">db</span>.<span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">migration</span>;  
+
+<span class="ͼ4" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: rgb(137, 89, 168); font-weight: bold;">public</span> <span class="ͼ4" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: rgb(137, 89, 168); font-weight: bold;">class</span> <span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">V2__JavaMigration</span> <span class="ͼ4" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: rgb(137, 89, 168); font-weight: bold;">extends</span> <span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">BaseJavaMigration</span> { 
+  <span class="ͼ9" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--sorbus, #F77D05);">@Override</span> 
+  <span class="ͼ4" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: rgb(137, 89, 168); font-weight: bold;">public</span> <span class="ͼ4" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: rgb(137, 89, 168); font-weight: bold;">void</span> <span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">migrate</span>(<span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">Context</span> <span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">context</span>) <span class="ͼ4" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: rgb(137, 89, 168); font-weight: bold;">throws</span> <span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">Exception</span> {
+    <span class="ͼ4" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: rgb(137, 89, 168); font-weight: bold;">try</span> (<span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">PreparedStatement</span> <span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">statement</span> <span class="ͼ6" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--mine-shaft, #333);">=</span> <span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">Context</span> 
+         .<span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">getConnection</span>() 
+         .<span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">prepareStatement</span>(<span class="ͼ7" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--christi, #7AA600);">"INSERT INTO test_user (name) VALUES ('Obelix')"</span>)) { 
+      <span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">statement</span>.<span class="ͼ5" style="transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out, text-decoration 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-text-decoration 0.2s ease-in-out; quotes: &quot;«&quot; &quot;»&quot;; color: var(--cm-name, #39728E);">execute</span>(); 
+    } 
+  } 
+} </code></pre>
+<p>&nbsp;</p>
+<h2><span>Liquibase</span></h2>
+<h2><span>Liquibase vs </span>Flyway - comparation</h2>
+<p><a href="https://habr.com/ru/companies/spring_aio/articles/827976/">https://habr.com/ru/companies/spring_aio/articles/827976/</a> 
+(ru lang) </p>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

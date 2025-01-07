@@ -4,11 +4,6 @@
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 <title>Untitled 1</title>
-<style type="text/css">
-.auto-style1 {
-	margin-left: 40px;
-}
-</style>
 </head>
 
 <body>
@@ -17,15 +12,24 @@
 <p>(Ubuntu 22.04)</p>
 <h2>Initial</h2>
 <p>apt-get update</p>
-<p class="auto-style1">apt-get install ntfs-3g<span lang="ru">&nbsp; (для 
+<p>apt-get install ntfs-3g<span lang="ru">&nbsp; (для 
 корректного монтирования </span>NTFS)</p>
 <p>apt-get install<span lang="ru"> </span>mc</p>
-<p class="auto-style1"><span class="crayon-v">apt</span><span class="crayon-o">-</span><span class="crayon-e">get 
+<p><span class="crayon-v">apt</span><span class="crayon-o">-</span><span class="crayon-e">get 
 install </span><span class="crayon-v">screen</span></p>
 <p>&nbsp;</p>
 <p>timedatectl </p>
 <p>timedatectl set-timezone Europe/Moscow </p>
 <p>&nbsp;</p>
+<h2>SSH</h2>
+        <h3>SSH <a name="id3"></a>Key generation</h3> 
+        <p>Key generation&#xa0; </p>
+&nbsp;<pre><code class="language-bash">ssh-keygen</code></pre>Key placement 
+        <br /> ~/.ssh 
+        <br /> ~/.ssh/id_rsa.pub - public key. It is copied to the server where you need to gain access. 
+        <br /> ~/.ssh/id_rsa - private key. It cannot be shown to anyone.
+<p>&nbsp;</p>
+<h3>SSH Settings</h3>
 		<p><a href="https://ubuntushell.com/disable-ssh-welcome-message">
 		https://ubuntushell.com/disable-ssh-welcome-message</a> How to Disable 
 		SSH Welcome Message on Ubuntu</p>
@@ -59,7 +63,7 @@ sudo apt-get update</p>
 <p>sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 docker-compose-plugin</p>
 <p>&nbsp;</p>
-<p>&nbsp;docker --version<br />
+<p>docker --version<br />
 Docker version 26.0.0, build 2ae903e<br />
 </p>
 <h2>docker compose </h2>
@@ -76,6 +80,21 @@ docker-compose version 1.29.2, build unknown<br />
 <p>docker run -d -p 8000:8000 -p 9443:9443 --name portainer --restart=always -v 
 /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data 
 portainer/portainer-ce:latest</p>
+		<h4>Update to latest version</h4>
+<p><a href="https://docs.portainer.io/start/upgrade/docker">https://docs.portainer.io/start/upgrade/docker</a>
+</p>
+<pre>docker stop portainer </pre>
+		<pre>docker rm portainer </pre>
+		<pre>docker pull portainer/portainer-ce:latest </pre>
+		<pre>docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest</pre> 
+        <a name="id4"></a><br />
+Creating folders (for example)&nbsp;
+<p>
+<span style="color: rgb(36, 36, 36); font-family: source-code-pro, Menlo, Monaco, &quot;Courier New&quot;, Courier, monospace; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.352px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: pre-wrap; background-color: rgb(242, 242, 242); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+sudo mkdir -p /mnt/devops/monitoring </span></p>
+&nbsp;<p>&nbsp;</p>
+
+<p>&nbsp;</p>
 
 </body>
 

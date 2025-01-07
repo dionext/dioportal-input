@@ -74,24 +74,64 @@ docker container run -d --name web -p 8080:8080 jboss/wildfly
         <p>Restart container</p> 
         <pre><code class="language-bash">docker restart nginx</code></pre> 
         <p>Remove container</p> 
-        <pre><code class="language-bash">docker container rm nginx</code></pre> 
-        <h2><a name="id4"></a>Clearing</h2> 
+        <pre><code class="language-bash">docker container rm nginx</code></pre>
+		<h3>Update to latest version</h3>
+		<p>(Example: portainer application)</p>
+		<pre>docker stop portainer </pre>
+		<pre>docker rm portainer </pre>
+		<pre>docker pull portainer/portainer-ce:latest </pre>
+		<pre>docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest</pre> 
+        <h2>Configuration </h2>
+		<p>
+		<a href="https://docs.docker.com/config/containers/logging/json-file/">
+		https://docs.docker.com/config/containers/logging/json-file/</a>&nbsp; 
+		Logging - reduce file size
+		<a href="https://stackoverflow.com/questions/31829587/docker-container-logs-taking-all-my-disk-space">
+		https://stackoverflow.com/questions/31829587/docker-container-logs-taking-all-my-disk-space</a>
+		</p>
+		<p>&nbsp;</p>
+		<pre><code class="language-yaml">
+    logging:
+      driver: "json-file" #default 
+      options:
+        max-size: "10m" #Defaults to -1 (unlimited)
+        max-file: "1" #Defaults to 1</code></pre>
+		<p>&nbsp;</p>
+		<p>To set the default log limits for all newly created containers, you 
+		can add the following in /etc/docker/daemon.json:</p>
+		<p>nano /etc/docker/daemon.json</p>
+		<p>(
+		<a href="https://stackoverflow.com/questions/43689271/wheres-dockers-daemon-json-missing">
+		https://stackoverflow.com/questions/43689271/wheres-dockers-daemon-json-missing</a>&nbsp; 
+		)</p>
+		<pre><code>{</code>
+<code>  "log-driver": "json-file",
+  "log-opts": {"max-size": "10m", "max-file": "3"}
+}
+</code></pre>
+		<p>Then reload docker with<span>&nbsp;</span></p>
+		<p>sudo service docker restart </p>
+		<h2><a name="id4"></a>Clearing</h2> 
         <p><span>Directory /var/lib/docker/containers/container_ID – when using the standard logging driver, this is where event logs are saved in JSON format. Too detailed logs, as well as logs that no one reads or otherwise processes, often cause disk overflow. </span></p> 
         <p><span>The directory /var/lib/docker/overlay2 – contains the read-write layers of containers (overlay2 is the preferred driver in most Linux distributions) . If a container stores data in its file system, then this is the directory where it will be placed. </span></p> 
-        <p><span>Using the following command, you can remove all installed containers in one fell swoop and clear your disk of all read-write files created by them<br /></span></p> 
-        <pre><code class="language-bash">docker container prune</code></pre> 
+        <p><span>Using the following command, you can remove all installed containers in one fell swoop and clear your disk of all read-write files created by them<br /></span>
+		<code class="language-bash">docker container prune</code></p>
+		<p>This will remove all volumes not used by at least one container
+		<a href="https://docs.docker.com/reference/cli/docker/volume/prune/">
+		https://docs.docker.com/reference/cli/docker/volume/prune/</a> </p>
+		<p>docker volume prune --all</p>
         <p><span lang="ru">Full clearing </span></p> 
         <pre><code class="language-bash">docker system prune</code></pre> 
         <p> <a href="https://stackoverflow.com/questions/46672001/is-it-safe-to-clean-docker-overlay2" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/46672001/is-it-safe-to-clean-docker-overlay2</a> </p> 
         <p><span>Docker uses /var/lib/docker to store images, containers, and local named volumes. Removing this may result in data loss and possible engine stoppage. The overlay2 subdirectory specifically contains different filesystem levels for images and containers.<br>To clean up unused containers and images, see docker system prune. There are also options for deleting volumes and even tagged images, but these are not enabled by default due to the possibility of data loss:</br></span></p> 
         <pre><code class="language-bash">
-docker system prune -a &amp;&amp; docker volume prune </code></pre> 
-        <p><span lang="ru">Log size restriction in </span><font>&#xa0;docker-compose.yml:</font></p> 
-        <pre><code class="language-bash">my_container:
-  logging:
-    options:
-      max-size: 10m
-</code></pre> 
+docker system prune -a &amp;&amp; docker volume prune </code></pre>
+		<pre>&nbsp;</pre>
+		<p>Below is the command to clear all the log files stored on the host 
+		machine:</p>
+		<pre>$ <span>truncate</span> -s 0 /var/lib/docker/containers/*/*-json.log </pre>
+		<pre>&nbsp;</pre>
+		<pre>&nbsp;</pre> 
         <h2><a name="id26"></a>Dockerfile for spring boot application</h2> 
         <p><a href="https://www.baeldung.com/java-dockerize-app" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/java-dockerize-app</a> </p> 
         <pre><code>FROM bellsoft/liberica-openjdk-alpine-musl:21.0.2

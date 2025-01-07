@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+</head>
+
+<body>
+
+<h1>Apache Kafka</h1>
+<h2>Overview</h2>
+<p>Apache Kafka is a distributed event store and stream-processing platform. It is an open-source system developed by the Apache Software Foundation written in Java and Scala. The project aims to provide a unified, high-throughput, low-latency platform for handling real-time data feeds. Kafka can connect to external systems (for data import/export) via Kafka Connect, and provides the Kafka Streams libraries for stream processing applications. Kafka uses a binary TCP-based protocol that is optimized for efficiency and relies on a "message set" abstraction that naturally groups messages together to reduce the overhead of the network roundtrip. This "leads to larger network packets, larger sequential disk operations, contiguous memory blocks [...] which allows Kafka to turn a bursty stream of random message writes into linear writes." <a href="https://en.wikipedia.org/wiki/Apache_Kafka" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Apache_Kafka</a> </p>
+<h2>Installation</h2>
+<p>&nbsp;</p>
+<h2>Sending Messages </h2>
+<p>
+<a href="https://docs.spring.io/spring-kafka/reference/kafka/sending-messages.html">
+https://docs.spring.io/spring-kafka/reference/kafka/sending-messages.html</a> </p>
+<h2>Receiving messages</h2>
+<p>&nbsp;</p>
+<h2>Working with headers </h2>
+<p>Kafka headers represent key-value pairs attached to Kafka messages, offering 
+a means to include supplementary metadata alongside the primary message content. </p>
+<p>Send example
+<a href="https://stackoverflow.com/questions/67218510/how-to-set-message-headers-using-kafkatemplate">
+https://stackoverflow.com/questions/67218510/how-to-set-message-headers-using-kafkatemplate</a> </p>
+<p>Using custom Kafka headers for advanced message processing
+<a href="https://www.tinybird.co/blog-posts/using-custom-kafka-headers">https://www.tinybird.co/blog-posts/using-custom-kafka-headers</a> </p>
+<p>View Kafka Headers in Java
+<a href="https://www.baeldung.com/java-kafka-view-headers">https://www.baeldung.com/java-kafka-view-headers</a> </p>
+<h2>Telemetry</h2>
+<p>Kafka Tracing with Spring Boot and Open Telemetry
+<a href="https://piotrminkowski.com/2023/11/15/kafka-tracing-with-spring-boot-and-open-telemetry/">
+https://piotrminkowski.com/2023/11/15/kafka-tracing-with-spring-boot-and-open-telemetry/</a> </p>
+<p><a href="http://192.168.1.149:16686/search">http://192.168.1.149:16686/search</a> 
+Jaeger UI </p>
+<h2>References </h2>
+<p><a href="https://itnext.io/kafka-cluster-without-zookeeper-ca40d5f22304">
+https://itnext.io/kafka-cluster-without-zookeeper-ca40d5f22304</a> Kafka cluster 
+without Zookeeper </p> 
+        
+</body>
+
+</html>

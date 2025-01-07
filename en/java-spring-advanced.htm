@@ -40,6 +40,52 @@
         <h2><a name="id0"></a>Monitoring</h2> 
         <p>@Timed Annotation Using Metrics and AspectJ <a href="https://www.baeldung.com/timed-metrics-aspectj" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/timed-metrics-aspectj</a> </p> 
         <p> <a href="https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/production-ready-metrics.html#production-ready-metrics-export-prometheus" rel="nofollow" target="_blank" class="external"> https://docs.spring.io/spring-boot/docs/2.1.9.RELEASE/reference/html/production-ready-metrics.html#production-ready-metrics-export-prometheus</a> </p>
-		<p> &nbsp;</p>
+		<h2> Docker compose support </h2>
+		<p> 
+		<a href="https://docs.spring.io/spring-boot/how-to/docker-compose.html">
+		https://docs.spring.io/spring-boot/how-to/docker-compose.html</a> </p>
+		<p> 
+		<a href="https://spring.io/blog/2023/06/21/docker-compose-support-in-spring-boot-3-1">
+		https://spring.io/blog/2023/06/21/docker-compose-support-in-spring-boot-3-1</a></p>
+		<p> 
+		<a href="https://www.baeldung.com/docker-compose-support-spring-boot">
+		https://www.baeldung.com/docker-compose-support-spring-boot</a> </p>
+		<p>With Spring Boot 3.1, this gets a lot easier for you. You can 
+		continue to use random host ports but you don't have to specify 
+		configuration properties and you don't have to duplicate usernames, 
+		passwords, and so on in multiple places. You also don't have to remember 
+		to run<span>&nbsp;</span>docker compose up<span>&nbsp;</span>before starting the 
+		application.</p>
+		<p>Spring Boot 3.1 will detect that there's a Docker Compose file 
+		present, and will run<span>&nbsp;</span>docker compose up<span>&nbsp;</span>for 
+		you before connecting to the services. If the services are already 
+		running, it will detect that, too, and will use them. It will also run<span>&nbsp;</span>docker 
+		compose stop<span>&nbsp;</span>when the application shuts down - gone are the 
+		days of lingering Docker containers eating your precious memory.</p>
+		<p>The images started by Docker Compose are automatically detected and 
+		used to create<span>&nbsp;</span>ConnectionDetails<span>&nbsp;</span>beans 
+		pointing to the services. That means you don't have to put properties in 
+		your configuration, you don't have to remember how to construct 
+		PostgreSQL JDBC URLs, and so on.</p>
+		<p>With Spring Boot 3.1, all you need to do is to provide the<span>&nbsp;</span>compose.yaml<span>&nbsp;</span>file 
+		and let Spring Boot figure out the rest. It just works!</p>
+		<p>
+		<a href="https://docs.spring.io/spring-ai/reference/api/docker-compose.html">
+		https://docs.spring.io/spring-ai/reference/api/docker-compose.html</a> 
+		Docker compose support fo Spring AI </p>
+		<h2> Bootify</h2>
+		<p> <a href="https://bootify.io/">https://bootify.io/</a> With Bootify 
+		you can create your custom database model with REST API and frontend 
+		online, explore the generated code and download your runnable Spring 
+		Boot application. </p>
+		<p> <a href="https://www.baeldung.com/spring-boot-prototyping-bootify">
+		https://www.baeldung.com/spring-boot-prototyping-bootify</a> Rapid 
+		Spring Boot Prototyping with Bootify </p>
+		<h2> Some incompatible cases </h2>
+		<p> 
+		<a href="https://youtrack.jetbrains.com/issue/IDEA-332869/Incompatible-Lombok-version-leads-to-error-NoSuchFieldError-com.sun.tools.javac.tree.JCTree-qualid-during-project-compilation">
+		https://youtrack.jetbrains.com/issue/IDEA-332869/Incompatible-Lombok-version-leads-to-error-NoSuchFieldError-com.sun.tools.javac.tree.JCTree-qualid-during-project-compilation</a> </p>
+		<p> Upgrade Lombok to the compatible version. JDK21 - Lombok 1.18.30 
+		JDK22 - Lombok 1.18.32 </p>
 		</body>
 </html>
