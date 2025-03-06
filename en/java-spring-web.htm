@@ -78,8 +78,15 @@
 &lt;/div&gt;</pre> <p>Staring with Thymeleaf 3.0 the html friendly tag would be:</p> <pre>&lt;div class=<span>"mailbox-read-message"</span> data-th-utext=<span>"*{body}"</span>&gt;</pre> <pre>&lt;h1 th:text="${greeting}"&gt;Hello!&lt;/h1&gt; </pre> <p>In addition to substituting values into attributes, it is possible to substitute values directly into the text using two pairs of square brackets: [[...]]. The only condition is that in one of the parent elements you need to specify the th:inline attribute, which can take text, javascript and none as a value. For example:</p> <pre><code>
 &lt;body th:inline="text"&gt;
 	&lt;h1&gt;Hello [[${user.name}]]!&lt;/h1&gt;
-&lt;/body&gt; 
-</code></pre> <h2><a name="id29"></a>JTE Template Engine</h2>
+&lt;/body&gt; </code></pre>
+		<h3><code>References </code></h3>
+		<h3><code><a href="https://www.youtube.com/watch?v=tVQ8w0Rk_II">https://www.youtube.com/watch?v=tVQ8w0Rk_II</a> 
+		34. Thymeleaf. Spring WEB и Spring Boot 3 (Java Enterprise - полный 
+		курс) JavaGuru </code></h3>
+		<h3><code><a href="https://www.youtube.com/watch?v=eqzgTo-YMaU">https://www.youtube.com/watch?v=eqzgTo-YMaU</a> 
+		35. Filtering, Pagination, Validation. Spring Boot 3 (Java Enterprise - 
+		полный курс) <br></code></h3>
+		<h2><a name="id29"></a>JTE Template Engine</h2>
 		<p><a href="https://jte.gg/">https://jte.gg/</a> </p>
 		<p>jte (Java Template Engine) is a secure and lightweight template 
 		engine for Java and Kotlin. jte is designed to introduce as few new 

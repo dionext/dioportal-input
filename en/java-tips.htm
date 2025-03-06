@@ -19,7 +19,147 @@
                 <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;STR Template Processor</a></li> 
             </ul>
         </div> 
-        <h2><a name="id1"></a>Java text block</h2> 
+        <h2>Short blocks of code</h2>
+		<h3>Anonymous Classes </h3>
+		<p>
+		<a href="https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html">
+		https://docs.oracle.com/javase/tutorial/java/javaOO/anonymousclasses.html</a>
+		</p>
+		<p>The anonymous class expression consists of the following:</p>
+		<ul>
+			<li>
+			<p>The<span>&nbsp;</span>new<span>&nbsp;</span>operator</p>
+			</li>
+			<li>
+			<p>The name of an interface to implement or a class to extend. In 
+			this example, the anonymous class is implementing the interface<span>&nbsp;</span>HelloWorld.</p>
+			</li>
+			<li>
+			<p>Parentheses that contain the arguments to a constructor, just 
+			like a normal class instance creation expression.<span>&nbsp;</span>Note: 
+			When you implement an interface, there is no constructor, so you use 
+			an empty pair of parentheses, as in this example.</p>
+			</li>
+			<li>
+			<p>A body, which is a class declaration body. More specifically, in 
+			the body, method declarations are allowed but statements are not.</p>
+			</li>
+		</ul>
+		<p>&nbsp;</p>
+		<p>Example:</p>
+		<pre>public class HelloWorldAnonymousClasses {
+  
+    interface HelloWorld {
+        public void greet();
+        public void greetSomeone(String someone);
+    }
+  
+    public void sayHello() {
+        
+        HelloWorld frenchGreeting = new HelloWorld() {
+            String name = "tout le monde";
+            public void greet() {
+                greetSomeone("tout le monde");
+            }
+            public void greetSomeone(String someone) {
+                name = someone;
+                System.out.println("Salut " + name);
+            }
+        };
+        
+}</pre>
+		<p>Example with override class form lib: </p>
+		<pre>        btn.setOnAction(new EventHandler&lt;ActionEvent&gt;() {
+ 
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Hello World!");
+            }
+        });</pre>
+		<p>&nbsp;</p>
+		<h3>Lambda </h3>
+		<p>Anonymous class seems a bit excessive and cumbersome. Lambda 
+		expressions let you express instances of single-method classes more 
+		compactly. </p>
+		<p><a href="https://www.w3schools.com/java/java_lambda.asp">
+		https://www.w3schools.com/java/java_lambda.asp</a> </p>
+		<p>A lambda expression is a short block of code which takes in 
+		parameters and returns a value. Lambda expressions are similar to 
+		methods, but they do not need a name and they can be implemented right 
+		in the body of a method. </p>
+		<p>(parameter1, parameter2) -&gt; expression</p>
+		<p>&nbsp;(parameter1, parameter2) -&gt; { code block } </p>
+		<p>Example: </p>
+		<pre tabindex="0"><span>ArrayList&lt;Integer&gt;</span> numbers <span>=</span> <span>new</span> <span>ArrayList&lt;Integer&gt;();</span>
+numbers<span>.forEach(</span> <span>(</span>n<span>)</span> <span>-&gt;</span> <span>{</span> <span>System.</span>out<span>.println(</span>n<span>);</span> <span>}</span> <span>);</span></pre>
+		<pre tabindex="0"><span>ArrayList&lt;Integer&gt;</span><code> numbers <span>=</span> <span>new</span> <span>ArrayList&lt;Integer&gt;();</span>
+<span>Consumer&lt;Integer&gt;</span> method <span>=</span> <span>(</span>n<span>)</span> <span>-&gt;</span> <span>{</span> <span>System.</span>out<span>.println(</span>n<span>);</span> <span>};</span>
+numbers<span>.forEach(</span> method <span>);</span></code></pre>
+		<span style="color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">
+		To use a lambda expression in a method, the method should have a 
+		parameter with a single-method interface as its type. Calling the 
+		interface's method will run the lambda expression</span><pre tabindex="0"><span>interface</span> <span>StringFunction</span> <span>{</span>
+  <span>String</span> <span>run(String</span> str<span>);</span>
+}
+
+<span>public</span> <span>class</span> <span>Main</span> <span>{</span>
+  <span>public</span> <span>static</span> <span>void</span> <span>main(String[]</span> args<span>)</span> <span>{</span>
+    <span>StringFunction</span> exclaim <span>=</span> <span>(</span>s<span>)</span> <span>-&gt;</span> s <span>+</span> <span>"!";</span>
+    <span>StringFunction</span> ask <span>=</span> <span>(</span>s<span>)</span> <span>-&gt;</span> s <span>+</span> <span>"?";</span>
+    <span>printFormatted("Hello",</span> exclaim<span>);</span>
+    <span>printFormatted("Hello",</span> ask<span>);</span>
+  }
+  <span>public</span> <span>static</span> <span>void</span> <span>printFormatted(String</span> str<span>,</span> <span>StringFunction</span> format<span>)</span> <span>{</span>
+    <span>String</span> result <span>=</span> format<span>.run(</span>str<span>);</span>
+    <span>System.</span>out<span>.println(</span>result<span>);</span>
+  }
+}</pre>
+		<h3 id="9857" data-selectable-paragraph="" data-testid="storyTitle">
+		Consumer, Predicate, Supplier, and Function</h3>
+		<p>
+		<a href="https://medium.com/javarevisited/java-8s-consumer-predicate-supplier-and-function-bbc609a29ff9">
+		https://medium.com/javarevisited/java-8s-consumer-predicate-supplier-and-function-bbc609a29ff9</a>
+		</p>
+		<p>A Consumer is an in-build functional interface in the 
+		java.util.function package. we use consumers when we need to consume 
+		objects, the consumer takes an input value and returns nothing. </p>
+		<pre class="nk nl nm nn no qg qf qh qi ay qj bk"><span id="b3d7" class="qk pb gu qf b ja ql qm l jn qn" data-selectable-paragraph=""><em class="qb"></em>Consumer&lt;String&gt; printConsumer= city-&gt; System.<strong class="qf gv"><em class="qb">out</em></strong>.println(city);</span></pre>
+		A Predicate is a functional interface, which accepts an argument and 
+		returns a boolean. Usually, it is used to apply in a filter for a 
+		collection of objects.
+		<pre class="nk nl nm nn no qg qf qh qi ay qj bk"><span id="bef5" class="qk pb gu qf b ja ql qm l jn qn" data-selectable-paragraph="">Predicate&lt;String&gt; filterCity = city -&gt; city.equals(<strong class="qf gv">"Mumbai"</strong>);
+   cities.stream().filter(filterCity).forEach(System.<strong class="qf gv"><em class="qb">out</em></strong>::println);</span></pre>
+		A<em class="qb"> </em><strong class="nx gv">Function</strong><em class="qb">
+		</em>is another in-build functional interface in
+		<code class="cx qc qd qe qf b">java.util.function </code>package, the 
+		function takes an input value and returns a value.
+		<pre class="nk nl nm nn no qg qf qh qi ay qj bk"><span id="8320" class="qk pb gu qf b ja ql qm l jn qn" data-selectable-paragraph="">Function&lt;String, Character&gt; getFirstCharFunction = city -&gt; {
+        <strong class="qf gv">return </strong>city.charAt(0);
+    };
+cities.stream().map(getFirstCharFunction)
+                   .forEach(System.<strong class="qf gv"><em class="qb">out</em></strong>::println);</span></pre>
+		<pre class="nk nl nm nn no qg qf qh qi ay qj bk">&nbsp;</pre>
+		The Supplier Interface is a part of the java.util.function package. It 
+		represents a function that does not take in any argument but produces a 
+		value of type T. It contains only one method.
+		<pre class="nk nl nm nn no qg qf qh qi ay qj bk"><span id="b652" class="qk pb gu qf b ja ql qm l jn qn" data-selectable-paragraph="">
+Supplier&lt;String[]&gt; citySupplier = () -&gt; {
+        <strong class="qf gv">return new </strong>String[]{<strong class="qf gv">"Mumbai"</strong>, <strong class="qf gv">"Delhi"</strong>, <strong class="qf gv">"Goa"</strong>, <strong class="qf gv">"Pune"</strong>};
+    };
+Arrays.<em class="qb">asList</em>(citySupplier.get()).forEach(System.<strong class="qf gv"><em class="qb">out</em></strong>::println);</span></pre>
+		<p>The BinaryOperator Interface&lt;T&gt; is a part of the java.util.function 
+		package which has been introduced since Java 8, to implement functional 
+		programming in Java. It represents a binary operator which takes two 
+		operands and operates on them to produce a result. However, what 
+		distinguishes it from a normal BiFunciton is that both of its arguments 
+		and its return type are same. </p>
+		<pre class="nl nm nn no np nw nx ny bp nz bb bk"><span id="3e90" class="oa ob gu nx b bg oc od l oe of" data-selectable-paragraph="">        BinaryOperator&lt;Integer&gt; divide = (a, b) -&gt; {
+            <span class="hljs-type">double</span> <span class="hljs-variable">divisionResult</span> <span class="hljs-operator">=</span> (<span class="hljs-type">double</span>) a / b;
+            <span class="hljs-comment">// Round the result, and return it as an integer</span>
+            <span class="hljs-keyword">return</span> (<span class="hljs-type">int</span>) Math.round(divisionResult);
+        };</span></pre>
+		<p>&nbsp;</p>
+		<h2><a name="id1"></a>Java text block</h2> 
         <p><a href="https://docs.oracle.com/en/java/javase/21/text-blocks/index.html" rel="nofollow" target="_blank" class="external"> https://docs.oracle.com/en/java/javase/21/text-blocks/index.html</a> </p> 
         <h3><a name="id2"></a>Using a text block</h3> 
         <p>(java 15+)</p> 

@@ -1,0 +1,712 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+<style type="text/css">
+A
+{
+    FONT-WEIGHT: normal;
+    TEXT-DECORATION: none
+}
+</style>
+</head>
+
+<body>
+
+<h1>AI. Prompts </h1>
+<h3>Overview</h3>
+<p>A prompt contains any of the following elements:</p>
+<ul>
+	<li>Instruction<span>&nbsp;</span>- a specific task or instruction you want the 
+	model to perform</li>
+	<li>Context<span>&nbsp;</span>- external information or additional context that 
+	can steer the model to better responses</li>
+	<li>Input Data<span>&nbsp;</span>- the input or question that we are interested 
+	to find a response for</li>
+	<li>Output Indicator<span>&nbsp;</span>- the type or format of the output.</li>
+</ul>
+<h3><a name="id80"></a>General tips</h3>
+<ul>
+	<li>Start Simple. You can start with simple prompts and keep adding more 
+	elements and context as you aim for better results. </li>
+	<li>The Instruction.<a href="https://www.promptingguide.ai/introduction/tips#the-instruction"></a> 
+	You can design effective prompts for various simple tasks by using commands 
+	to instruct the model what you want to achieve, such as "Write", "Classify", 
+	"Summarize", "Translate", "Order", etc. </li>
+	<li>Specificity.<a href="https://www.promptingguide.ai/introduction/tips#specificity"></a> 
+	It's more important to have a good format and descriptive prompt. In fact, 
+	providing examples in the prompt is very effective to get desired output in 
+	specific formats. Be specific, descriptive and as detailed as possible about 
+	the desired context, outcome, length, format, style, etc </li>
+	<li>Avoid Impreciseness. &nbsp;It's often better to be specific and direct. The 
+	analogy here is very similar to effective communication -- the more direct, 
+	the more effective the message gets across. </li>
+	<li>To do or not to do?<a href="https://www.promptingguide.ai/introduction/tips#to-do-or-not-to-do"></a> 
+	Another common tip when designing prompts is to avoid saying what not to do 
+	but say what to do instead.&nbsp; </li>
+	<li>Put instructions at the beginning of the prompt and use ### or """ to 
+	separate the instruction and context </li>
+	<li>Code Generation Specific - Use “leading words” to nudge the model toward 
+	a particular pattern </li>
+</ul>
+<h3><a name="id81"></a>LLM Settings</h3>
+<p><strong>Temperature</strong><span>&nbsp;</span>- In short, the lower the<span>&nbsp;</span>temperature, 
+the more deterministic the results in the sense that the highest probable next 
+token is always picked. Increasing temperature could lead to more randomness, 
+which encourages more diverse or creative outputs. You are essentially 
+increasing the weights of the other possible tokens. In terms of application, 
+you might want to use a lower temperature value for tasks like fact-based QA to 
+encourage more factual and concise responses. For poem generation or other 
+creative tasks, it might be beneficial to increase the temperature value.</p>
+<p><strong>Top P</strong><span>&nbsp;</span>- A sampling technique with temperature, 
+called nucleus sampling, where you can control how deterministic the model is. 
+If you are looking for exact and factual answers keep this low. If you are 
+looking for more diverse responses, increase to a higher value. If you use Top P 
+it means that only the tokens comprising the<span>&nbsp;</span>top_p<span>&nbsp;</span>probability 
+mass are considered for responses, so a low<span>&nbsp;</span>top_p<span>&nbsp;</span>value 
+selects the most confident responses. This means that a high<span>&nbsp;</span>top_p<span>&nbsp;</span>value 
+will enable the model to look at more possible words, including less likely 
+ones, leading to more diverse outputs.</p>
+<p>The general recommendation is to alter temperature or Top P but not both.</p>
+<p><strong>Max Length</strong><span>&nbsp;</span>- You can manage the number of 
+tokens the model generates by adjusting the<span>&nbsp;</span>max length. Specifying 
+a max length helps you prevent long or irrelevant responses and control costs.</p>
+<p><strong>Stop Sequences</strong><span>&nbsp;</span>- A<span>&nbsp;</span>stop sequence<span>&nbsp;</span>is 
+a string that stops the model from generating tokens. Specifying stop sequences 
+is another way to control the length and structure of the model's response. For 
+example, you can tell the model to generate lists that have no more than 10 
+items by adding "11" as a stop sequence.</p>
+<p><strong>Frequency Penalty</strong><span>&nbsp;</span>- The<span>&nbsp;</span>frequency 
+penalty<span>&nbsp;</span>applies a penalty on the next token proportional to how 
+many times that token already appeared in the response and prompt. The higher 
+the frequency penalty, the less likely a word will appear again. This setting 
+reduces the repetition of words in the model's response by giving tokens that 
+appear more a higher penalty.</p>
+<p><strong>Presence Penalty</strong><span>&nbsp;</span>- The<span>&nbsp;</span>presence 
+penalty<span>&nbsp;</span>also applies a penalty on repeated tokens but, unlike the 
+frequency penalty, the penalty is the same for all repeated tokens. A token that 
+appears twice and a token that appears 10 times are penalized the same. This 
+setting prevents the model from repeating phrases too often in its response. If 
+you want the model to generate diverse or creative text, you might want to use a 
+higher presence penalty. Or, if you need the model to stay focused, try using a 
+lower presence penalty.</p>
+<h3><a name="id82"></a>Prompting Techniques</h3>
+<h4><a name="id83"></a>Zero-shot Prompting</h4>
+<p><span>Zero-shot prompting means that the prompt used to interact with the 
+model won't contain examples or demonstrations.&nbsp;</span></p>
+<h4><a name="id84"></a>&nbsp;Few-shot Prompting</h4>
+<p>This is awesome! // Negative<br />
+This is bad! // Positive<br />
+Wow that movie was rad! // Positive<br />
+What a horrible show! //</p>
+<p><em>Negative</em></p>
+<h4><a name="id85"></a>Chain-of-Thought Prompting</h4>
+<p><span>chain-of-thought (CoT) prompting enables complex reasoning capabilities 
+through intermediate reasoning steps.&nbsp;<a href="https://www.promptingguide.ai/techniques/cot">https://www.promptingguide.ai/techniques/cot</a>
+</span></p>
+<h4><a name="id86"></a>Meta Prompting</h4>
+<p><span>meta prompting and few-shot prompting are different in that it meta 
+prompting focuses on a more structure-oriented approach as opposed to a 
+content-driven approach which few-shot prompting emphasizes.</span></p>
+<p>
+<img alt="&quot;Meta Prompting&quot;" src="https://www.promptingguide.ai/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fmeta-prompting.66b824be.png&amp;w=1920&amp;q=75" /></p>
+<p>&nbsp;</p>
+<h4><a name="id87"></a>Self-Consistency</h4>
+<p><span>Perhaps one of the more advanced techniques out there for prompt 
+engineering is self-consistency. Proposed by&nbsp;</span><a href="https://arxiv.org/abs/2203.11171" rel="noreferrer" target="_blank">Wang 
+et al. (2022)<span>(opens in a new tab)</span></a><span>, self-consistency aims 
+"to replace the naive greedy decoding used in chain-of-thought prompting". The 
+idea is to sample multiple, diverse reasoning paths through few-shot CoT, and 
+use the generations to select the most consistent answer. This helps to boost 
+the performance of CoT prompting on tasks involving arithmetic and commonsense 
+reasoning.</span></p>
+<h4><a name="id88"></a>Generate Knowledge Prompting</h4>
+<p><a href="https://www.promptingguide.ai/techniques/knowledge">https://www.promptingguide.ai/techniques/knowledge</a></p>
+<h4><a name="id89"></a>Prompt Chaining</h4>
+<p><a href="https://www.promptingguide.ai/techniques/prompt_chaining">https://www.promptingguide.ai/techniques/prompt_chaining</a>
+</p>
+<h4><a name="id90"></a>Tree of Thoughts</h4>
+<p><a href="https://www.promptingguide.ai/techniques/tot">https://www.promptingguide.ai/techniques/tot</a>
+</p>
+<h4><a name="id91"></a>&nbsp;Retrieval Augmented Generation</h4>
+<p><a href="https://www.promptingguide.ai/techniques/rag">https://www.promptingguide.ai/techniques/rag</a>
+</p>
+<h4><a name="id92"></a>&nbsp;Automatic Reasoning and Tool-use</h4>
+<p><a href="https://www.promptingguide.ai/techniques/art">https://www.promptingguide.ai/techniques/art</a>
+</p>
+<h4><a name="id93"></a>&nbsp;Automatic Prompt Engineer</h4>
+<p><a href="https://www.promptingguide.ai/techniques/ape">https://www.promptingguide.ai/techniques/ape</a>
+</p>
+<h4><a name="id94"></a>Active-Prompt</h4>
+<p><a href="https://www.promptingguide.ai/techniques/activeprompt">https://www.promptingguide.ai/techniques/activeprompt</a>
+</p>
+<h4><a name="id95"></a>Directional Stimulus Prompting</h4>
+<p><a href="https://www.promptingguide.ai/techniques/dsp">https://www.promptingguide.ai/techniques/dsp</a>
+</p>
+<h4><a name="id96"></a>Program-Aided Language Models</h4>
+<p><a href="https://www.promptingguide.ai/techniques/pal">https://www.promptingguide.ai/techniques/pal</a>
+</p>
+<h4><a name="id97"></a>&nbsp;ReAct</h4>
+<p><a href="https://www.promptingguide.ai/ru/techniques/react">https://www.promptingguide.ai/ru/techniques/react</a>
+</p>
+<h4><a name="id98"></a>Reflexion</h4>
+<p><a href="https://www.promptingguide.ai/techniques/reflexion">https://www.promptingguide.ai/techniques/reflexion</a>
+</p>
+<h4><a name="id99"></a>Multimodal CoT</h4>
+<p><a href="https://www.promptingguide.ai/techniques/multimodalcot">https://www.promptingguide.ai/techniques/multimodalcot</a>
+</p>
+<h4><a name="id100"></a>&nbsp;Graph Prompting</h4>
+<p><a href="https://www.promptingguide.ai/techniques/graph">https://www.promptingguide.ai/techniques/graph</a>
+</p>
+<h3><a name="id101"></a>Tips and Examples</h3>
+<h4><a name="id102"></a>Input format</h4>
+<div class="example-chat-container">
+	<div class="example-chat-messages">
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">SYSTEM</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				You will be provided with a pair of articles (delimited with XML 
+				tags) about the same topic. First summarize the arguments of 
+				each article. Then indicate which of them makes a better 
+				argument and explain why. </div>
+		</div>
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">USER</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				&lt;article&gt; insert first article here &lt;/article&gt; &lt;article&gt; insert 
+				second article here &lt;/article&gt;</div>
+		</div>
+	</div>
+</div>
+<div class="example-chat-container">
+	<div class="example-chat-messages">
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text"><br />
+					SYSTEM</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				You will be provided with a thesis abstract and a suggested 
+				title for it. The thesis title should give the reader a good 
+				idea of the topic of the thesis but should also be eye-catching. 
+				If the title does not meet these criteria, suggest 5 
+				alternatives. </div>
+		</div>
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">USER</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				Abstract: insert abstract here Title: insert title here</div>
+		</div>
+	</div>
+</div>
+<h4 id="tactic-instruct-the-model-to-answer-with-citations-from-a-reference-text" class="anchor-heading" data-name="tactic-instruct-the-model-to-answer-with-citations-from-a-reference-text">
+<a name="id110"></a>&nbsp;Instruct the model to answer with citations from a 
+reference text</h4>
+<div class="example-chat-container">
+	<div class="example-chat-messages">
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">SYSTEM</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				Use the provided articles delimited by triple quotes to answer 
+				questions. If the answer cannot be found in the articles, write 
+				"I could not find an answer." </div>
+		</div>
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">USER</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				&lt;insert articles, each delimited by triple quotes&gt; Question: 
+				&lt;insert question here&gt;</div>
+		</div>
+	</div>
+</div>
+<p class="anchor-heading" data-name="tactic-instruct-the-model-to-answer-with-citations-from-a-reference-text">
+&nbsp;</p>
+<div class="example-chat-container">
+	<div class="example-chat-messages">
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">SYSTEM</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				You will be provided with a document delimited by triple quotes 
+				and a question. Your task is to answer the question using only 
+				the provided document and to cite the passage(s) of the document 
+				used to answer the question. If the document does not contain 
+				the information needed to answer this question then simply 
+				write: "Insufficient information." If an answer to the question 
+				is provided, it must be annotated with a citation. Use the 
+				following format for to cite relevant passages ({"citation": 
+				…}). </div>
+		</div>
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">USER</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				"""&lt;insert document here&gt;""" Question: &lt;insert question here&gt;</div>
+		</div>
+	</div>
+</div>
+<h4><a name="id120"></a>&nbsp;</h4>
+<h4><a name="id121"></a>Output format</h4>
+<pre>Extract the important entities mentioned in the text below. First extract all company names, then extract all people names, then extract specific topics which fit the content and finally extract general overarching themes
+
+Desired format:
+Company names: &lt;comma_separated_list_of_company_names&gt;
+People names: -||-
+Specific topics: -||-
+General themes: -||-
+
+Text: {text}</pre>
+<pre>&nbsp;</pre>
+<div class="example-chat-container">
+	<div class="example-chat-messages">
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">USER</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				Summarize the text delimited by triple quotes in about 50 words. 
+				"""insert text here"""</div>
+		</div>
+	</div>
+</div>
+<div class="example-chat-container">
+	<div class="example-chat-messages">
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">USER</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				Summarize the text delimited by triple quotes in 2 paragraphs. 
+				"""insert text here"""</div>
+		</div>
+	</div>
+</div>
+<div class="example-chat-container">
+	<div class="example-chat-messages">
+		<div class="example-chat-message">
+			<div class="example-chat-role">
+				<div class="example-chat-subheading subheading">
+					<span class="example-chat-role-text">USER</span></div>
+			</div>
+			<div class="example-chat-message-text">
+				Summarize the text delimited by triple quotes in 3 bullet 
+				points. """insert text here"""</div>
+		</div>
+	</div>
+</div>
+<pre>&nbsp;</pre>
+<pre>&nbsp;</pre>
+<h4><a name="id122"></a>Step by step</h4>
+<div>
+	<div>
+		<div>
+			<div>
+				<div>
+					<span>SYSTEM</span></div>
+			</div>
+			<div>
+				Use the following step-by-step instructions to respond to user 
+				inputs. <br />
+				Step 1 - The user will provide you with text in triple quotes. 
+				Summarize this text in one sentence with a prefix that says 
+				"Summary: ". <br />
+				Step 2 - Translate the summary from Step 1 into Spanish, with a 
+				prefix that says "Translation: ". </div>
+		</div>
+		<div>
+			<div>
+				<div>
+					<span><br />
+					USER</span></div>
+			</div>
+			<div>
+				"""insert text here"""</div>
+		</div>
+	</div>
+</div>
+<p>&nbsp;</p>
+<h4><a name="id103"></a>Text Summarization</h4>
+<p><span>Antibiotics are a type of medication used to treat bacterial 
+infections. They work by either killing the bacteria or preventing them from 
+reproducing, allowing the body’s immune system to fight off the infection. 
+Antibiotics are usually taken orally in the form of pills, capsules, or liquid 
+solutions, or sometimes administered intravenously. They are not effective 
+against viral infections, and using them inappropriately can lead to antibiotic 
+resistance.</span></p>
+<p><span>Explain the above in one sentence:</span></p>
+<p>&nbsp;</p>
+<pre>Summarize the text below as a bullet point list of the most important points.
+
+Text: """
+{text input here}
+"""</pre>
+<div class="example-chat-role">
+	<div class="example-chat-subheading subheading">
+		<span class="example-chat-role-text"></span></div>
+</div>
+<div class="example-chat-message-text">
+	Summarize the text delimited by triple quotes with a haiku. """insert text 
+	here"""</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>Summarize the meeting notes in a single paragraph. Then write a markdown list 
+of the speakers and each of their key points. Finally, list the next steps or 
+action items suggested by the speakers, if any.</p>
+<h4><a name="id104"></a>Data extraction</h4>
+<p>Your task is to extract model names from machine learning paper abstracts. 
+Your response is an array of the model names in the format [\"model_name\"]. If 
+you don't find model names in the abstract or you are not sure, return [\"NA\"]<br />
+<br />
+Abstract: Large Language Models (LLMs), such as ChatGPT and GPT-4, have 
+revolutionized natural language processing research and demonstrated potential 
+in Artificial General Intelligence (AGI). However, the expensive training and 
+deployment of LLMs present challenges to transparent and open academic research. 
+To address these issues, this project open-sources the Chinese LLaMA and Alpaca…</p>
+<p>&nbsp;</p>
+<p>Инструкция: Найди все упомянутые даты и время в тексте. Выпиши их, каждый с 
+новой строки. Пример результата: 22-01-2019 17:00 Завтра 18:15 Вчера Если в 
+тексте нет дат, верни 0.</p>
+<p>&nbsp;</p>
+<h4><a name="id105"></a>Question Answering</h4>
+<p>Answer the question based on the context below. Keep the answer short and 
+concise. Respond "Unsure about answer" if not sure about the answer.</p>
+<p>Context: Teplizumab traces its roots to a New Jersey drug company called 
+Ortho Pharmaceutical. There, scientists generated an early version of the 
+antibody, dubbed OKT3. Originally sourced from mice, the molecule was able to 
+bind to the surface of T cells and limit their cell-killing potential. In 1986, 
+it was approved to help prevent organ rejection after kidney transplants, making 
+it the first therapeutic antibody allowed for human use.</p>
+<p>Question: What was OKT3 originally sourced from?</p>
+<p>Answer:<br />
+</p>
+<p><strong><em>Output:</em></strong><br />
+Mice.<br />
+</p>
+<h4><a name="id106"></a>Text improvement</h4>
+<p>
+<span class="HwtZe" jsaction="mouseup:Sxi9L,BR6jm; mousedown:qjlr0e" jsname="jqKxS" lang="en">
+<span class="jCAhz JpY6Fd" jsaction="agoMJf:PFBcW;MZfLnc:P7O7bd;nt4Alf:pvnm0e,pfE8Hb,PFBcW;B01qod:dJXsye;H1e5u:iXtTIf;lYIUJf:hij5Wb" jscontroller="BiTO4b" jsname="txFAF">
+<span class="ryNqvb" jsaction="click:PDNqTc,GFf3ac,qlVvte;contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:PDNqTc,c2aHje" jsname="W297wb">
+Instructions: Correct grammar, spelling and punctuation errors in the text.</span></span>
+<span class="jCAhz" jsaction="agoMJf:PFBcW;MZfLnc:P7O7bd;nt4Alf:pvnm0e,pfE8Hb,PFBcW;B01qod:dJXsye;H1e5u:iXtTIf;lYIUJf:hij5Wb" jscontroller="BiTO4b" jsname="txFAF">
+<span class="ryNqvb" jsaction="click:PDNqTc,GFf3ac,qlVvte;contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:PDNqTc,c2aHje" jsname="W297wb">
+Keep the original word order. </span></span></span></p>
+<p>
+<span class="HwtZe" jsaction="mouseup:Sxi9L,BR6jm; mousedown:qjlr0e" jsname="jqKxS" lang="en">
+<span class="jCAhz" jsaction="agoMJf:PFBcW;MZfLnc:P7O7bd;nt4Alf:pvnm0e,pfE8Hb,PFBcW;B01qod:dJXsye;H1e5u:iXtTIf;lYIUJf:hij5Wb" jscontroller="BiTO4b" jsname="txFAF">
+<span class="ryNqvb" jsaction="click:PDNqTc,GFf3ac,qlVvte;contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:PDNqTc,c2aHje" jsname="W297wb">
+Instructions: You are an experienced copywriter.</span></span>
+<span class="jCAhz ChMk0b" jsaction="agoMJf:PFBcW;MZfLnc:P7O7bd;nt4Alf:pvnm0e,pfE8Hb,PFBcW;B01qod:dJXsye;H1e5u:iXtTIf;lYIUJf:hij5Wb" jscontroller="BiTO4b" jsname="txFAF">
+<span class="ryNqvb" jsaction="click:PDNqTc,GFf3ac,qlVvte;contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:PDNqTc,c2aHje" jsname="W297wb">
+Rewrite the marketing text taking into account the type of text and the chosen 
+tone. </span></span></span></p>
+<p>
+<span class="HwtZe" jsaction="mouseup:Sxi9L,BR6jm; mousedown:qjlr0e" jsname="jqKxS" lang="en">
+<span class="jCAhz ChMk0b" jsaction="agoMJf:PFBcW;MZfLnc:P7O7bd;nt4Alf:pvnm0e,pfE8Hb,PFBcW;B01qod:dJXsye;H1e5u:iXtTIf;lYIUJf:hij5Wb" jscontroller="BiTO4b" jsname="txFAF">
+<span class="ryNqvb" jsaction="click:PDNqTc,GFf3ac,qlVvte;contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:PDNqTc,c2aHje" jsname="W297wb">
+Instructions: Rewrite the text, replacing all numbers with digits.</span></span></span></p>
+<li>
+<h4>Classification</h4>
+<pre>SYSTEM
+You will be provided with customer service queries. Classify each query into a primary category and a secondary category. Provide your output in json format with the keys: primary and secondary.
+
+Primary categories: Billing, Technical Support, Account Management, or General Inquiry.
+
+Billing secondary categories:
+- Unsubscribe or upgrade
+- Add a payment method
+- Explanation for charge
+- Dispute a charge
+
+Technical Support secondary categories:
+- Troubleshooting
+- Device compatibility
+- Software updates
+
+Account Management secondary categories:
+- Password reset
+- Update personal information
+- Close account
+- Account security
+
+General Inquiry secondary categories:
+- Product information
+- Pricing
+- Feedback
+- Speak to a human
+USER
+I need to get my internet working again.</pre>
+<p>&nbsp;</p>
+<h4><a name="id124"></a>Text Classification</h4>
+<p>Classify the text into neutral, negative or positive. <br />
+<br />
+Text: I think the vacation is okay.<br />
+Sentiment: neutral <br />
+<br />
+Text: I think the food was okay. <br />
+Sentiment:</p>
+<p><strong><em>Output:</em></strong></p>
+<div>
+	<pre data-language="text" data-theme="default"><span>neutral</span></pre>
+</div>
+<h4><a name="id107"></a>Generating Data</h4>
+<p>Produce 10 exemplars for sentiment analysis. Examples are categorized as 
+either positive or negative. Produce 2 negative examples and 8 positive 
+examples. Use this format for the examples:<br />
+Q: &lt;sentence&gt;<br />
+A: &lt;sentiment&gt;</p>
+<h4><a name="id108"></a>Conversation</h4>
+<p>The following is a conversation with an AI research assistant. The assistant 
+tone is technical and scientific.<br />
+<br />
+Human: Hello, who are you?<br />
+AI: Greeting! I am an AI research assistant. How can I help you today?<br />
+Human: Can you tell me about the creation of blackholes?<br />
+AI:</p>
+<p><strong><em>Output:</em></strong></p>
+<div>
+	<pre data-language="text" data-theme="default"><span>Sure! Black holes are regions of spacetime where the gravitational force is so strong that nothing, not even light, can escape from it. They are created when a very massive star dies and its core collapses in on itself, forming a singularity of infinite density. The intense gravity of the singularity pulls in all the matter and radiation around it, creating the black hole.</span></pre>
+</div>
+<h4><a name="id109"></a>Identify Hallucination in LLM Responses</h4>
+<p><span>Please read the above medical note and verify that each claim is 
+exactly contained in the patient’s facts. Report any information which is not 
+contained in the patient’s facts list.</span></p>
+<h4><a name="id111"></a>Code Generation</h4>
+<p>/*<br />
+Ask the user for their name and say "Hello"<br />
+*/</p>
+<p><em>Output:</em></p>
+<div>
+	<pre data-language="text" data-theme="default"><span>let name = prompt("What is your name?");console.log(`Hello, ${name}!`);</span></pre>
+	<pre data-language="text" data-theme="default">&nbsp;</pre>
+	<p data-language="text" data-theme="default"><span>In this code example 
+	below, adding “</span>import<span>” hints to the model that it should start 
+	writing in Python. (Similarly “SELECT” is a good hint for the start of a SQL 
+	statement.)</span></p>
+	<pre># Write a simple python function that
+# 1. Ask me for a number in mile
+# 2. It converts miles to kilometers
+ 
+import</pre>
+	<p data-language="text" data-theme="default">&nbsp;</p>
+	<span _ngcontent-ng-c1903658493="" class="router-outlet-wrapper ng-tns-c1903658493-0"><ms-prompt-chunk _ngcontent-ng-c148158968="" _nghost-ng-c2196592713="" class="text-chunk ng-star-inserted" id="6FBC734A-D3DF-4B45-8FA4-0E1514A141B6"><ms-text-chunk _ngcontent-ng-c2196592713="" _nghost-ng-c792949968="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c792949968="" class="cmark-node gmat-body-medium user-chunk ng-star-inserted" _nghost-ng-c2971488233="">
+	<p _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+	<span _ngcontent-ng-c2971488233="" class="ng-star-inserted">Create a web app 
+	called Opossum Search.</span></ms-cmark-node></p>
+	<ol _ngcontent-ng-c2971488233="" class="ng-star-inserted">
+		<ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<li _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<p _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<span _ngcontent-ng-c2971488233="" class="ng-star-inserted">Every time 
+		you make a search query, it should redirect you to a Google search with 
+		the same query, but with the word "opossum" added to it.</span></ms-cmark-node></p>
+		</ms-cmark-node></li>
+		<li _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<p _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<span _ngcontent-ng-c2971488233="" class="ng-star-inserted">It should be 
+		visually similar to Google search.</span></ms-cmark-node></p>
+		</ms-cmark-node></li>
+		<li _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<p _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<span _ngcontent-ng-c2971488233="" class="ng-star-inserted">Instead of 
+		the google logo, it should have a picture of this opossum: </span>
+		<a _ngcontent-ng-c2971488233="" class="ng-star-inserted" href="https://www.google.com/url?sa=E&amp;q=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fthumb%2F2%2F27%2FOpossum_2.jpg%2F292px-Opossum_2.jpg" target="_blank"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<span _ngcontent-ng-c2971488233="" class="ng-star-inserted">
+		https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Opossum_2.jpg/292px-Opossum_2.jpg</span></ms-cmark-node></a></ms-cmark-node></p>
+		</ms-cmark-node></li>
+		<li _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<p _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<span _ngcontent-ng-c2971488233="" class="ng-star-inserted">It should be 
+		a single HTML file, with no separate JS or CSS files.</span></ms-cmark-node></p>
+		</ms-cmark-node></li>
+		<li _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<p _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<span _ngcontent-ng-c2971488233="" class="ng-star-inserted">It should 
+		say Powered by opossum search in the footer.</span></ms-cmark-node></p>
+		</ms-cmark-node></li>
+		<li _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<p _ngcontent-ng-c2971488233="" class="ng-star-inserted"><ms-cmark-node _ngcontent-ng-c2971488233="" _nghost-ng-c2971488233="">
+		<span _ngcontent-ng-c2971488233="" class="ng-star-inserted">Do not use 
+		any unicode characters.</span></ms-cmark-node></p>
+		</ms-cmark-node></li>
+		</ms-cmark-node>
+	</ol>
+	</ms-cmark-node></ms-text-chunk></ms-prompt-chunk></span>
+	<p data-language="text" data-theme="default">&nbsp;</p>
+	<p data-language="text" data-theme="default">&nbsp;</p>
+	<h4><a name="id112"></a>Explain Code</h4>
+	<p data-language="text" data-theme="default">SELECT students.StudentId, 
+	students.StudentName<br />
+	FROM students<br />
+	INNER JOIN departments<br />
+	ON students.DepartmentId = departments.DepartmentId<br />
+	WHERE departments.DepartmentName = 'Computer Science';<br />
+	<br />
+	Explain the above SQL statement.</p>
+</div>
+<h4><a name="id113"></a>SQL generation</h4>
+<h5><a name="id114"></a>SQL query generation</h5>
+<p>"""<br />
+Table departments, columns = [DepartmentId, DepartmentName]<br />
+Table students, columns = [DepartmentId, StudentId, StudentName]<br />
+Create a MySQL query for all students in the Computer Science Department<br />
+"""</p>
+<p><em>Output:</em></p>
+<p>SELECT StudentId, StudentName <br />
+FROM students <br />
+WHERE DepartmentId IN (SELECT DepartmentId FROM departments WHERE DepartmentName 
+= 'Computer Science');</p>
+<h5><a name="id115"></a>Database schema generation</h5>
+<p>Table departments, columns = [DepartmentId, DepartmentName]<br />
+Table students, columns = [DepartmentId, StudentId, StudentName]<br />
+Create a valid database schema with the above tables and columns</p>
+<p><em>Output:</em></p>
+<p>CREATE TABLE departments (<br />
+DepartmentId INT PRIMARY KEY,<br />
+DepartmentName VARCHAR(50)<br />
+);<br />
+<br />
+CREATE TABLE students (<br />
+DepartmentId INT,<br />
+StudentId INT PRIMARY KEY,<br />
+StudentName VARCHAR(50),<br />
+FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)<br />
+);</p>
+<h5><a name="id116"></a>Test data generation</h5>
+<p>CREATE TABLE departments (<br />
+DepartmentId INT PRIMARY KEY,<br />
+DepartmentName VARCHAR(50)<br />
+);<br />
+<br />
+CREATE TABLE students (<br />
+DepartmentId INT,<br />
+StudentId INT PRIMARY KEY,<br />
+StudentName VARCHAR(50),<br />
+FOREIGN KEY (DepartmentId) REFERENCES departments(DepartmentId)<br />
+);<br />
+<br />
+Given the database schema above, generate valid insert statements include 4 rows 
+for each table.</p>
+<p><em>Output:</em></p>
+<p>INSERT INTO departments (DepartmentId, DepartmentName)<br />
+VALUES (1, 'Computer Science'), (2, 'Mathematics'), (3, 'Physics'), (4, 
+'Biology');<br />
+<br />
+INSERT INTO students (DepartmentId, StudentId, StudentName)<br />
+VALUES (1, 101, 'John Doe'), (1, 102, 'Jane Doe'), (2, 201, 'Alice Smith'), (2, 
+202, 'Bob Johnson');</p>
+<h3>Prompt for Blog writing </h3>
+<p><a href="https://www.youtube.com/watch?v=eaivzIPKhqg">https://www.youtube.com/watch?v=eaivzIPKhqg</a>&nbsp; 
+How To Create Blog Using AI | Complete Blogging Tutorial&nbsp; </p>
+<h3>Prompt for media generation </h3>
+<p>Example form <a href="https://www.youtube.com/watch?v=SE4IotjLWzc">https://www.youtube.com/watch?v=SE4IotjLWzc</a> 
+(ru)
+<span class="HwtZe" jsaction="mouseup:Sxi9L,BR6jm; mousedown:qjlr0e" jsname="jqKxS" lang="en">
+<span class="jCAhz ChMk0b" jsaction="agoMJf:PFBcW;MZfLnc:P7O7bd;nt4Alf:pvnm0e,pfE8Hb,PFBcW;B01qod:dJXsye;H1e5u:iXtTIf;lYIUJf:hij5Wb" jscontroller="BiTO4b" jsname="txFAF">
+<span class="ryNqvb" jsaction="click:PDNqTc,GFf3ac,qlVvte;contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:PDNqTc,c2aHje" jsname="W297wb">
+How to make hand-drawn illustrations in a neural network, create and color a 
+comic in a single style!</span></span></span></p>
+<p>A simple sketch illustration of [INSERT CUSTOM SCENE DESCRIPTION HERE]. The 
+lines are slightly uneven and hand-drawn, giving a warm, organic feel. The 
+background is white. The illustration has minimalistic, slightly rough lines and 
+is black and white.<br />
+<br />
+1) Оставь текст вне квадратных скобок [INSERT CUSTOM SCENE DESCRIPTION HERE] 
+неизменным.<br />
+2) Замени текст внутри квадратных скобок [INSERT CUSTOM SCENE DESCRIPTION HERE] 
+на описание сцены с участием человека или персонажа, которое я тебе напишу или 
+попрошу придумать.<br />
+3) Имей ввиду, что иллюстрации у нас черно-белые (об этом сказано в промпте)<br />
+4) Не используй в иллюстрациях "текст", то есть никаких табличек, знаков и т.п.<br />
+5) Эта фраза всегда должна быть в начале: A simple sketch illustration of<br />
+6) Эта фраза всегда должна быть в конце: The lines are slightly uneven and 
+hand-drawn, giving a warm, organic feel. The background is white. The 
+illustration has minimalistic, slightly rough lines and is black and white.<br />
+<br />
+Придумай промпт с ленивцем (животным) -фрилансером, который сидит за ноутбуком и 
+у него горят сроки по дедлайну</p>
+<p>==== Result ====</p>
+<p>A simple sketch illustration of a sloth freelancer sitting at a small wooden 
+desk, typing frantically on a laptop. The sloth has a slightly panicked 
+expression, with one hand on the keyboard and the other holding a cup of coffee. 
+The desk is cluttered with papers, a clock showing a late hour, and a calendar 
+with a circled deadline date. The sloth is wearing round glasses and a loose 
+scarf, adding to its stressed but endearing appearance. The lines are slightly 
+uneven and hand-drawn, giving a warm, organic feel. The background is white. The 
+illustration has minimalistic, slightly rough lines and is black and white. </p>
+<p><br />
+</p>
+<h3><a name="id117"></a>Prompt libraries</h3>
+<p><a href="https://www.youtube.com/watch?v=2KBpbppVM_E">https://www.youtube.com/watch?v=2KBpbppVM_E</a> 
+8 лучших библиотек промптов + OpenAI выпустила бесплатный генератор промптов </p>
+<ul>
+	<li>
+	<a href="https://yandex.cloud/ru/docs/foundation-models/prompts/yandexgpt">
+	https://yandex.cloud/ru/docs/foundation-models/prompts/yandexgpt</a> для 
+	запросов на русском языке </li>
+	<li><a href="https://ai.google.dev/gemini-api/prompts">https://ai.google.dev/gemini-api/prompts</a>
+	</li>
+	<li><a href="https://hero.page/discover">https://hero.page/discover</a> </li>
+	<li><a href="https://snackprompt.com/">https://snackprompt.com/</a>&nbsp; + </li>
+	<li><a href="https://docs.anthropic.com/en/prompt-library/library">https://docs.anthropic.com/en/prompt-library/library</a>
+	</li>
+	<li><a href="https://github.com/pacholoamit/chatgpt-prompts">https://github.com/pacholoamit/chatgpt-prompts</a>
+	</li>
+	<li>
+	<a href="https://console.cloud.google.com/projectselector2/vertex-ai/studio/prompt-gallery?supportedpurview=project">
+	https://console.cloud.google.com/projectselector2/vertex-ai/studio/prompt-gallery?supportedpurview=project</a>
+	</li>
+	<li><a href="https://platform.openai.com/playground/chat?models=gpt-4o">
+	https://platform.openai.com/playground/chat?models=gpt-4o</a> </li>
+	<li>
+	<a href="https://github.com/VoloBuilds/prompts/blob/main/LearnToCode.md">
+	https://github.com/VoloBuilds/prompts/blob/main/LearnToCode.md</a> </li>
+</ul>
+<h3><a name="id125"></a>References</h3>
+<p><a href="https://www.promptingguide.ai/">https://www.promptingguide.ai/</a>
+</p>
+<p><a href="https://platform.openai.com/docs/guides/prompt-engineering">https://platform.openai.com/docs/guides/prompt-engineering</a>
+</p>
+<p>
+<a href="https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api">
+https://help.openai.com/en/articles/6654000-best-practices-for-prompt-engineering-with-the-openai-api</a>
+</p>
+<p>
+<a href="https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/prompt-engineering">
+https://learn.microsoft.com/en-us/azure/ai-services/openai/concepts/prompt-engineering</a></p>
+<p><a href="https://www.youtube.com/watch?v=ntACspNRNXk">https://www.youtube.com/watch?v=ntACspNRNXk</a> 
+(ru)</p>
+<p><a href="https://www.youtube.com/watch?v=rJVHjE8t1qs">https://www.youtube.com/watch?v=rJVHjE8t1qs</a> 
+(ru)</p>
+&nbsp;<h2><a name="id33"></a></h2>
+</li>
+<p>&nbsp;</p>
+
+</body>
+
+</html>

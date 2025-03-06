@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="en-us" http-equiv="Content-Language" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+</head>
+
+<body>
+
+<h1>HTMX</h1>
+<h2>Overview </h2>
+<p><a href="https://htmx.org/">https://htmx.org/</a> htmx gives you access to 
+AJAX, CSS Transitions, WebSockets and Server Sent Events directly in HTML, using 
+attributes, so you can build modern user interfaces with the simplicity and 
+power of hypertext htmx is small (~14k min.gz’d), dependency-free, extendable &amp; 
+has reduced code base sizes by 67% when compared with react </p>
+<h2>Some examples </h2>
+<h3>Click to Load</h3>
+<p><a href="https://htmx.org/examples/click-to-load/">https://htmx.org/examples/click-to-load/</a>
+</p>
+<p>This example shows how to implement click-to-load the next page in a table of 
+data. The crux of the demo is the final row:</p>
+<pre data-lang="html"><span>&lt;tr id="replaceMe"&gt;
+  &lt;td colspan="3"&gt;
+    &lt;button class='btn primary' hx-get="/contacts/?page=2"
+                        hx-target="#replaceMe"
+                        hx-swap="outerHTML"&gt;
+         Load More Agents... &lt;img class="htmx-indicator" src="/img/bars.svg"&gt;
+    &lt;/button&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+</span></pre>
+<p>This row contains a button that will replace the entire row with the next 
+page of results (which will contain a button to load the<span>&nbsp;</span>next<span>&nbsp;</span>page 
+of results). And so on.</p>
+<p>&nbsp;</p>
+<h2>References </h2>
+<p><a href="https://www.youtube.com/watch?v=cjL0n1NApRA">https://www.youtube.com/watch?v=cjL0n1NApRA</a> 
+Getting started with HTMX in Spring Boot with Thymeleaf&nbsp;
+<a href="https://github.com/danvega/hello-htmx">https://github.com/danvega/hello-htmx</a> </p>
+<p><a href="https://www.youtube.com/watch?v=kFksiDRZ824">https://www.youtube.com/watch?v=kFksiDRZ824</a> 
+Building a Dynamic Task Manager with Spring Boot, JTE, and HTMX
+<a href="https://github.com/danvega/jte-tasks">https://github.com/danvega/jte-tasks</a> </p>
+<h2>&nbsp;</h2>
+<p>&nbsp;</p>
+
+</body>
+
+</html>
