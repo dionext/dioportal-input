@@ -1,4 +1,4 @@
-﻿<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
         <meta charset="utf-8" /> 
@@ -8,99 +8,73 @@
         <meta name="keywords" content="" />
     </head>
     <body> 
-        <h2>Spring: Cache</h2>
-		<h2>Overview</h2>
-		<h2>Cache abstraction </h2> 
-        <p> The cache abstraction applies caching to Java methods, thus reducing 
-		the number of executions based on the information available in the 
-		cache. That is, each time a targeted method is invoked, the abstraction 
-		applies a caching behavior that checks whether the method has been 
-		already invoked for the given arguments. If it has been invoked, the 
-		cached result is returned without having to invoke the actual method. If 
-		the method has not been invoked, then it is invoked, and the result is 
-		cached and returned to the user so that, the next time the method is 
-		invoked, the cached result is returned. </p>
-		<p> This approach works only for methods that are guaranteed to return 
-		the same output (result) for a given input (or arguments) no matter how 
-		many times they are invoked. </p>
-		<p> 
-		<a href="https://docs.spring.io/spring-framework/reference/integration/cache.html">
-		https://docs.spring.io/spring-framework/reference/integration/cache.html</a> 
-		Cache Abstraction </p>
-		<p> Simple Example:</p>
-		<p> Enabling Caching Annotations </p>
-		<pre><code class="language-java">@EnableCaching
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">Spring: Cache</a></li> 
+                <li><a href="#id1">Overview</a></li> 
+                <li><a href="#id2">Cache abstraction</a></li> 
+                <li><a href="#id3">Spring Boot Cache Providers</a></li> 
+                <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;Simple</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;Caffeine</a></li> 
+                <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;EhCache</a></li> 
+            </ul>
+        </div>
+        <h2><a name="id0"></a>Spring: Cache</h2> 
+        <h2><a name="id1"></a>Overview</h2> 
+        <h2><a name="id2"></a>Cache abstraction</h2> 
+        <p> The cache abstraction applies caching to Java methods, thus reducing the number of executions based on the information available in the cache. That is, each time a targeted method is invoked, the abstraction applies a caching behavior that checks whether the method has been already invoked for the given arguments. If it has been invoked, the cached result is returned without having to invoke the actual method. If the method has not been invoked, then it is invoked, and the result is cached and returned to the user so that, the next time the method is invoked, the cached result is returned. </p> 
+        <p> This approach works only for methods that are guaranteed to return the same output (result) for a given input (or arguments) no matter how many times they are invoked. </p> 
+        <p> <a href="https://docs.spring.io/spring-framework/reference/integration/cache.html" rel="nofollow" target="_blank" class="external"> https://docs.spring.io/spring-framework/reference/integration/cache.html</a> Cache Abstraction </p> 
+        <p> Simple Example:</p> 
+        <p> Enabling Caching Annotations </p> 
+        <pre><code class="language-java">@EnableCaching
 public class MainMsAppApplication {
-</code></pre>
-		<pre><code class="language-java">    @Cacheable("sitemap")
+</code></pre> 
+        <pre><code class="language-java">    @Cacheable("sitemap")
     public String createSitemap() {
-    </code></pre>
-		<p> Note: there is some problems using cacheable method in the same 
-		class. See:&nbsp;
-		<a href="https://stackoverflow.com/questions/63958101/springs-cacheable-not-working-when-called-from-the-controller-in-spring-boot">
-		https://stackoverflow.com/questions/63958101/springs-cacheable-not-working-when-called-from-the-controller-in-spring-boot</a> </p>
-		<p> Using specified keys:</p>
-		<pre><code class="language-java">@Cacheable(cacheNames="books", key="#isbn.rawNumber")
-public Book findBook(ISBN isbn, boolean checkWarehouse, boolean includeUsed)</code></pre>
-		<p>Synchronized Caching </p>
-		<pre><code class="language-java">@Cacheable(cacheNames="foos", sync=true) 
-public Foo executeExpensiveOperation(String id) {...}</code></pre>
-		<p>Clearing cache:</p>
-		<pre><code class="language-java">
+    </code></pre> 
+        <p> Note: there is some problems using cacheable method in the same class. See:&#xa0; <a href="https://stackoverflow.com/questions/63958101/springs-cacheable-not-working-when-called-from-the-controller-in-spring-boot" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/63958101/springs-cacheable-not-working-when-called-from-the-controller-in-spring-boot</a> </p> 
+        <p> Using specified keys:</p> 
+        <pre><code class="language-java">@Cacheable(cacheNames="books", key="#isbn.rawNumber")
+public Book findBook(ISBN isbn, boolean checkWarehouse, boolean includeUsed)</code></pre> 
+        <p>Synchronized Caching </p> 
+        <pre><code class="language-java">@Cacheable(cacheNames="foos", sync=true) 
+public Foo executeExpensiveOperation(String id) {...}</code></pre> 
+        <p>Clearing cache:</p> 
+        <pre><code class="language-java">
 @CacheEvict(cacheNames="books", allEntries=true) 
-public void loadBooks(InputStream batch)</code></pre>
-		<pre><code class="language-java">
+public void loadBooks(InputStream batch)</code></pre> 
+        <pre><code class="language-java">
 @CacheRemoveAll (cacheNames="books") 
-public void loadBooks(InputStream batch)</code></pre>
-		<pre>&nbsp;</pre>
-		<p>TTL - The time to live specifies how long a cache entry may remain in 
-		the cache independently of access. After the specified time has expired, 
-		the value is removed from the cache. </p>
-		<p>TTI - The time to idle specifies how long the cache entry may exist 
-		in the cache without access. For example, if a value is not requested 
-		for more than 30 seconds, it is removed from the cache. </p>
-		<h2><span>Spring Boot Cache Providers</span></h2>
-		<ul>
-			<li>JCache (JSR-107)</li>
-			<li>EhCache (distributed) </li>
-			<li>Hazelcast (distributed) </li>
-			<li>Guava (in-memory)</li>
-			<li>Infinispan (distributed) </li>
-			<li>Couchbase (distributed) </li>
-			<li>Redis (distributed) </li>
-			<li>Memcached (distributed)&nbsp; </li>
-			<li>Caffeine (in-memory)</li>
-			<li>Simple (in-memory)</li>
-		</ul>
-		<h3 id="272f" data-selectable-paragraph="">Simple</h3>
-		<p id="c787" data-selectable-paragraph="">It is the default 
-		implementation. It configures a<span>&nbsp;</span>ConcurrentHashMap<span>&nbsp;</span>as 
-		a cache store if spring boot does not find any cache provider in the 
-		classpath.</p>
-		<h3 id="0e04" data-selectable-paragraph="">Caffeine </h3>
-		<p data-selectable-paragraph="">Caffeine is a high performance Java 
-		based caching library. It also provides an in-memory cache. The spring 
-		boot automatically configures the<span>&nbsp;</span>CaffeineCacheManager<span>&nbsp;</span>if 
-		Caffeine is found in the classpath.</p>
-		<p> <a href="https://www.baeldung.com/java-caching-caffeine">https://www.baeldung.com/java-caching-caffeine</a> </p>
-		<p> 
-		<a href="https://ranawakay.medium.com/spring-boot-and-caffeine-cache-with-microservices-e72d36d68377">
-		https://ranawakay.medium.com/spring-boot-and-caffeine-cache-with-microservices-e72d36d68377</a> </p>
-		<p> <a href="https://dev.to/noelopez/spring-cache-with-caffeine-384l">
-		https://dev.to/noelopez/spring-cache-with-caffeine-384l</a>&nbsp; Spring 
-		Cache with Caffeine </p>
-		<h3> EhCache</h3>
-		<p> 
-		<a href="https://www.ehcache.org/documentation/2.7/configuration/cache-size.html">
-		https://www.ehcache.org/documentation/2.7/configuration/cache-size.html</a> </p>
-		<p> 
-		<a href="https://howtodoinjava.com/spring-boot/spring-boot-ehcache-example/">
-		https://howtodoinjava.com/spring-boot/spring-boot-ehcache-example/</a> 
-		Spring Boot and Ehcache 3 Example </p>
-		<p> 
-		<a href="https://github.com/SimpleProgramming/spring-boot-ehCache-CacheManager">
-		https://github.com/SimpleProgramming/spring-boot-ehCache-CacheManager</a> </p>
-		<p> &nbsp;</p>
-		<p> &nbsp;</p> 
+public void loadBooks(InputStream batch)</code></pre> 
+        <pre>&#xa0;</pre> 
+        <p>TTL - The time to live specifies how long a cache entry may remain in the cache independently of access. After the specified time has expired, the value is removed from the cache. </p> 
+        <p>TTI - The time to idle specifies how long the cache entry may exist in the cache without access. For example, if a value is not requested for more than 30 seconds, it is removed from the cache. </p> 
+        <h2><a name="id3"></a>Spring Boot Cache Providers</h2> 
+        <ul> 
+            <li>JCache (JSR-107)</li> 
+            <li>EhCache (distributed) </li> 
+            <li>Hazelcast (distributed) </li> 
+            <li>Guava (in-memory)</li> 
+            <li>Infinispan (distributed) </li> 
+            <li>Couchbase (distributed) </li> 
+            <li>Redis (distributed) </li> 
+            <li>Memcached (distributed)&#xa0; </li> 
+            <li>Caffeine (in-memory)</li> 
+            <li>Simple (in-memory)</li> 
+        </ul> 
+        <h3 id="272f" data-selectable-paragraph=""><a name="id4"></a>Simple</h3> 
+        <p id="c787" data-selectable-paragraph="">It is the default implementation. It configures a<span>&#xa0;</span>ConcurrentHashMap<span>&#xa0;</span>as a cache store if spring boot does not find any cache provider in the classpath.</p> 
+        <h3 id="0e04" data-selectable-paragraph=""><a name="id5"></a>Caffeine</h3> 
+        <p data-selectable-paragraph="">Caffeine is a high performance Java based caching library. It also provides an in-memory cache. The spring boot automatically configures the<span>&#xa0;</span>CaffeineCacheManager<span>&#xa0;</span>if Caffeine is found in the classpath.</p> 
+        <p> <a href="https://www.baeldung.com/java-caching-caffeine" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/java-caching-caffeine</a> </p> 
+        <p> <a href="https://ranawakay.medium.com/spring-boot-and-caffeine-cache-with-microservices-e72d36d68377" rel="nofollow" target="_blank" class="external"> https://ranawakay.medium.com/spring-boot-and-caffeine-cache-with-microservices-e72d36d68377</a> </p> 
+        <p> <a href="https://dev.to/noelopez/spring-cache-with-caffeine-384l" rel="nofollow" target="_blank" class="external"> https://dev.to/noelopez/spring-cache-with-caffeine-384l</a>&#xa0; Spring Cache with Caffeine </p> 
+        <h3><a name="id6"></a>EhCache</h3> 
+        <p> <a href="https://www.ehcache.org/documentation/2.7/configuration/cache-size.html" rel="nofollow" target="_blank" class="external"> https://www.ehcache.org/documentation/2.7/configuration/cache-size.html</a> </p> 
+        <p> <a href="https://howtodoinjava.com/spring-boot/spring-boot-ehcache-example/" rel="nofollow" target="_blank" class="external"> https://howtodoinjava.com/spring-boot/spring-boot-ehcache-example/</a> Spring Boot and Ehcache 3 Example </p> 
+        <p> <a href="https://github.com/SimpleProgramming/spring-boot-ehCache-CacheManager" rel="nofollow" target="_blank" class="external"> https://github.com/SimpleProgramming/spring-boot-ehCache-CacheManager</a> </p> 
+        <p> &#xa0;</p> 
+        <p> &#xa0;</p> 
     </body>
 </html>

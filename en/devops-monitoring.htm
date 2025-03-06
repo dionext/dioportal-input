@@ -22,6 +22,8 @@
                 <li><a href="#id8">&#xa0;&#xa0;&#xa0;&#xa0;Micrometer</a></li> 
                 <li><a href="#id35">&#xa0;&#xa0;&#xa0;&#xa0;Grafana</a></li> 
                 <li><a href="#id9">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Userful dashboards (grafana)</a></li> 
+                <li><a href="#id10">VictoriaMetrics</a></li> 
+                <li><a href="#id11">Spring Boot Admin</a></li> 
             </ul>
         </div> 
         <h2><a name="id0"></a>Overview</h2> 
@@ -59,14 +61,12 @@
             <li>The total size of all images</li> 
             <li>The total size of all containers</li> 
             <li>The local volumes size</li> 
-            <li>And the cache</li>
+            <li>And the cache</li> 
         </ul> 
-        <p>du -hs /var/lib/docker<br>du -hs /var/lib/docker/containers<br>du -hs 
-		/var/lib/docker/overlay2<br>du -hs /var/lib/docker/volumes</p>
-		<p>&nbsp;</p>
-		<p>For example: </p>
-		<p>du -hs /var/lib/docker/volumes/elk_elasticsearch<br>du -hs /var/lib/docker/volumes/monitoring_loki-data<strong>
-		</strong></p>
+        <p>du -hs /var/lib/docker<br>du -hs /var/lib/docker/containers<br>du -hs /var/lib/docker/overlay2<br>du -hs /var/lib/docker/volumes</br></br></br></p> 
+        <p>&#xa0;</p> 
+        <p>For example: </p> 
+        <p>du -hs /var/lib/docker/volumes/elk_elasticsearch<br>du -hs /var/lib/docker/volumes/monitoring_loki-data<strong> </strong></br></p> 
         <p> <a href="https://docs.docker.com/config/containers/resource_constraints/#understand-the-risks-of-running-out-of-memory" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/config/containers/resource_constraints/#understand-the-risks-of-running-out-of-memory</a> </p> 
         <h2><a name="id1"></a>Monitoring system with Prometheus and Grafana</h2> 
         <h3><a name="id2"></a>Prometheus</h3> 
@@ -136,31 +136,19 @@
         <p><a href="https://grafana.com/dashboards/1860" rel="nofollow" target="_blank" class="external"> https://grafana.com/dashboards/1860</a>&#xa0; <span lang="en-us">node exporter full </span></p> 
         <p><span lang="en-us"><a href="https://grafana.com/dashboards/893" rel="nofollow" target="_blank" class="external"> https://grafana.com/dashboards/893</a> </span>cadvisor <span lang="en-us">+ System</span></p> 
         <p><span lang="en-us"><a href="https://grafana.com/dashboards/193" rel="nofollow" target="_blank" class="external"> https://grafana.com/dashboards/193</a> </span>cadvisor </p> Importing pre-built dashboards from Grafana.com<a href="https://prometheus.io/docs/visualization/grafana/#importing-pre-built-dashboards-from-grafana-com" name="importing-pre-built-dashboards-from-grafana-com0" rel="nofollow" target="_blank" class="external"></a> 
-        <p> Grafana.com maintains<span>&#xa0;</span><a href="https://grafana.com/dashboards" rel="nofollow" target="_blank" class="external">a collection of shared dashboards</a><span>&#xa0;</span>which can be downloaded and used with standalone instances of Grafana. Use the Grafana.com "Filter" option to browse dashboards for the "Prometheus" data source only. You must currently manually edit the downloaded JSON files and correct the<span>&#xa0;</span>datasource:<span>&#xa0;</span>entries to reflect the Grafana data source name which you chose for your Prometheus server. Use the "Dashboards" → "Home" → "Import" option to import the edited dashboard file into your Grafana install.</p>
-		<h2>VictoriaMetrics </h2>
-		<p><a href="https://victoriametrics.com/">https://victoriametrics.com/</a> </p>
-		<p>&nbsp;</p>
-		<p>VictoriaMetrics is a powerful time-series database designed for 
-		high-performance monitoring and analytics. It is similar to <strong>
-		Prometheus</strong> in many ways, but it offers several advantages, 
-		including better performance, scalability, and data compression. 
-		VictoriaMetrics is also open-source and free to use. VictoriaMetrics is 
-		a monitoring system that is fully compatible with Prometheus. It offers 
-		many of the same features as Prometheus, but with some additional 
-		benefits, such as higher performance and scalability.
-		<a href="https://medium.com/@seifeddinerajhi/victoriametrics-a-comprehensive-guide-comparing-it-to-prometheus-and-implementing-kubernetes-03eb8feb0cc2">
-		https://medium.com/@seifeddinerajhi/victoriametrics-a-comprehensive-guide-comparing-it-to-prometheus-and-implementing-kubernetes-03eb8feb0cc2</a> </p>
-		<p>&nbsp;</p>
-		<p>
-		<img alt="victoria-metrics-ui" src="../images/victoria-metrics-ui.jpg"></p>
-		<p>&nbsp;</p> 
-		<h2> Spring Boot Admin</h2>
-		<p> <a href="https://github.com/codecentric/spring-boot-admin">https://github.com/codecentric/spring-boot-admin</a> </p>
-		<p> Documentation:
-		<a href="https://docs.spring-boot-admin.com/current/getting-started.html">
-		https://docs.spring-boot-admin.com/current/getting-started.html</a> </p>
-		<p> <a href="https://www.baeldung.com/spring-boot-admin">https://www.baeldung.com/spring-boot-admin</a> </p>
-		<p> &nbsp;</p>
-		<p> &nbsp;</p> 
+        <p> Grafana.com maintains<span>&#xa0;</span><a href="https://grafana.com/dashboards" rel="nofollow" target="_blank" class="external">a collection of shared dashboards</a><span>&#xa0;</span>which can be downloaded and used with standalone instances of Grafana. Use the Grafana.com "Filter" option to browse dashboards for the "Prometheus" data source only. You must currently manually edit the downloaded JSON files and correct the<span>&#xa0;</span>datasource:<span>&#xa0;</span>entries to reflect the Grafana data source name which you chose for your Prometheus server. Use the "Dashboards" → "Home" → "Import" option to import the edited dashboard file into your Grafana install.</p> 
+        <h2><a name="id10"></a>VictoriaMetrics</h2> 
+        <p><a href="https://victoriametrics.com/" rel="nofollow" target="_blank" class="external">https://victoriametrics.com/</a> </p> 
+        <p>&#xa0;</p> 
+        <p>VictoriaMetrics is a powerful time-series database designed for high-performance monitoring and analytics. It is similar to <strong> Prometheus</strong> in many ways, but it offers several advantages, including better performance, scalability, and data compression. VictoriaMetrics is also open-source and free to use. VictoriaMetrics is a monitoring system that is fully compatible with Prometheus. It offers many of the same features as Prometheus, but with some additional benefits, such as higher performance and scalability. <a href="https://medium.com/@seifeddinerajhi/victoriametrics-a-comprehensive-guide-comparing-it-to-prometheus-and-implementing-kubernetes-03eb8feb0cc2" rel="nofollow" target="_blank" class="external"> https://medium.com/@seifeddinerajhi/victoriametrics-a-comprehensive-guide-comparing-it-to-prometheus-and-implementing-kubernetes-03eb8feb0cc2</a> </p> 
+        <p>&#xa0;</p> 
+        <p> <img alt="victoria-metrics-ui" src="../images/victoria-metrics-ui.jpg" class=" img-fluid rounded" style="" /></p> 
+        <p>&#xa0;</p> 
+        <h2><a name="id11"></a>Spring Boot Admin</h2> 
+        <p> <a href="https://github.com/codecentric/spring-boot-admin" rel="nofollow" target="_blank" class="external">https://github.com/codecentric/spring-boot-admin</a> </p> 
+        <p> Documentation: <a href="https://docs.spring-boot-admin.com/current/getting-started.html" rel="nofollow" target="_blank" class="external"> https://docs.spring-boot-admin.com/current/getting-started.html</a> </p> 
+        <p> <a href="https://www.baeldung.com/spring-boot-admin" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/spring-boot-admin</a> </p> 
+        <p> &#xa0;</p> 
+        <p> &#xa0;</p> 
     </body>
 </html>

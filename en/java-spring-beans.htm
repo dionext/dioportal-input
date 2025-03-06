@@ -92,26 +92,20 @@ public class LessonsConfiguration
         <p>&#xa0;</p> 
         <h3><a name="id3"></a>@Configuration</h3> 
         <p>@Configuration is a class-level annotation indicating that an object is a source of bean definitions. @Configuration classes declare beans through @Bean-annotated methods. Calls to @Bean methods on @Configuration classes can also be used to define inter-bean dependencies. </p> 
-        <h3><a name="id4"></a>@ComponentScan</h3>
-		<p><strong>Official documentation states: We generally recommend that 
-		you locate your main application class in a root package above other 
-		classes. </strong></p>
-        <p>So that your configuration can know about such components and you can use them, there is a special annotation for your configuration class @ComponentScan. By default, this configuration scans for classes with the @Component annotation and its descendants in the package in which it is located, as well as in subpackages. </p>
-		<p>However, if you want the scan to be for specific directories, then this can be configured by simply adding the basePackages parameter to the @ComponentScan annotation, indicating one or more packages. It will look something like this: @ComponentScan(basePackages = "lessons.services")</p>
-		<p>@ComponentScan without arguments tells Spring to scan the current 
-		package and all of its sub-packages. </p>
-		<p>You can use aproach as in example: (
-		<a href="https://stackoverflow.com/questions/55750957/why-is-this-componentscan-not-working-in-my-spring-boot-application">
-		https://stackoverflow.com/questions/55750957/why-is-this-componentscan-not-working-in-my-spring-boot-application</a>&nbsp; 
-		)</p>
-		<div style="background-color:#ffffff;color:#080808">
-			<pre style="font-family:'JetBrains Mono',monospace;font-size:10,5pt;"><span style="color:#9e880d;">@ComponentScan
+        <h3><a name="id4"></a>@ComponentScan</h3> 
+        <p><strong>Official documentation states: We generally recommend that you locate your main application class in a root package above other classes. </strong></p> 
+        <p>So that your configuration can know about such components and you can use them, there is a special annotation for your configuration class @ComponentScan. By default, this configuration scans for classes with the @Component annotation and its descendants in the package in which it is located, as well as in subpackages. </p> 
+        <p>However, if you want the scan to be for specific directories, then this can be configured by simply adding the basePackages parameter to the @ComponentScan annotation, indicating one or more packages. It will look something like this: @ComponentScan(basePackages = "lessons.services")</p> 
+        <p>@ComponentScan without arguments tells Spring to scan the current package and all of its sub-packages. </p> 
+        <p>You can use aproach as in example: ( <a href="https://stackoverflow.com/questions/55750957/why-is-this-componentscan-not-working-in-my-spring-boot-application" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/55750957/why-is-this-componentscan-not-working-in-my-spring-boot-application</a>&#xa0; )</p> 
+        <div style="background-color:#ffffff;color:#080808"> 
+            <pre style="font-family:'JetBrains Mono',monospace;font-size:10,5pt;"><span style="color:#9e880d;">@ComponentScan
 @ComponentScan</span>(basePackages = {<span style="color:#067d17;">"com.dionext"</span>})
 <span style="color:#9e880d;">@EnableJpaRepositories</span>(basePackages = <span style="color:#067d17;">"com.dionext"</span>)
 <span style="color:#9e880d;">@EntityScan</span>(basePackages = <span style="color:#067d17;">"com.dionext"</span>)
 <span style="color:#0033b3;">public class </span><span style="color:#000000;">ExFrontendDemoApplication </span>{
-</pre>
-		</div>
+</pre> 
+        </div> 
         <h3><a name="id44"></a>@Component @Repository, @Service и @Controller</h3> 
         <p> <a href="https://stackoverflow.com/questions/6827752/whats-the-difference-between-component-repository-service-annotations-in" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/6827752/whats-the-difference-between-component-repository-service-annotations-in</a> </p> 
         <table> 

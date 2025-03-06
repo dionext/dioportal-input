@@ -11,16 +11,20 @@
         <h1>Spring: <a name="id4"></a>JPA, Hibernate, Working with databases </h1> 
         <div> 
             <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id2">JDBC</a></li> 
                 <li><a href="#id0">Database first</a></li> 
                 <li><a href="#id1">Query methods</a></li> 
                 <li><a href="#id5">@Entity @Repository</a></li> 
+                <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Primary key</a></li> 
+                <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;Column types</a></li> 
                 <li><a href="#id10">Jpa naming convention</a></li> 
+                <li><a href="#id6">Connection pool</a></li> 
+                <li><a href="#id7">Database migration</a></li> 
             </ul>
         </div> 
-        <h2>JDBC</h2>
-		<p><a href="https://www.baeldung.com/spring-jdbc-jdbctemplate">https://www.baeldung.com/spring-jdbc-jdbctemplate</a> 
-		Spring JDBC </p>
-		<h2><a name="id0"></a>Database first</h2> 
+        <h2><a name="id2"></a>JDBC</h2> 
+        <p><a href="https://www.baeldung.com/spring-jdbc-jdbctemplate" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/spring-jdbc-jdbctemplate</a> Spring JDBC </p> 
+        <h2><a name="id0"></a>Database first</h2> 
         <p> <a href="https://stackoverflow.com/questions/36995670/how-can-i-generate-entities-classes-from-database-using-spring-boot-and-intellij" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/36995670/how-can-i-generate-entities-classes-from-database-using-spring-boot-and-intellij</a>&#xa0; </p> 
         <p>In Eclipse:&#xa0; <a href="https://www.eclipse.org/webtools/dali/docs/3.2/user_guide/tasks006.htm" rel="nofollow" target="_blank" class="external"> https://www.eclipse.org/webtools/dali/docs/3.2/user_guide/tasks006.htm</a> <a href="https://www.eclipse.org/webtools/dali/docs/3.2/user_guide/task_create_new_project.htm#CIHHEJCJ" rel="nofollow" target="_blank" class="external"> https://www.eclipse.org/webtools/dali/docs/3.2/user_guide/task_create_new_project.htm#CIHHEJCJ</a> </p> 
         <h2><a name="id1"></a>Query methods</h2> 
@@ -78,23 +82,17 @@ public class Account {
     Account() { // jpa only
     }
 }
-</code></pre>
-		<h3>Primary key</h3>
-		<p>@Id <br>@GeneratedValue(strategy = GenerationType.AUTO) <br>private 
-		Long id; </p>
-		This can use four generation types: AUTO, IDENTITY, SEQUENCE, and TABLE. 
-		If we don’t explicitly specify a value, the generation type defaults to 
-		AUTO.<h3>Column types<br></h3>
-		<p>Tips: for money good choice is BigDecimal </p>
-		<p>Tips: using @Lob is not recommended - see
-		<a href="https://github.com/spring-projects/spring-data-jpa/issues/3139">
-		https://github.com/spring-projects/spring-data-jpa/issues/3139</a> </p>
-&nbsp;<h2><a name="id10"></a>Jpa naming convention</h2> 
-        <p> <a href="https://www.jpa-buddy.com/blog/hibernate-naming-strategies-jpa-specification-vs-springboot-opinionation/" rel="nofollow" target="_blank" class="external"> https://www.jpa-buddy.com/blog/hibernate-naming-strategies-jpa-specification-vs-springboot-opinionation/</a></p>
-		<h2> Connection pool </h2>
-		<p> Configuring a Hikari Connection Pool with Spring Boot
-		<a href="https://www.baeldung.com/spring-boot-hikari">https://www.baeldung.com/spring-boot-hikari</a>&nbsp; </p>
-		<h2> Database migration</h2>
-		<p> See:<a href="database-migration.htm"> Database migration </a> </p> 
+</code></pre> 
+        <h3><a name="id3"></a>Primary key</h3> 
+        <p>@Id <br>@GeneratedValue(strategy = GenerationType.AUTO) <br>private Long id; </br></br></p> This can use four generation types: AUTO, IDENTITY, SEQUENCE, and TABLE. If we don’t explicitly specify a value, the generation type defaults to AUTO.
+        <h3><a name="id4"></a>Column types</h3> 
+        <p>Tips: for money good choice is BigDecimal </p> 
+        <p>Tips: using @Lob is not recommended - see <a href="https://github.com/spring-projects/spring-data-jpa/issues/3139" rel="nofollow" target="_blank" class="external"> https://github.com/spring-projects/spring-data-jpa/issues/3139</a> </p> &#xa0;
+        <h2><a name="id10"></a>Jpa naming convention</h2> 
+        <p> <a href="https://www.jpa-buddy.com/blog/hibernate-naming-strategies-jpa-specification-vs-springboot-opinionation/" rel="nofollow" target="_blank" class="external"> https://www.jpa-buddy.com/blog/hibernate-naming-strategies-jpa-specification-vs-springboot-opinionation/</a></p> 
+        <h2><a name="id6"></a>Connection pool</h2> 
+        <p> Configuring a Hikari Connection Pool with Spring Boot <a href="https://www.baeldung.com/spring-boot-hikari" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/spring-boot-hikari</a>&#xa0; </p> 
+        <h2><a name="id7"></a>Database migration</h2> 
+        <p> See:<a href="database-migration.htm"> Database migration </a> </p> 
     </body>
 </html>

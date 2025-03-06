@@ -18,8 +18,10 @@
                 <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;Linux</a></li> 
                 <li><a href="#id7">Commands</a></li> 
                 <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Run container</a></li> 
+                <li><a href="#id12">&#xa0;&#xa0;&#xa0;&#xa0;Update to latest version</a></li> 
+                <li><a href="#id13">Configuration</a></li> 
                 <li><a href="#id4">Clearing</a></li> 
-                <li><a href="#id26">Dockerfile</a></li> 
+                <li><a href="#id26">Dockerfile for spring boot application</a></li> 
                 <li><a href="#id6">Docker compose</a></li> 
                 <li><a href="#id8">Docker Swarm</a></li> 
                 <li><a href="#id9">UI</a></li> 
@@ -74,98 +76,78 @@ docker container run -d --name web -p 8080:8080 jboss/wildfly
         <p>Restart container</p> 
         <pre><code class="language-bash">docker restart nginx</code></pre> 
         <p>Remove container</p> 
-        <pre><code class="language-bash">docker container rm nginx</code></pre>
-		<h3>Update to latest version</h3>
-		<p>(Example: portainer application)</p>
-		<pre>docker stop portainer </pre>
-		<pre>docker rm portainer </pre>
-		<pre>docker pull portainer/portainer-ce:latest </pre>
-		<pre>docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest</pre> 
-        <h2>Configuration </h2>
-		<p>
-		<a href="https://docs.docker.com/config/containers/logging/json-file/">
-		https://docs.docker.com/config/containers/logging/json-file/</a>&nbsp; 
-		Logging - reduce file size
-		<a href="https://stackoverflow.com/questions/31829587/docker-container-logs-taking-all-my-disk-space">
-		https://stackoverflow.com/questions/31829587/docker-container-logs-taking-all-my-disk-space</a>
-		</p>
-		<p>&nbsp;</p>
-		<pre><code class="language-yaml">
+        <pre><code class="language-bash">docker container rm nginx</code></pre> 
+        <h3><a name="id12"></a>Update to latest version</h3> 
+        <p>(Example: portainer application)</p> 
+        <pre>docker stop portainer </pre> 
+        <pre>docker rm portainer </pre> 
+        <pre>docker pull portainer/portainer-ce:latest </pre> 
+        <pre>docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest</pre> 
+        <h2><a name="id13"></a>Configuration</h2> 
+        <p> <a href="https://docs.docker.com/config/containers/logging/json-file/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/config/containers/logging/json-file/</a>&#xa0; Logging - reduce file size <a href="https://stackoverflow.com/questions/31829587/docker-container-logs-taking-all-my-disk-space" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/31829587/docker-container-logs-taking-all-my-disk-space</a> </p> 
+        <p>&#xa0;</p> 
+        <pre><code class="language-yaml">
     logging:
       driver: "json-file" #default 
       options:
         max-size: "10m" #Defaults to -1 (unlimited)
-        max-file: "1" #Defaults to 1</code></pre>
-		<p>&nbsp;</p>
-		<p>To set the default log limits for all newly created containers, you 
-		can add the following in /etc/docker/daemon.json:</p>
-		<p>nano /etc/docker/daemon.json</p>
-		<p>(
-		<a href="https://stackoverflow.com/questions/43689271/wheres-dockers-daemon-json-missing">
-		https://stackoverflow.com/questions/43689271/wheres-dockers-daemon-json-missing</a>&nbsp; 
-		)</p>
-		<pre><code>{</code>
+        max-file: "1" #Defaults to 1</code></pre> 
+        <p>&#xa0;</p> 
+        <p>To set the default log limits for all newly created containers, you can add the following in /etc/docker/daemon.json:</p> 
+        <p>nano /etc/docker/daemon.json</p> 
+        <p>( <a href="https://stackoverflow.com/questions/43689271/wheres-dockers-daemon-json-missing" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/43689271/wheres-dockers-daemon-json-missing</a>&#xa0; )</p> 
+        <pre><code>{</code>
 <code>  "log-driver": "json-file",
   "log-opts": {"max-size": "10m", "max-file": "3"}
 }
-</code></pre>
-		<p>Then reload docker with<span>&nbsp;</span></p>
-		<p>sudo service docker restart </p>
-		<h2><a name="id4"></a>Clearing</h2> 
+</code></pre> 
+        <p>Then reload docker with<span>&#xa0;</span></p> 
+        <p>sudo service docker restart </p> 
+        <h2><a name="id4"></a>Clearing</h2> 
         <p><span>Directory /var/lib/docker/containers/container_ID – when using the standard logging driver, this is where event logs are saved in JSON format. Too detailed logs, as well as logs that no one reads or otherwise processes, often cause disk overflow. </span></p> 
         <p><span>The directory /var/lib/docker/overlay2 – contains the read-write layers of containers (overlay2 is the preferred driver in most Linux distributions) . If a container stores data in its file system, then this is the directory where it will be placed. </span></p> 
-        <p><span>Using the following command, you can remove all installed containers in one fell swoop and clear your disk of all read-write files created by them<br /></span>
-		<code class="language-bash">docker container prune</code></p>
-		<p>This will remove all volumes not used by at least one container
-		<a href="https://docs.docker.com/reference/cli/docker/volume/prune/">
-		https://docs.docker.com/reference/cli/docker/volume/prune/</a> </p>
-		<p>docker volume prune --all</p>
+        <p><span>Using the following command, you can remove all installed containers in one fell swoop and clear your disk of all read-write files created by them<br /></span> <code class="language-bash">docker container prune</code></p> 
+        <p>This will remove all volumes not used by at least one container <a href="https://docs.docker.com/reference/cli/docker/volume/prune/" rel="nofollow" target="_blank" class="external"> https://docs.docker.com/reference/cli/docker/volume/prune/</a> </p> 
+        <p>docker volume prune --all</p> 
         <p><span lang="ru">Full clearing </span></p> 
         <pre><code class="language-bash">docker system prune</code></pre> 
         <p> <a href="https://stackoverflow.com/questions/46672001/is-it-safe-to-clean-docker-overlay2" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/46672001/is-it-safe-to-clean-docker-overlay2</a> </p> 
         <p><span>Docker uses /var/lib/docker to store images, containers, and local named volumes. Removing this may result in data loss and possible engine stoppage. The overlay2 subdirectory specifically contains different filesystem levels for images and containers.<br>To clean up unused containers and images, see docker system prune. There are also options for deleting volumes and even tagged images, but these are not enabled by default due to the possibility of data loss:</br></span></p> 
         <pre><code class="language-bash">
-docker system prune -a &amp;&amp; docker volume prune </code></pre>
-		<pre>&nbsp;</pre>
-		<p>Below is the command to clear all the log files stored on the host 
-		machine:</p>
-		<pre>$ <span>truncate</span> -s 0 /var/lib/docker/containers/*/*-json.log </pre>
-		<pre>&nbsp;</pre>
-		<pre>&nbsp;</pre> 
+docker system prune -a &amp;&amp; docker volume prune </code></pre> 
+        <pre>&#xa0;</pre> 
+        <p>Below is the command to clear all the log files stored on the host machine:</p> 
+        <pre>$ <span>truncate</span> -s 0 /var/lib/docker/containers/*/*-json.log </pre> 
+        <pre>&#xa0;</pre> 
+        <pre>&#xa0;</pre> 
         <h2><a name="id26"></a>Dockerfile for spring boot application</h2> 
         <p><a href="https://www.baeldung.com/java-dockerize-app" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/java-dockerize-app</a> </p> 
         <pre><code>FROM bellsoft/liberica-openjdk-alpine-musl:21.0.2
 COPY ./target/hiki-ms-app-0.0.1-SNAPSHOT.jar .
-CMD ["java","-jar","hiki-ms-app-0.0.1-SNAPSHOT.jar"]</code></pre>
-
-		<p>Comparation of different images </p>
-		<table style="width: 100%">
-			<tr>
-				<td>FROM bellsoft/liberica-openjdk-alpine-musl:21.0.2 </td>
-				<td>187MB</td>
-			</tr>
-			<tr>
-				<td>FROM amazoncorretto:21.0.2 </td>
-				<td>568MB</td>
-			</tr>
-			<tr>
-				<td>FROM amazoncorretto:21.0.2-alpine </td>
-				<td>393MB</td>
-			</tr>
-		</table>
-		<p>&nbsp;</p>
-		<p>Future tips:&nbsp; </p>
-		<ul>
-			<li>&nbsp;Don't Put Fat Jars in Docker Images
-			<a href="https://phauer.com/2019/no-fat-jar-in-docker-image/">
-			https://phauer.com/2019/no-fat-jar-in-docker-image/</a></li>
-			<li>Spring Boot Docker Best Practices
-			<a href="https://mydeveloperplanet.com/2022/12/14/spring-boot-docker-best-practices/">
-			https://mydeveloperplanet.com/2022/12/14/spring-boot-docker-best-practices/</a>
-			</li>
-		</ul>
-		<p>&nbsp;</p>
-		<h2><a name="id6"></a>Docker compose</h2>
+CMD ["java","-jar","hiki-ms-app-0.0.1-SNAPSHOT.jar"]</code></pre> 
+        <p>Comparation of different images </p> 
+        <table style="width: 100%"> 
+            <tr> 
+                <td>FROM bellsoft/liberica-openjdk-alpine-musl:21.0.2 </td> 
+                <td>187MB</td> 
+            </tr> 
+            <tr> 
+                <td>FROM amazoncorretto:21.0.2 </td> 
+                <td>568MB</td> 
+            </tr> 
+            <tr> 
+                <td>FROM amazoncorretto:21.0.2-alpine </td> 
+                <td>393MB</td> 
+            </tr> 
+        </table> 
+        <p>&#xa0;</p> 
+        <p>Future tips:&#xa0; </p> 
+        <ul> 
+            <li>&#xa0;Don't Put Fat Jars in Docker Images <a href="https://phauer.com/2019/no-fat-jar-in-docker-image/" rel="nofollow" target="_blank" class="external"> https://phauer.com/2019/no-fat-jar-in-docker-image/</a></li> 
+            <li>Spring Boot Docker Best Practices <a href="https://mydeveloperplanet.com/2022/12/14/spring-boot-docker-best-practices/" rel="nofollow" target="_blank" class="external"> https://mydeveloperplanet.com/2022/12/14/spring-boot-docker-best-practices/</a> </li> 
+        </ul> 
+        <p>&#xa0;</p> 
+        <h2><a name="id6"></a>Docker compose</h2> 
         <p>See <a href="docker-compose.htm">Docker compose</a></p> 
         <h2><a name="id8"></a>Docker Swarm</h2> 
         <p>See <a href="docker-swarm.htm">Docker Swarm</a></p> 
@@ -181,6 +163,6 @@ CMD ["java","-jar","hiki-ms-app-0.0.1-SNAPSHOT.jar"]</code></pre>
         <div> 
             <p> <span> Docker is running as root. Portainer with rootless Docker has some limitations, and requires additional configuration.</span></p> 
         </div> You are running a single manager node in your swarm. If you have more than one, please <a href="https://portal.portainer.io/knowledge/how-can-i-ensure-portainers-configuration-is-retained" rel="nofollow" target="_blank" class="external"> read this knowledge base article</a> 
-        <br> <br>curl -L https://downloads.portainer.io/ce2-18/portainer-agent-stack.yml -o portainer-agent-stack.yml<br> docker stack deploy -c portainer-agent-stack.yml portainer<br><br> <a href="https://localhost:9443" rel="nofollow" target="_blank" class="external">https://localhost:9443</a> <br> <br>Upgrade:&#xa0; <a href="https://docs.portainer.io/start/upgrade/swarm" rel="nofollow" target="_blank" class="external"> https://docs.portainer.io/start/upgrade/swarm</a> <br> <h2><a name="id11"></a>References</h2> <p><a href="https://labs.play-with-docker.com/" rel="nofollow" target="_blank" class="external">https://labs.play-with-docker.com</a>&#xa0; Play with Docker (PWD) is a project hacked by Marcos Liljedhal and Jonathan Leibiusky and sponsored by Docker Inc. PWD is a Docker playground which allows users to run Docker commands in a matter of seconds. It gives the experience of having a free Alpine Linux Virtual Machine in browser, where you can build and run Docker containers and even create clusters in Docker Swarm Mode. Under the hood Docker-in-Docker (DinD) is used to give the effect of multiple VMs/PCs. In addition to the playground, PWD also includes a training site composed of a large set of Docker labs and quizzes from beginner to advanced level available at training.play-with-docker.com. </p> <p><a href="https://github.com/docker/awesome-compose" rel="nofollow" target="_blank" class="external"> https://github.com/docker/awesome-compose</a>&#xa0; Examples </p> <p>&#xa0;&#xa0;</p> </br></br></br></br></br></br></br></br>
+        <br> <br>curl -L https://downloads.portainer.io/ce2-18/portainer-agent-stack.yml -o portainer-agent-stack.yml<br> docker stack deploy -c portainer-agent-stack.yml portainer<br><br> <a href="https://localhost:9443" rel="nofollow" target="_blank" class="external">https://localhost:9443</a> <br> <br>Upgrade:&#xa0; <a href="https://docs.portainer.io/start/upgrade/swarm" rel="nofollow" target="_blank" class="external"> https://docs.portainer.io/start/upgrade/swarm</a> <br> <h2><a name="id11"></a>References</h2> <p><a href="https://labs.play-with-docker.com/" rel="nofollow" target="_blank" class="external">https://labs.play-with-docker.com</a>&#xa0; Play with Docker (PWD) is a project hacked by Marcos Liljedhal and Jonathan Leibiusky and sponsored by Docker Inc. PWD is a Docker playground which allows users to run Docker commands in a matter of seconds. It gives the experience of having a free Alpine Linux Virtual Machine in browser, where you can build and run Docker containers and even create clusters in Docker Swarm Mode. Under the hood Docker-in-Docker (DinD) is used to give the effect of multiple VMs/PCs. In addition to the playground, PWD also includes a training site composed of a large set of Docker labs and quizzes from beginner to advanced level available at training.play-with-docker.com. </p> <p><a href="https://github.com/docker/awesome-compose" rel="nofollow" target="_blank" class="external"> https://github.com/docker/awesome-compose</a>&#xa0; Examples </p> <p>&#xa0;&#xa0;</p> </br></br></br></br></br></br></br></br> 
     </body>
 </html>

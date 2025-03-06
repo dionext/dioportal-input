@@ -17,6 +17,11 @@
                 <li><a href="#id3">Validation</a></li> 
                 <li><a href="#id4">Error handling</a></li> 
                 <li><a href="#id27">Thymeleaf Templates</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;References</a></li> 
+                <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;https://www.youtube.com/watch?v=tVQ8w0Rk_II 34. Thymeleaf. Spring WEB и Spring Boot 3 (Java Enterprise - полный курс) JavaGuru</a><a href="https://www.youtube.com/watch?v=tVQ8w0Rk_II"> [&gt;&gt;] </a></li> 
+                <li><a href="#id7">&#xa0;&#xa0;&#xa0;&#xa0;https://www.youtube.com/watch?v=eqzgTo-YMaU 35. Filtering, Pagination, Validation. Spring Boot 3 (Java Enterprise - полный курс)</a><a href="https://www.youtube.com/watch?v=eqzgTo-YMaU"> [&gt;&gt;] </a></li> 
+                <li><a href="#id29">JTE Template Engine</a></li> 
+                <li><a href="#id8">Other Template Engines</a></li> 
             </ul>
         </div> 
         <h2><a name="id0"></a>Spring controller mapping rules</h2> 
@@ -58,8 +63,7 @@
                 <li>Collection </li> 
                 <li>Map </li> 
                 <li>Array</li> 
-            </ul> <p>@NotBlank&#xa0;applies only to strings and checks that the string is not empty or composed entirely of spaces.<br /> @NotNull applies to a CharSequence, Collection, Map, or Array and checks that the object is not null. But at the same time it may be empty.<br /> @NotEmpty is applied to a CharSequence, Collection, Map or Array and checks that it is not null and has a size greater than 0.<br /> The annotation @Size(min=6) will skip a line consisting of 6 spaces and/or line breaks, but @NotBlank will not.<br /> @SizeThe size of the annotated element must be between the specified bounds, including the bounds themselves. null elements are considered valid.</p> <p>&#xa0;<a href="https://stackoverflow.com/questions/22948257/thymeleaf-not-displaying-spring-form-error-messages" rel="nofollow" target="_blank" class="external">https://stackoverflow.com/questions/22948257/thymeleaf-not-displaying-spring-form-error-messages</a> </p> <h2><a name="id4"></a>Error handling</h2> <p>Spring Boot uses the /error path to create a page that displays all global errors. This behavior can be changed by creating your own custom pages for this purpose. You need to create custom HTML pages in the src/main/resources/public/error/ directory, such as 500.html or 404.html pages. In the case of a RESTful application, Spring Boot responds in JSON format. Spring Boot also supports error handling using Spring MVC when @ControllerAdvice or @ExceptionHandler annotations are applied. You can register custom ErrorPage objects by implementing the ErrorPageRegistrar interface and declaring it as a Spring bean @ExceptionHandler annotation. Spring MVC automatically declares built-in exception resolvers and adds support in this annotation. In this case, a method with the @ExceptionHandler annotation is declared inside the controller class (it can also be used inside the @ControllerAdvice interceptor) and all exceptions are sent to the Spring Boot Web method: rest client application</p>
-		<p dir="auto">Error responses should include a general HTTP status code, a message to the developer, a message to the end user (if necessary), an internal error code (corresponding to a specific internal identifier), links where developers can find additional information. For example:</p> 
+            </ul> <p>@NotBlank&#xa0;applies only to strings and checks that the string is not empty or composed entirely of spaces.<br /> @NotNull applies to a CharSequence, Collection, Map, or Array and checks that the object is not null. But at the same time it may be empty.<br /> @NotEmpty is applied to a CharSequence, Collection, Map or Array and checks that it is not null and has a size greater than 0.<br /> The annotation @Size(min=6) will skip a line consisting of 6 spaces and/or line breaks, but @NotBlank will not.<br /> @SizeThe size of the annotated element must be between the specified bounds, including the bounds themselves. null elements are considered valid.</p> <p>&#xa0;<a href="https://stackoverflow.com/questions/22948257/thymeleaf-not-displaying-spring-form-error-messages" rel="nofollow" target="_blank" class="external">https://stackoverflow.com/questions/22948257/thymeleaf-not-displaying-spring-form-error-messages</a> </p> <h2><a name="id4"></a>Error handling</h2> <p>Spring Boot uses the /error path to create a page that displays all global errors. This behavior can be changed by creating your own custom pages for this purpose. You need to create custom HTML pages in the src/main/resources/public/error/ directory, such as 500.html or 404.html pages. In the case of a RESTful application, Spring Boot responds in JSON format. Spring Boot also supports error handling using Spring MVC when @ControllerAdvice or @ExceptionHandler annotations are applied. You can register custom ErrorPage objects by implementing the ErrorPageRegistrar interface and declaring it as a Spring bean @ExceptionHandler annotation. Spring MVC automatically declares built-in exception resolvers and adds support in this annotation. In this case, a method with the @ExceptionHandler annotation is declared inside the controller class (it can also be used inside the @ControllerAdvice interceptor) and all exceptions are sent to the Spring Boot Web method: rest client application</p> <p dir="auto">Error responses should include a general HTTP status code, a message to the developer, a message to the end user (if necessary), an internal error code (corresponding to a specific internal identifier), links where developers can find additional information. For example:</p> 
             <div> 
                 <pre><code>{</code>
 <code>  "status" : 400,
@@ -78,30 +82,6 @@
 &lt;/div&gt;</pre> <p>Staring with Thymeleaf 3.0 the html friendly tag would be:</p> <pre>&lt;div class=<span>"mailbox-read-message"</span> data-th-utext=<span>"*{body}"</span>&gt;</pre> <pre>&lt;h1 th:text="${greeting}"&gt;Hello!&lt;/h1&gt; </pre> <p>In addition to substituting values into attributes, it is possible to substitute values directly into the text using two pairs of square brackets: [[...]]. The only condition is that in one of the parent elements you need to specify the th:inline attribute, which can take text, javascript and none as a value. For example:</p> <pre><code>
 &lt;body th:inline="text"&gt;
 	&lt;h1&gt;Hello [[${user.name}]]!&lt;/h1&gt;
-&lt;/body&gt; </code></pre>
-		<h3><code>References </code></h3>
-		<h3><code><a href="https://www.youtube.com/watch?v=tVQ8w0Rk_II">https://www.youtube.com/watch?v=tVQ8w0Rk_II</a> 
-		34. Thymeleaf. Spring WEB и Spring Boot 3 (Java Enterprise - полный 
-		курс) JavaGuru </code></h3>
-		<h3><code><a href="https://www.youtube.com/watch?v=eqzgTo-YMaU">https://www.youtube.com/watch?v=eqzgTo-YMaU</a> 
-		35. Filtering, Pagination, Validation. Spring Boot 3 (Java Enterprise - 
-		полный курс) <br></code></h3>
-		<h2><a name="id29"></a>JTE Template Engine</h2>
-		<p><a href="https://jte.gg/">https://jte.gg/</a> </p>
-		<p>jte (Java Template Engine) is a secure and lightweight template 
-		engine for Java and Kotlin. jte is designed to introduce as few new 
-		keywords as possible and builds upon existing language features, making 
-		it straightforward to reason about what a template does. The IntelliJ 
-		plugin offers full completion and refactoring support for Java parts and 
-		jte keywords. </p> 
-		<a href="https://www.youtube.com/watch?v=KoWgHSWA1cc">https://www.youtube.com/watch?v=KoWgHSWA1cc</a> 
-		JTE: Spring Boot's New Templating Engine - Quick Start Guide <br>
-		<a href="https://cbidici.com/posts/migrated-my-blog-application-from-thymeleaf-to-jte/18">
-		https://cbidici.com/posts/migrated-my-blog-application-from-thymeleaf-to-jte/18</a> 
-		Migrated My Blog Application from Thymeleaf to JTE <br>
-		<p>&nbsp;</p>
-		<h2>Other Template Engines</h2>
-		<p><a href="https://www.baeldung.com/spring-template-engines">https://www.baeldung.com/spring-template-engines</a> </br> 
-    	</p>
+&lt;/body&gt; </code></pre> <h3><a name="id5"></a>References</h3> <h3><a name="id6"></a><a href="https://www.youtube.com/watch?v=tVQ8w0Rk_II">https://www.youtube.com/watch?v=tVQ8w0Rk_II 34. Thymeleaf. Spring WEB и Spring Boot 3 (Java Enterprise - полный курс) JavaGuru </a></h3> <h3><a name="id7"></a><a href="https://www.youtube.com/watch?v=eqzgTo-YMaU">https://www.youtube.com/watch?v=eqzgTo-YMaU 35. Filtering, Pagination, Validation. Spring Boot 3 (Java Enterprise - полный курс) </a></h3> <h2><a name="id29"></a>JTE Template Engine</h2> <p><a href="https://jte.gg/" rel="nofollow" target="_blank" class="external">https://jte.gg/</a> </p> <p>jte (Java Template Engine) is a secure and lightweight template engine for Java and Kotlin. jte is designed to introduce as few new keywords as possible and builds upon existing language features, making it straightforward to reason about what a template does. The IntelliJ plugin offers full completion and refactoring support for Java parts and jte keywords. </p> <a href="https://www.youtube.com/watch?v=KoWgHSWA1cc" rel="nofollow" target="_blank" class="external">https://www.youtube.com/watch?v=KoWgHSWA1cc</a> JTE: Spring Boot's New Templating Engine - Quick Start Guide <br> <a href="https://cbidici.com/posts/migrated-my-blog-application-from-thymeleaf-to-jte/18" rel="nofollow" target="_blank" class="external"> https://cbidici.com/posts/migrated-my-blog-application-from-thymeleaf-to-jte/18</a> Migrated My Blog Application from Thymeleaf to JTE <br> <p>&#xa0;</p> <h2><a name="id8"></a>Other Template Engines</h2> <p><a href="https://www.baeldung.com/spring-template-engines" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/spring-template-engines</a> </p></br> </br></br>
     </body>
 </html>

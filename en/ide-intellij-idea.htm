@@ -16,7 +16,10 @@
                 <li><a href="#id2">Useful plugins</a></li> 
                 <li><a href="#id3">Fonts</a></li> 
                 <li><a href="#id4">Show non-printable characters</a></li> 
+                <li><a href="#id5">Executing bash scripts</a></li> 
                 <li><a href="#id6">Working with docker</a></li> 
+                <li><a href="#id8">Using Lombok</a></li> 
+                <li><a href="#id9">AI Assistant</a></li> 
                 <li><a href="#id7">References</a></li> 
             </ul>
         </div> 
@@ -28,29 +31,22 @@
         <p><a href="https://portapps.io/app/intellij-idea-community-portable/" rel="nofollow" target="_blank" class="external">https://portapps.io/app/intellij-idea-community-portable/</a> Portable IntelliJ IDEA Community Edition</p> 
         <h2><a name="id1"></a>Useful settings</h2> 
         <p>Set UTF-8 for Project and properties files</p> 
-        <p>Enable toolbar for use "Back" button. In the main menu select&#xa0;View&#xa0;&gt;&#xa0;Appearance&#xa0;and enable&#xa0;Toolbar. It has the back/forward buttons.&nbsp;&nbsp; 
-		Right mouse click on Toolbar -&gt; Add To Main Toolbar</p>
-		<p>Set new JDK: File &gt; Project Structure (ctrl+alt+shift+s) - SDKs. - 
-		JDK. </p> 
+        <p>Enable toolbar for use "Back" button. In the main menu select&#xa0;View&#xa0;&gt;&#xa0;Appearance&#xa0;and enable&#xa0;Toolbar. It has the back/forward buttons.&#xa0;&#xa0; Right mouse click on Toolbar -&gt; Add To Main Toolbar</p> 
+        <p>Set new JDK: File &gt; Project Structure (ctrl+alt+shift+s) - SDKs. - JDK. </p> 
         <h2><a name="id2"></a>Useful plugins</h2> The Docker plugin is available by default only in IntelliJ&#xa0;IDEA Ultimate. For IntelliJ&#xa0;IDEA Community Edition, you need to install the Docker plugin as described in&#xa0;<a href="https://www.jetbrains.com/help/idea/2022.3/managing-plugins.html" rel="nofollow" target="_blank" class="external">Install plugins</a>. 
         <p>JPA Buddy - working with databases (proprietary)</p> 
-        <p>Database Navigator - working with databases </p>
-		<p>EnvFile -&nbsp; is a plugin for JetBrains IDEs that allows you to set 
-		environment variables for your run configurations from one or multiple 
-		files. <a href="https://plugins.jetbrains.com/plugin/7861-envfile">
-		https://plugins.jetbrains.com/plugin/7861-envfile</a> </p> 
+        <p>Database Navigator - working with databases </p> 
+        <p>EnvFile -&#xa0; is a plugin for JetBrains IDEs that allows you to set environment variables for your run configurations from one or multiple files. <a href="https://plugins.jetbrains.com/plugin/7861-envfile" rel="nofollow" target="_blank" class="external"> https://plugins.jetbrains.com/plugin/7861-envfile</a> </p> 
         <h2><a name="id3"></a>Fonts</h2> 
         <p><span>To configure the font used in the IntelliJ&#xa0;IDEA interface (tool windows, toolbars, menus, and so on), open the IDE settings&#xa0;</span>Ctrl+Alt+S<span>, and go to&#xa0;</span><span id="36fac549">Appearance &amp; Behavior | Appearance</span><span>. From the&#xa0;</span><span id="1891b5d6">Use custom font</span><span>&#xa0;list, select a font and specify the font size in the&#xa0;</span><span id="ca0e2433">Size</span><span>&#xa0;field.</span></p> 
         <ul id="283d9f98"> 
             <li id="da6a018c"> <p>The default font size is set on the<span>&#xa0;</span><span id="d7ba49">Editor | Font</span><span>&#xa0;</span>page of the IDE settings&#xa0;Ctrl+Alt+S. It will be used in the editor by for all newly opened documents, unless overridden in the current<span>&#xa0;</span><a id="50749ebc" data-test="internal-link link-with-popover" href="https://www.jetbrains.com/help/rider/Configuring_Colors_and_Fonts.html" rel="nofollow" target="_blank" class="external">color scheme</a>.</p> </li> 
         </ul> 
-        <p>
-        <a href="https://www.jetbrains.com/help/rider/Zooming_in_the_Editor.html#use-ctrl-cmd-mouse-wheel-to-change-font-size-in-the-current-document">Use Ctrl/Cmd+mouse wheel to change font size in the current document﻿</a> 
-        </p>
-        <ol>        
-            <li > <p>Press<span>&#xa0;</span>Ctrl+Alt+S<span>&#xa0;</span>to open the IDE settings and select<span>&#xa0;</span><span id="b9c19088">Editor | General</span>.</p> </li> 
+        <p> <a href="https://www.jetbrains.com/help/rider/Zooming_in_the_Editor.html#use-ctrl-cmd-mouse-wheel-to-change-font-size-in-the-current-document" rel="nofollow" target="_blank" class="external">Use Ctrl/Cmd+mouse wheel to change font size in the current document﻿</a> </p> 
+        <ol> 
+            <li> <p>Press<span>&#xa0;</span>Ctrl+Alt+S<span>&#xa0;</span>to open the IDE settings and select<span>&#xa0;</span><span id="b9c19088">Editor | General</span>.</p> </li> 
             <li> <p>Select<span>&#xa0;</span><span id="a56bf9b5">Change font size with Ctrl/Cmd+Mouse Wheel in:</span></p> </li> 
-            <li > <p>Choose<span>&#xa0;</span><span id="edbcb969">Active editor</span><span>&#xa0;</span>below that checkbox.</p> </li> 
+            <li> <p>Choose<span>&#xa0;</span><span id="edbcb969">Active editor</span><span>&#xa0;</span>below that checkbox.</p> </li> 
             <li> <p>Now you can press<span>&#xa0;</span>Ctrl<span>&#xa0;</span>and while holding it, rotate the mouse wheel to increase or decrease the font size in the current document.</p> </li> 
             <li> <p>If you close and reopen the document, the font size will be reset to the default font or to the color scheme font according to your settings.</p> </li> 
         </ol> 
@@ -60,37 +56,22 @@
             <li>View | Active Editor | Show Whitespaces&#xa0;&#xa0;-- affects current tab only</li> 
             <li>Settings | Editor | General | Appearance --&gt; Show whitespaces&#xa0;&#xa0;-- affects all (newly opened) tabs</li> 
         </ul> 
-        <h2>Executing bash scripts </h2>
-		<p>
-		<a href="https://www.jetbrains.com/help/idea/shell-scripts.html#shell-scripts-configurations">
-		https://www.jetbrains.com/help/idea/shell-scripts.html#shell-scripts-configurations</a>
-		</p>
-		<p>
-		<a href="https://www.cyberciti.biz/faq/linux-unix-osx-bsd-ssh-run-command-on-remote-machine-server/">
-		https://www.cyberciti.biz/faq/linux-unix-osx-bsd-ssh-run-command-on-remote-machine-server/</a> 
-		How To Run Multiple SSH Command On Remote Machine And Exit Safely&nbsp;
-		<a href="https://stackoverflow.com/questions/4412238/what-is-the-cleanest-way-to-ssh-and-run-multiple-commands-in-bash">
-		https://stackoverflow.com/questions/4412238/what-is-the-cleanest-way-to-ssh-and-run-multiple-commands-in-bash</a> 
-		What is the cleanest way to ssh and run multiple commands in Bash? </p> 
+        <h2><a name="id5"></a>Executing bash scripts</h2> 
+        <p> <a href="https://www.jetbrains.com/help/idea/shell-scripts.html#shell-scripts-configurations" rel="nofollow" target="_blank" class="external"> https://www.jetbrains.com/help/idea/shell-scripts.html#shell-scripts-configurations</a> </p> 
+        <p> <a href="https://www.cyberciti.biz/faq/linux-unix-osx-bsd-ssh-run-command-on-remote-machine-server/" rel="nofollow" target="_blank" class="external"> https://www.cyberciti.biz/faq/linux-unix-osx-bsd-ssh-run-command-on-remote-machine-server/</a> How To Run Multiple SSH Command On Remote Machine And Exit Safely&#xa0; <a href="https://stackoverflow.com/questions/4412238/what-is-the-cleanest-way-to-ssh-and-run-multiple-commands-in-bash" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/4412238/what-is-the-cleanest-way-to-ssh-and-run-multiple-commands-in-bash</a> What is the cleanest way to ssh and run multiple commands in Bash? </p> 
         <h2><a name="id6"></a>Working with docker</h2> 
-        <p><a href="https://www.jetbrains.com/help/idea/docker.html#connect_to_docker" rel="nofollow" target="_blank" class="external"> https://www.jetbrains.com/help/idea/docker.html#connect_to_docker</a>&#xa0; </p>
-		<h2>Using Lombok </h2>
-		<p><a href="https://www.baeldung.com/lombok-ide#intellij-apt">https://www.baeldung.com/lombok-ide#intellij-apt</a> 
-		Setting up Lombok with Eclipse and Intellij </p>
-		<p>Our experience:&nbsp; </p>
-		<p>you may get problem with ...m2\repository\org\projectlombok\lombok\unknown\lombok-unknown.jar</p>
-		<p>To avoid that - use exact version of Lombok or do not&nbsp; use 
-		annotationProcessorPaths in maven-compiler-plugin </p>
-		<p> 
-		<a href="https://youtrack.jetbrains.com/issue/IDEA-332869/Incompatible-Lombok-version-leads-to-error-NoSuchFieldError-com.sun.tools.javac.tree.JCTree-qualid-during-project-compilation">
-		https://youtrack.jetbrains.com/issue/IDEA-332869/Incompatible-Lombok-version-leads-to-error-NoSuchFieldError-com.sun.tools.javac.tree.JCTree-qualid-during-project-compilation</a> </p>
-		<p> Upgrade Lombok to the compatible version. JDK21 - Lombok 1.18.30 
-		JDK22 - Lombok 1.18.32 </p>
-		<p>&nbsp;</p>
-		<h2>AI Assistant </h2>
-		<p><a href="https://www.jetbrains.com/ai/">https://www.jetbrains.com/ai/</a> </p>
-		<p><a href="https://www.youtube.com/watch?v=yAxLR1YPwyQ">https://www.youtube.com/watch?v=yAxLR1YPwyQ</a> 
-		Build a Spring Boot app with AI Assistant </p> 
+        <p><a href="https://www.jetbrains.com/help/idea/docker.html#connect_to_docker" rel="nofollow" target="_blank" class="external"> https://www.jetbrains.com/help/idea/docker.html#connect_to_docker</a>&#xa0; </p> 
+        <h2><a name="id8"></a>Using Lombok</h2> 
+        <p><a href="https://www.baeldung.com/lombok-ide#intellij-apt" rel="nofollow" target="_blank" class="external">https://www.baeldung.com/lombok-ide#intellij-apt</a> Setting up Lombok with Eclipse and Intellij </p> 
+        <p>Our experience:&#xa0; </p> 
+        <p>you may get problem with ...m2\repository\org\projectlombok\lombok\unknown\lombok-unknown.jar</p> 
+        <p>To avoid that - use exact version of Lombok or do not&#xa0; use annotationProcessorPaths in maven-compiler-plugin </p> 
+        <p> <a href="https://youtrack.jetbrains.com/issue/IDEA-332869/Incompatible-Lombok-version-leads-to-error-NoSuchFieldError-com.sun.tools.javac.tree.JCTree-qualid-during-project-compilation" rel="nofollow" target="_blank" class="external"> https://youtrack.jetbrains.com/issue/IDEA-332869/Incompatible-Lombok-version-leads-to-error-NoSuchFieldError-com.sun.tools.javac.tree.JCTree-qualid-during-project-compilation</a> </p> 
+        <p> Upgrade Lombok to the compatible version. JDK21 - Lombok 1.18.30 JDK22 - Lombok 1.18.32 </p> 
+        <p>&#xa0;</p> 
+        <h2><a name="id9"></a>AI Assistant</h2> 
+        <p><a href="https://www.jetbrains.com/ai/" rel="nofollow" target="_blank" class="external">https://www.jetbrains.com/ai/</a> </p> 
+        <p><a href="https://www.youtube.com/watch?v=yAxLR1YPwyQ" rel="nofollow" target="_blank" class="external">https://www.youtube.com/watch?v=yAxLR1YPwyQ</a> Build a Spring Boot app with AI Assistant </p> 
         <h2><a name="id7"></a>References</h2> 
         <p><a href="https://www.youtube.com/watch?v=sSoS6edODWM" rel="nofollow" target="_blank" class="external">https://www.youtube.com/watch?v=sSoS6edODWM</a> Artyom Zaitsev “Write code quickly and easily with Intellij IDEA” (lang: rus)</p> 
         <p>&#xa0;</p> 

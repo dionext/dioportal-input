@@ -3,7 +3,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
         <meta charset="utf-8" /> 
         <meta http-equiv="Content-Language" content="en" />
-        <title>Working with remote OS</title>
+        <title>Working with remote OS and Synchronization</title>
         <meta name="description" content="Working with remote OS" />
         <meta name="keywords" content="Rsync, WinSCP, SCP" />
     </head>
@@ -13,10 +13,15 @@
             <ul class="list-unstyled" id="TOC"> 
                 <li><a href="#id0">Setting up a secure protocol</a></li> 
                 <li><a href="#id1">Remote command execution</a></li> 
-                <li><a href="#id2">Sharing files with the server</a></li> 
+                <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;Executing batch</a></li> 
+                <li><a href="#id2">Transfer files to the server</a></li> 
                 <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Rsync</a></li> 
                 <li><a href="#id17">&#xa0;&#xa0;&#xa0;&#xa0;SCP</a></li> 
                 <li><a href="#id18">&#xa0;&#xa0;&#xa0;&#xa0;WinSCP</a></li> 
+                <li><a href="#id5">&#xa0;&#xa0;&#xa0;&#xa0;Curl</a></li> 
+                <li><a href="#id6">Synchronization</a></li> 
+                <li><a href="#id7">&#xa0;&#xa0;&#xa0;&#xa0;Overview. Local First</a></li> 
+                <li><a href="#id8">&#xa0;&#xa0;&#xa0;&#xa0;Syncthing</a></li> 
             </ul>
         </div> 
         <h2><a name="id0"></a>Setting up a secure protocol</h2> 
@@ -30,23 +35,21 @@
         <p>(to run command: ls /etc/) </p> 
         <p> <a href="https://stackoverflow.com/questions/9270734/ssh-permissions-are-too-open-error" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/9270734/ssh-permissions-are-too-open-error</a> </p> 
         <pre><code class="language-bash">
-chmod 600 ~/.ssh/id_rsa</code></pre>
-		<h3>Executing batch </h3>
-		<pre><code class="language-bash">
+chmod 600 ~/.ssh/id_rsa</code></pre> 
+        <h3><a name="id4"></a>Executing batch</h3> 
+        <pre><code class="language-bash">
 ssh -t root@$REMOTE_SERVER_ADDRESS &lt;&lt; EOF
 cd /mnt/$APP_NAME/app
 docker build --tag=$APP_NAME:latest .
 cd /mnt/$APP_NAME
 docker-compose down
 docker-compose up -d
-EOF</code></pre>
-		<p><a href="https://ubuntushell.com/disable-ssh-welcome-message">
-		https://ubuntushell.com/disable-ssh-welcome-message</a> How to Disable 
-		SSH Welcome Message on Ubuntu</p>
-		<pre>sudo vim /etc/pam.d/sshd</pre>
-		<pre># session    optional     pam_motd.so  motd=/run/motd.dynamic
-# session    optional     pam_motd.so noupdate</pre>
-		<pre>sudo systemctl restart ssh</pre>
+EOF</code></pre> 
+        <p><a href="https://ubuntushell.com/disable-ssh-welcome-message" rel="nofollow" target="_blank" class="external"> https://ubuntushell.com/disable-ssh-welcome-message</a> How to Disable SSH Welcome Message on Ubuntu</p> 
+        <pre>sudo vim /etc/pam.d/sshd</pre> 
+        <pre># session    optional     pam_motd.so  motd=/run/motd.dynamic
+# session    optional     pam_motd.so noupdate</pre> 
+        <pre>sudo systemctl restart ssh</pre> 
         <h2><a name="id2"></a>Transfer files to the server</h2> 
         <h3><a name="id3"></a>Rsync</h3> 
         <p> <span lang="en-us">(linux)</span></p> 
@@ -59,41 +62,28 @@ EOF</code></pre>
         <pre><code class="language-bash">
 scp -P 22 file.tar.gz root@servername:/mnt/targetpath/</code></pre> 
         <h3><a name="id18"></a>WinSCP</h3> 
-        <pre><code class="language-bash">winscp.com /command "open sftp://root:<span lang="en-us">mypassword</span>@servername/" "put sourcefile.txt /mnt/tagrepath/" "exit"</code></pre>
-        <h3>Curl</h3>
-		<p>Curl on Ubuntu documentation
-		<a href="https://manpages.ubuntu.com/manpages/focal/man1/curl.1.html">
-		https://manpages.ubuntu.com/manpages/focal/man1/curl.1.html</a> </p>
-		<p><a name="id19"></a>Downloading files from outside</p> <p>curl http://proft.me&#xa0;&#xa0; -&#xa0; get the contents of the main page<br /> curl -o index.html http://proft.me&#xa0; - get the contents of the main page into the file index.html</p>
-		<p>Example of usage socks5 proxy with curl</p>
-		<p>curl -v -x socks5://your_user:your_password@your_server_ip:1080 
-		http://www.google.com/ </p>
-		<h2>Synchronization </h2>
-		<h3>Overview.&nbsp; Local First </h3>
-		<p><a href="https://www.inkandswitch.com/local-first/">https://www.inkandswitch.com/local-first/</a>&nbsp; 
-		(By Martin Kleppmann and others)</p>
-		<p><a href="https://njoseph.me/mediawiki/LocalFirst">https://njoseph.me/mediawiki/LocalFirst</a> </p>
-		<p><strong>local-first software</strong> - software that keeps your data 
-		locally as much as possible and only sends it over the network for 
-		synchronization or backup. </p>
-		<p>It is possible to transfer a file across devices using various 
-		technologies:</p>
-		<ul>
-			<li>Sending it back and forth by email;</li>
-			<li>Passing a USB drive back and forth;</li>
-			<li>Via a distributed file system such as a NAS server, NFS, FTP, or 
-			rsync;</li>
-			<li>Using a cloud file storage service like Dropbox, Google Drive, 
-			or OneDrive;</li>
-			<li>Using a version control system such as Git </li>
-		</ul>
-		<h3>Syncthing</h3>
-		<p><a href="https://syncthing.net/">https://syncthing.net/</a> </p>
-		<p>Syncthing is a <strong>continuous file synchronization</strong> 
-		program. It synchronizes files between two or more computers in real 
-		time, safely protected from prying eyes. Your data is your data alone 
-		and you deserve to choose where it is stored, whether it is shared with 
-		some third party, and how it’s transmitted over the internet.</p>
-		
+        <pre><code class="language-bash">winscp.com /command "open sftp://root:<span lang="en-us">mypassword</span>@servername/" "put sourcefile.txt /mnt/tagrepath/" "exit"</code></pre> 
+        <h3><a name="id5"></a>Curl</h3> 
+        <p>Curl on Ubuntu documentation <a href="https://manpages.ubuntu.com/manpages/focal/man1/curl.1.html" rel="nofollow" target="_blank" class="external"> https://manpages.ubuntu.com/manpages/focal/man1/curl.1.html</a> </p> 
+        <p><a name="id19"></a>Downloading files from outside</p> 
+        <p>curl http://proft.me&#xa0;&#xa0; -&#xa0; get the contents of the main page<br /> curl -o index.html http://proft.me&#xa0; - get the contents of the main page into the file index.html</p> 
+        <p>Example of usage socks5 proxy with curl</p> 
+        <p>curl -v -x socks5://your_user:your_password@your_server_ip:1080 http://www.google.com/ </p> 
+        <h2><a name="id6"></a>Synchronization</h2> 
+        <h3><a name="id7"></a>Overview. Local First</h3> 
+        <p><a href="https://www.inkandswitch.com/local-first/" rel="nofollow" target="_blank" class="external">https://www.inkandswitch.com/local-first/</a>&#xa0; (By Martin Kleppmann and others)</p> 
+        <p><a href="https://njoseph.me/mediawiki/LocalFirst" rel="nofollow" target="_blank" class="external">https://njoseph.me/mediawiki/LocalFirst</a> </p> 
+        <p><strong>local-first software</strong> - software that keeps your data locally as much as possible and only sends it over the network for synchronization or backup. </p> 
+        <p>It is possible to transfer a file across devices using various technologies:</p> 
+        <ul> 
+            <li>Sending it back and forth by email;</li> 
+            <li>Passing a USB drive back and forth;</li> 
+            <li>Via a distributed file system such as a NAS server, NFS, FTP, or rsync;</li> 
+            <li>Using a cloud file storage service like Dropbox, Google Drive, or OneDrive;</li> 
+            <li>Using a version control system such as Git </li> 
+        </ul> 
+        <h3><a name="id8"></a>Syncthing</h3> 
+        <p><a href="https://syncthing.net/" rel="nofollow" target="_blank" class="external">https://syncthing.net/</a> </p> 
+        <p>Syncthing is a <strong>continuous file synchronization</strong> program. It synchronizes files between two or more computers in real time, safely protected from prying eyes. Your data is your data alone and you deserve to choose where it is stored, whether it is shared with some third party, and how it’s transmitted over the internet.</p> 
     </body>
 </html>

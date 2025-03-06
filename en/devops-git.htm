@@ -12,58 +12,53 @@
         <div> 
             <ul class="list-unstyled" id="TOC"> 
                 <li><a href="#id0">Git Commands</a></li> 
+                <li><a href="#id6">&#xa0;&#xa0;&#xa0;&#xa0;Working with Remotes</a></li> 
                 <li><a href="#id1">Github vs Gitlab</a></li> 
                 <li><a href="#id2">Github</a></li> 
                 <li><a href="#id8">&#xa0;&#xa0;&#xa0;&#xa0;Github Actions</a></li> 
+                <li><a href="#id7">&#xa0;&#xa0;&#xa0;&#xa0;Github Pages</a></li> 
                 <li><a href="#id3">Gitlab</a></li> 
                 <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;Own Gitlab Server</a></li> 
+                <li><a href="#id9">Git Clients (UI)</a></li> 
                 <li><a href="#id5">References</a></li> 
             </ul>
         </div> 
         <p>Git is a free, open-source, distributed version control system. It makes it easier to write code using distributed teams of developers. What makes it different from previous version control systems is its ability to perform common operations (branching, committing, etc.) on your local machine, without having to modify the main repository or even having write permissions to it.</p> 
         <p>&#xa0;</p> 
         <h2><a name="id0"></a>Git Commands</h2> 
-        <p>git init </p>
-		<p>Initial Git setup</p> 
+        <p>git init </p> 
+        <p>Initial Git setup</p> 
         <p><br /> Specify the user name - git config --global user.name "John". Specifies the name of the user from whom commits will come. </p> 
         <p>Specify email - git config --global user.email "mail@gmail.com". Instead of mail@gmail.com you need to enter your email. Please note that it must match the one for which the account is registered in Github.</p> 
         <p>View settings - git config --list. The parameters can also be viewed in the configuration file, but this method is faster. git config -l --show-origin<br /> The --global option allows you to set the desired settings once, which Git will use for all repositories on your computer.</p> 
         <p>Correct display of Native letters For those who use Windows with names for folders and files in Native, you need to run the command: git config --global core.quotepath off<br /> <br /> git add</p> 
         <p>git status</p> 
-        <p>Revert changes not added to the index - git restore [file name]. Will delete changes in one file. To remove changes to all files, use git restore :/.<br /> Revert changes added to the index - git reset --hard. Returns changes from the index and discards them completely.<br /> <br /> git fetch</p>
-		<p>The git fetch command contacts a remote repository and fetches any changes from it that you don't already have and stores them locally.</p> 
-        <p><br /> git pull </p>
-		<p>&nbsp;git pull origin master</p>
-		<p>The git pull command works as a combination of the git fetch and git merge commands, i.e. Git first pulls changes from the specified remote repository and then tries to merge them into the current branch.</p> 
+        <p>Revert changes not added to the index - git restore [file name]. Will delete changes in one file. To remove changes to all files, use git restore :/.<br /> Revert changes added to the index - git reset --hard. Returns changes from the index and discards them completely.<br /> <br /> git fetch</p> 
+        <p>The git fetch command contacts a remote repository and fetches any changes from it that you don't already have and stores them locally.</p> 
+        <p><br /> git pull </p> 
+        <p>&#xa0;git pull origin master</p> 
+        <p>The git pull command works as a combination of the git fetch and git merge commands, i.e. Git first pulls changes from the specified remote repository and then tries to merge them into the current branch.</p> 
         <p><br /> git push The git push command is used to establish a connection with a remote repository, calculate local changes that are not in it, and actually transfer them to the above-mentioned repository. This command needs write permission to the repository, so it uses authentication.</p> 
         <p><br /> Create a repository - git init. Initializes an empty repository.</p> 
-        <p>&nbsp;</p>
-		<h3>Working with Remotes </h3>
-		<p>Remote repositories are versions of your project that are hosted on 
-		the Internet or network somewhere. You can have several of them, each of 
-		which generally is either read-only or read/write for you.
-		<a href="https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes">
-		https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes</a> </p>
-		<p>Remote commands <a href="https://git-scm.com/docs/git-remote">
-		https://git-scm.com/docs/git-remote</a> </p>
-		<p>The git remote command is used to manage the list of remote repositories. It allows you to save long repository URLs as understandable short strings, such as "origin", so that you don't have to fill your head with all sorts of nonsense and type it every time to contact the server. You can use multiple remote repositories for work and git remote will help you add, change and delete them.<br /> </p>
-		<p>git remote -v </p>
-		<p>git remote remove &lt;name&gt; Remove the remote named &lt;name&gt;. All 
-		remote-tracking branches and configuration settings for the remote are 
-		removed. </p>
-		<p>git remote add origin git@github.com:dionext/lib-ms-spring-starter.git</p>
-		<p><br /> Clone a remote repository - git clone [link to remote repository]. The project will appear in the directory where you were at the time of cloning.<br /> Link remote and local repositories - git remote add origin [link to remote repository].<br /> <br /> </p>
-		<p>View commit history - git log. Lists all commits. This command has different options, the most used one is<br /> --oneline. It shows the hash in a shortened format, the branch in which the commit was made, and the text of the commit. To use this option (like any other), you need to add it after the command: git log--oneline.</p> 
+        <p>&#xa0;</p> 
+        <h3><a name="id6"></a>Working with Remotes</h3> 
+        <p>Remote repositories are versions of your project that are hosted on the Internet or network somewhere. You can have several of them, each of which generally is either read-only or read/write for you. <a href="https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes" rel="nofollow" target="_blank" class="external"> https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes</a> </p> 
+        <p>Remote commands <a href="https://git-scm.com/docs/git-remote" rel="nofollow" target="_blank" class="external"> https://git-scm.com/docs/git-remote</a> </p> 
+        <p>The git remote command is used to manage the list of remote repositories. It allows you to save long repository URLs as understandable short strings, such as "origin", so that you don't have to fill your head with all sorts of nonsense and type it every time to contact the server. You can use multiple remote repositories for work and git remote will help you add, change and delete them.<br /> </p> 
+        <p>git remote -v </p> 
+        <p>git remote remove &lt;name&gt; Remove the remote named &lt;name&gt;. All remote-tracking branches and configuration settings for the remote are removed. </p> 
+        <p>git remote add origin git@github.com:dionext/lib-ms-spring-starter.git</p> 
+        <p><br /> Clone a remote repository - git clone [link to remote repository]. The project will appear in the directory where you were at the time of cloning.<br /> Link remote and local repositories - git remote add origin [link to remote repository].<br /> <br /> </p> 
+        <p>View commit history - git log. Lists all commits. This command has different options, the most used one is<br /> --oneline. It shows the hash in a shortened format, the branch in which the commit was made, and the text of the commit. To use this option (like any other), you need to add it after the command: git log--oneline.</p> 
         <h2><a name="id1"></a>Github vs Gitlab</h2> 
         <p><a href="https://about.gitlab.com/competition/github/" rel="nofollow" target="_blank" class="external">https://about.gitlab.com/competition/github/</a> </p> 
         <p>Note: You can't&#xa0; arrange repositories into folders on Github. <a href="https://stackoverflow.com/questions/11852982/can-i-arrange-repositories-into-folders-on-github" rel="nofollow" target="_blank" class="external"> https://stackoverflow.com/questions/11852982/can-i-arrange-repositories-into-folders-on-github</a> </p> 
-        <h2><a name="id2"></a>Github</h2>
-		<p><a href="https://github.com/pricing">https://github.com/pricing</a>
-		</p>
-		<p>&nbsp;</p> 
-        <h3><a name="id8"></a>Github Actions</h3>
-		<h3>Github Pages</h3>
-		<p><a href="https://pages.github.com/">https://pages.github.com/</a> </p> 
+        <h2><a name="id2"></a>Github</h2> 
+        <p><a href="https://github.com/pricing" rel="nofollow" target="_blank" class="external">https://github.com/pricing</a> </p> 
+        <p>&#xa0;</p> 
+        <h3><a name="id8"></a>Github Actions</h3> 
+        <h3><a name="id7"></a>Github Pages</h3> 
+        <p><a href="https://pages.github.com/" rel="nofollow" target="_blank" class="external">https://pages.github.com/</a> </p> 
         <h2><a name="id3"></a>Gitlab</h2> 
         <h3><a name="id4"></a>Own Gitlab Server</h3> 
         <p><a href="https://docs.gitlab.com/omnibus/docker/" rel="nofollow" target="_blank" class="external">https://docs.gitlab.com/omnibus/docker/</a> </p> 
@@ -75,15 +70,10 @@
             <li>4 GB RAM is the required minimum memory size and supports up to 500 users </li> 
         </ul> 
         <p>Our experience: version 13 does not works on 2CPU/4GB, version 11 works</p> 
-        <h2>Git Clients (UI)</h2>
-		<p><a href="https://www.sourcetreeapp.com/">https://www.sourcetreeapp.com/</a> 
-		A free Git client for Windows and Mac Sourcetree simplifies how you 
-		interact with your Git repositories so you can focus on coding. 
-		Visualize and manage your repositories through Sourcetree's simple Git 
-		GUI. </p>
-		<p><a href="https://git-fork.com/">https://git-fork.com/</a> $59.99, 
-		free evaluation </p>
-		<h2><a name="id5"></a>References</h2> 
+        <h2><a name="id9"></a>Git Clients (UI)</h2> 
+        <p><a href="https://www.sourcetreeapp.com/" rel="nofollow" target="_blank" class="external">https://www.sourcetreeapp.com/</a> A free Git client for Windows and Mac Sourcetree simplifies how you interact with your Git repositories so you can focus on coding. Visualize and manage your repositories through Sourcetree's simple Git GUI. </p> 
+        <p><a href="https://git-fork.com/" rel="nofollow" target="_blank" class="external">https://git-fork.com/</a> $59.99, free evaluation </p> 
+        <h2><a name="id5"></a>References</h2> 
         <p>So You Think You Know Git - FOSDEM 2024 <a href="https://www.youtube.com/watch?v=aolI_Rz0ZqY" rel="nofollow" target="_blank" class="external">https://www.youtube.com/watch?v=aolI_Rz0ZqY</a> </p> 
         <p>&#xa0;</p> 
     </body>

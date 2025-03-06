@@ -1,297 +1,124 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-
-<head>
-<meta content="en-us" http-equiv="Content-Language" />
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-<title>Untitled 1</title>
-<style type="text/css">
-A
-{
-    FONT-WEIGHT: normal;
-    TEXT-DECORATION: none
-}
-</style>
-</head>
-
-<body>
-
-<h1>AI. Local model run</h1>
-<h2>ollama</h2>
-<p>Активно испаользуется в интеграции Spring AI </p>
-<p><a href="https://ollama.com">https://ollama.com</a> </p>
-<p><a href="https://github.com/ollama/ollama">https://github.com/ollama/ollama</a>
-</p>
-<p><a href="https://github.com/ollama/ollama/blob/main/README.md">https://github.com/ollama/ollama/blob/main/README.md</a>
-</p>
-<p>список моделей <a href="https://ollama.com/library">https://ollama.com/library</a>
-</p>
-<p>ссылка на страницу с мультимодальной моделью:<br />
-<a href="https://ollama.com/library/llava">https://ollama.com/library/llava</a></p>
-<p>рекомендуют GUI <a href="https://github.com/open-webui/open-webui">https://github.com/open-webui/open-webui</a>
-</p>
-<p>ссылка на видео:<br />
-https://youtu.be/J2pWl4UeSa4<br />
-<br />
-ссылка на проект:<br />
-https://github.com/ollama/ollama<br />
-</p>
-<h4><a name="id68"></a>Инсталляция Windows</h4>
-<p><br />
-одной командой для виндовс:<br />
-<br />
-https://ollama.com/download/OllamaSetup.exe<br />
-<br />
-установка веб интерфейса open-webui: источник https://github.com/open-webui/open-webui<br />
-Запуск open-webui: перейти в папку open-webui/backend и запустить файл 
-start_windows.bat<br />
-перейти в браузер и ввести localhost:8080<br />
-https://docs.openwebui.com/getting-started/#alternative-installation-methods<br />
-замечания:<br />
-Во время первого входа попадете на страницу регистрации. Перейти на создание<br />
-нового пользователя и ввести любые можно фейковые данные<br />
-</p>
-<p>У кого проблемы со свободным местом для ollama на диске С - нужно задать 
-переменную окружения OLLAMA_MODELS=путь\до\папки. Должно сработать и для другого 
-диска. Туда будут сохранены все загруженные модели, которые и выедают место</p>
-<p>OLLAMA_MODELS=D:\Soft\AI\ollama\models</p>
-<div dir="auto">
-	Where are models stored?<a id="user-content-where-are-models-stored" aria-label="Permalink: Where are models stored?" href="https://github.com/ollama/ollama/blob/main/docs/faq.md#where-are-models-stored"><svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
-<ul dir="auto">
-	<li>macOS:<span>&nbsp;</span>~/.ollama/models</li>
-	<li>Linux:<span>&nbsp;</span>/usr/share/ollama/.ollama/models</li>
-	<li>Windows:<span>&nbsp;</span>C:\Users\%username%\.ollama\models</li>
-</ul>
-<p>&nbsp;</p>
-<ol>
-	<li>In the Environment Variables window, edit or create a new variable for 
-	your user account:<ul>
-		<li>Variable Name:<span>&nbsp;</span>OLLAMA_HOST</li>
-		<li>Variable Value:<span>&nbsp;</span>0.0.0.0</li>
-	</ul>
-	</li>
-	<li>Create a new variable for<span>&nbsp;</span>OLLAMA_ORIGINS<span>&nbsp;</span>with 
-	value<span>&nbsp;</span>"*"</li>
-</ol>
-<p>&nbsp;</p>
-<p>Настройка для входа из сети </p>
-<p><span>Ollama binds 127.0.0.1 port 11434 by default. Change the bind address 
-with the&nbsp;</span>OLLAMA_HOST<span>&nbsp;environment variable.</span></p>
-<p><span>Ollama allows cross-origin requests from&nbsp;</span>127.0.0.1<span>&nbsp;and&nbsp;</span>0.0.0.0<span>&nbsp;by 
-default. Additional origins can be configured with&nbsp;</span>OLLAMA_ORIGINS</p>
-<p>OLLAMA_HOST=0.0.0.0</p>
-<p>тоже в виде комманды </p>
-<p>OLLAMA_HOST="0.0.0.0" ollama serve</p>
-<p>Проверка</p>
-<p>
-<a href="../../../../dio_documents/other/curl%20http:/192.168.1.75:11434/api/generate%20-d%20'{%20%22model%22:%20%22mistral%22,%20%22prompt%22:%20%22What%20is%20water%20made%20of?&quot; }'">
-curl http://192.168.1.75:11434/api/generate -d '{ "model": "mistral", "prompt": 
-"What is water made of?" }'<br />
-</a></p>
-<h4><a name="id69"></a>&nbsp;</h4>
-<h4><a name="id70"></a>Инсталляция Linux</h4>
-<p>одной командой для линукс:<br />
-<br />
-curl -fsSL https://ollama.com/install.sh | sh<br />
-</p>
-<div dir="auto">
-	Where are models stored?<a id="user-content-where-are-models-stored0" aria-label="Permalink: Where are models stored?" href="https://github.com/ollama/ollama/blob/main/docs/faq.md#where-are-models-stored"><svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg></a></div>
-<ul dir="auto">
-	<li>Linux:<span>&nbsp;</span>/usr/share/ollama/.ollama/models</li>
-</ul>
-<p><a href="https://github.com/ollama/ollama/blob/main/docs/linux.md">https://translucentcomputing.github.io/kubert-assistant-lite/ollama.html&nbsp;&nbsp; 
-https://github.com/ollama/ollama/blob/main/docs/linux.md</a> </p>
-<h4><a name="id71"></a>Инсталляция Docker</h4>
-<p>Вариант установки GUI с внедренной ollama: (через интерфейс работает, но апи 
-не доступно -p 11434:11434 - не помогает)</p>
-<p>docker run -d -p 3000:8080&nbsp;&nbsp; -v ollama:/root/.ollama -v /mnt/ai/open-webui:/app/backend/data 
---name open-webui --restart always ghcr.io/open-webui/open-webui:ollama</p>
-<p>docker run -d --network=host&nbsp; -v ollama:/root/.ollama -v /mnt/ai/open-webui:/app/backend/data 
---name open-webui --restart always ghcr.io/open-webui/open-webui:ollama</p>
-<p>Вариант отдельной установки </p>
-<p>docker run -d -v&nbsp; /mnt/ai/ollama:/root/.ollama -p 11434:11434 --name 
-ollama ollama/ollama<br />
-</p>
-<p>docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v /mnt/ai/open-webui-single:/app/backend/data 
---name open-webui --restart always ghcr.io/open-webui/open-webui:main</p>
-<p>(установить c помощью докер:<br />
-docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v 
-open-webui:/app/backend/data --name open-webui --restart always 
-ghcr.io/open-webui/open-webui:main)<br />
-</p>
-<p>docker run -d -p 3000:8080 -e OLLAMA_BASE_URL=https://example.com -v 
-/mnt/ai/open-webui-single:/app/backend/data --name open-webui --restart always 
-ghcr.io/open-webui/open-webui:main </p>
-<h4><a name="id72"></a>Инсталляция дополнительного?</h4>
-<p>установить visual build tools:<br />
-<br />
-https://visualstudio.microsoft.com/visual-cpp-build-tools/<br />
-<br />
-установить гит:<br />
-<br />
-https://github.com/git-for-windows/git/releases/download/v2.44.0.windows.1/Git-2.44.0-64-bit.exe<br />
-<br />
-установить python 3.11:<br />
-<br />
-https://www.python.org/ftp/python/3.11.0/python-3.11.0-amd64.exe<br />
-<br />
-установить node js:<br />
-<br />
-https://nodejs.org/en<br />
-<br />
-<br />
-установить bun:<br />
-<br />
-powershell -c "irm bun.sh/install.ps1|iex"<br />
-<br />
-запустить в powershell установку open-webui:<br />
-<br />
-git clone https://github.com/open-webui/open-webui.git<br />
-cd open-webui/<br />
-<br />
-# Copying required .env file<br />
-cp -RPp example.env .env<br />
-<br />
-# Building Frontend Using Node<br />
-npm i<br />
-npm run build<br />
-<br />
-# Serving Frontend with the Backend<br />
-cd ./backend<br />
-pip install -r requirements.txt -U<br />
-</p>
-<h4><a name="id73"></a>Комманды</h4>
-<p>pulling model: </p>
-<p>ollama run llama3.1</p>
-<p>ollama run llama3.2:3b</p>
-<div dir="auto">
-	<p dir="auto" tabindex="-1">List models on your computer</p>
-</div>
-<div>
-	<pre>ollama list
-</pre>
-</div>
-<div dir="auto">
-	<p dir="auto" tabindex="-1">List which models are currently loaded</p>
-</div>
-<div>
-	<pre>ollama ps</pre>
-</div>
-<h2><br />
-<span class="HwtZe" jsaction="mouseup:Sxi9L,BR6jm; mousedown:qjlr0e" jsname="jqKxS" lang="en">
-<span class="jCAhz ChMk0b" jsaction="agoMJf:PFBcW;MZfLnc:P7O7bd;nt4Alf:pvnm0e,pfE8Hb,PFBcW;B01qod:dJXsye;H1e5u:iXtTIf;lYIUJf:hij5Wb" jscontroller="BiTO4b" jsname="txFAF">
-<span class="ryNqvb" jsaction="click:PDNqTc,GFf3ac,qlVvte;contextmenu:Nqw7Te,QP7LD; mouseout:Nqw7Te; mouseover:PDNqTc,c2aHje" jsname="W297wb">
-Economy, efficiency calculations</span></span></span></h2>
-<p><a href="https://www.youtube.com/watch?v=XAPoBtIMhQY">https://www.youtube.com/watch?v=XAPoBtIMhQY</a> 
-Экономика LLM: что надо и сколько стоит использование больших языковых моделей
-</p>
-<p>• Renting a server is a high entry threshold </p>
-<p>• Optimal if used 24/7 with approximately equal load </p>
-<p>• Depends on your tasks </p>
-<p>• It is not profitable to run “senior” models </p>
-<p>• A hybrid option seems optimal </p>
-<p>• Your own server gives the opportunity to run pre-trained models </p>
-<p><a href="https://habr.com/ru/companies/beeline_cloud/articles/821151/">
-https://habr.com/ru/companies/beeline_cloud/articles/821151/</a> </p>
-<h3>Some advices about Hardware from Internet </h3>
-<p><a href="https://render.ru/ru/DigitalRazor/post/26204">https://render.ru/ru/DigitalRazor/post/26204</a>
-<br />
-And AMD Threadripper Pro and Intel Xeon W processors cope much better with a 
-huge array of data than AMD Ryzen and Intel Core. If we talk separately about 
-the difference between Intel and AMD processors, their work with graphics 
-processors is almost identical.<br />
-Modern video accelerators provide much greater performance compared to the CPU. 
-At the same time, video cards are usually equipped with a memory capacity in the 
-range of 8 to 48 GB. This limits the ability to run some models on the GPU.<br />
-The CPU uses system RAM. This allows you to work with larger models that cannot 
-be loaded into video memory (VRAM). The main disadvantage is the low performance 
-of the CPU compared to video accelerators. A powerful GPU can work with the same 
-language model 10-100 times faster. There are libraries for inference that 
-support a hybrid approach. This method uses the resources of both the CPU and 
-GPU. For example, llama.cpp is a suitable solution for running models that do 
-not fit in VRAM. This approach will provide a happy medium in performance 
-between CPU and GPU-based calculations.<br />
-RAM is usually an auxiliary element. Except when the CPU processes data. When 
-using a GPU, RAM serves to facilitate the transfer of model data from storage to 
-video memory. Therefore, the recommended RAM size should be equal to the video 
-memory size, and preferably 1.5-2 times larger. Even if LLM is fully loaded into 
-VRAM, it should be remembered that RAM must fit not only the model, but also the 
-system swap file. However, after loading the model, the function of RAM is 
-reduced to a minimum.</p>
-<p><a href="https://habr.com/ru/companies/beeline_cloud/articles/821151/">
-https://habr.com/ru/companies/beeline_cloud/articles/821151/</a> <br />
-</p>
-<p>You can host Lama on CPU, 70b eats about 30 GB (in RAM), some layers can be 
-thrown into the video card, but in general the speed will be limited by the CPU. 
-I made a choice in favor of the "server Chinese Zion" for 24 threads, 64 GB RAM. 
-It works rather slowly, but if this is not critical - then in my opinion the 
-best option for your money. Of course, there is no smell of any millions or even 
-hundreds of thousands of rubles here. The size of the video frames is critical 
-for speed. For performance, it is not critical. 4Gb will not help in any way 
-(well, that is, they will help somehow, but it will still be very painful). 8Gb 
-IMHO is a minimum for experiments without special expectations. LLama3 8B 
-slightly quantized will fit into 8Gb. On 16Gb you can already load some number 
-of 70B layers, so that the effect is clearly visible.<br />
-Look at the messages of this bot https://huggingface.co/model-sizer-bot/activity/community 
-, it takes different open llm models and calculates the minimum RAM requirements 
-for their training and launch, depending on the type of quantization, for 
-example for llama3-70b, unfortunately this model just barely fits into 64gb for 
-8bit quantization (it is even used for some finetuning) and 4bit (which already 
-noticeably breaks the quality, by 3-5%) also does not fit into 32gb<br />
-Working with llm is two directions - finetuning (training) and inference (use) 
-and each of them has its own hardware requirements. For inference, RAM may be 
-sufficient and the launch can be performed on the processor, since even 70b 
-models on average hardware will give a speed of about 1 token per second, 
-moreover, quantization is possible in this mode, when the network weights take 
-up to 4 bits per weight instead of 16 bits on average (it can be less, but the 
-quality drops significantly) and the speed in this case also increases. But for 
-finetuning, quantization is almost always contraindicated, which means that the 
-requirements for RAM are maximum. Also, the ability to place a training sample 
-next to the model weights can increase the speed of operation many times, which 
-is also critical. when choosing amd or intel video card, ready-made solutions 
-will be limited to llama.cpp while with nvidia almost any code will work<br />
-<br />
-Recommendation for cheap hardware for home llm - nvidia gtx 3060 12gb or 4060ti 
-16gb, these are very slow video cards from nvidia (the company did this on 
-purpose) but with the lowest cost per gigabyte of vram. The processor and RAM 
-should not be the most top-end, fast RAM is not needed, here you can save money. 
-The disk should be the fastest for reading, any cheap ssd nvme pci-e will do, 
-but then be prepared for frequent replacements, llm-ki are hundreds of 
-gigabytes, especially if you often save pretrained when you are doing finetuning. 
-.... After about 3-4 months of load, the rental costs will be equal to the 
-purchase of hardware, and if there is an opportunity to sell it later, even 
-taking into account the high depreciation, the benefit becomes even more 
-noticeable. I thought above in the comment that for inference llama70b a machine 
-for 300-350 thousand rubles would be enough (about 10-20 tokens per second, for 
-batching 50 would be reasonable), we take the best service for gpu calculations 
-vast ai - 4x16 gb will cost $ 360 per month, this 34 thousand rubles will allow 
-you to work for more than six months (it is better to take interruptible there, 
-by the way, such prices are rare there, more often 2 times more expensive).</p>
-<p>
-<a href="https://vc.ru/ai/881777-spravochnik-po-vyboru-gpu-dlya-raboty-s-bolshimi-yazykovymi-modelyami-llama">
-https://vc.ru/ai/881777-spravochnik-po-vyboru-gpu-dlya-raboty-s-bolshimi-yazykovymi-modelyami-llama</a>
-<br />
-</p>
-<p>RTX 3090 24 GB 1500$-3000$<br />
-Before buying this or that equipment, I recommend testing your specific tasks in 
-different GPU configurations on immers.cloud. They have H100, RTX 4090, RTX 
-3090, RTX 3080, Tesla A100, RTX A5000, Tesla A10, Tesla A2, RTX 2080 Ti, Tesla 
-T4, Tesla V100.<br />
-Extenders - When there are 4 PCIE slots, PCIEх16 gen4 gen3 risers will help to 
-install 4 cards. They come in 20, 30, 40 cm lengths. There is also 60 cm - Lian 
-Li 600 mm PCI-e 4.0 (PW-PCI-4-60X).<br />
-llama.cpp will allow you to place some of the weights in the GPU and some in 
-RAM, this makes sense if the RAM is slightly lacking, and the quantization is 
-already on the verge of reducing quality, I ran codestral 22b with 5bit 
-quantization on 16gb, specifying 48 of 57 layers on the gpu with the following 
-speeds:<br />
-RTX 4070 16G is not a very profitable option economically. RTX 4060 Ti 16G on 
-local models is almost the same in inference speed, especially if the model does 
-not fit into the memory entirely and only partial GPU Offload is used (and this 
-is exactly what happens on 70+ models), with a price difference of more than one 
-and a half times.</p>
-<p>&nbsp;</p>
-
-</body>
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://ogp.me/ns#" lang="en"> 
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+        <meta charset="utf-8" /> 
+        <meta http-equiv="Content-Language" content="en" />
+        <title>AI. Local model run</title>
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+    </head>
+    <body> 
+        <h1>AI. Local model run</h1>
+        <div> 
+            <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id0">ollama</a></li> 
+                <li><a href="#id68">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Инсталляция Windows</a></li> 
+                <li><a href="#id70">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Инсталляция Linux</a></li> 
+                <li><a href="#id71">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Инсталляция Docker</a></li> 
+                <li><a href="#id72">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Инсталляция дополнительного?</a></li> 
+                <li><a href="#id73">&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;&#xa0;Комманды</a></li> 
+                <li><a href="#id1">Economy, efficiency calculations</a></li> 
+                <li><a href="#id2">&#xa0;&#xa0;&#xa0;&#xa0;Some advices about Hardware from Internet</a></li> 
+            </ul>
+        </div> 
+        <h2><a name="id0"></a>ollama</h2> 
+        <p>Активно испаользуется в интеграции Spring AI </p> 
+        <p><a href="https://ollama.com" rel="nofollow" target="_blank" class="external">https://ollama.com</a> </p> 
+        <p><a href="https://github.com/ollama/ollama" rel="nofollow" target="_blank" class="external">https://github.com/ollama/ollama</a> </p> 
+        <p><a href="https://github.com/ollama/ollama/blob/main/README.md" rel="nofollow" target="_blank" class="external">https://github.com/ollama/ollama/blob/main/README.md</a> </p> 
+        <p>список моделей <a href="https://ollama.com/library" rel="nofollow" target="_blank" class="external">https://ollama.com/library</a> </p> 
+        <p>ссылка на страницу с мультимодальной моделью:<br /> <a href="https://ollama.com/library/llava" rel="nofollow" target="_blank" class="external">https://ollama.com/library/llava</a></p> 
+        <p>рекомендуют GUI <a href="https://github.com/open-webui/open-webui" rel="nofollow" target="_blank" class="external">https://github.com/open-webui/open-webui</a> </p> 
+        <p>ссылка на видео:<br /> https://youtu.be/J2pWl4UeSa4<br /> <br /> ссылка на проект:<br /> https://github.com/ollama/ollama<br /> </p> 
+        <h4><a name="id68"></a>Инсталляция Windows</h4> 
+        <p><br /> одной командой для виндовс:<br /> <br /> https://ollama.com/download/OllamaSetup.exe<br /> <br /> установка веб интерфейса open-webui: источник https://github.com/open-webui/open-webui<br /> Запуск open-webui: перейти в папку open-webui/backend и запустить файл start_windows.bat<br /> перейти в браузер и ввести localhost:8080<br /> https://docs.openwebui.com/getting-started/#alternative-installation-methods<br /> замечания:<br /> Во время первого входа попадете на страницу регистрации. Перейти на создание<br /> нового пользователя и ввести любые можно фейковые данные<br /> </p> 
+        <p>У кого проблемы со свободным местом для ollama на диске С - нужно задать переменную окружения OLLAMA_MODELS=путь\до\папки. Должно сработать и для другого диска. Туда будут сохранены все загруженные модели, которые и выедают место</p> 
+        <p>OLLAMA_MODELS=D:\Soft\AI\ollama\models</p> 
+        <div dir="auto">
+             Where are models stored?<a id="user-content-where-are-models-stored" aria-label="Permalink: Where are models stored?" href="https://github.com/ollama/ollama/blob/main/docs/faq.md#where-are-models-stored" rel="nofollow" target="_blank" class="external">
+                <svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+                    <path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path>
+                </svg></a>
+        </div> 
+        <ul dir="auto"> 
+            <li>macOS:<span>&#xa0;</span>~/.ollama/models</li> 
+            <li>Linux:<span>&#xa0;</span>/usr/share/ollama/.ollama/models</li> 
+            <li>Windows:<span>&#xa0;</span>C:\Users\%username%\.ollama\models</li> 
+        </ul> 
+        <p>&#xa0;</p> 
+        <ol> 
+            <li>In the Environment Variables window, edit or create a new variable for your user account:
+                <ul> 
+                    <li>Variable Name:<span>&#xa0;</span>OLLAMA_HOST</li> 
+                    <li>Variable Value:<span>&#xa0;</span>0.0.0.0</li> 
+                </ul> </li> 
+            <li>Create a new variable for<span>&#xa0;</span>OLLAMA_ORIGINS<span>&#xa0;</span>with value<span>&#xa0;</span>"*"</li> 
+        </ol> 
+        <p>&#xa0;</p> 
+        <p>Настройка для входа из сети </p> 
+        <p><span>Ollama binds 127.0.0.1 port 11434 by default. Change the bind address with the&#xa0;</span>OLLAMA_HOST<span>&#xa0;environment variable.</span></p> 
+        <p><span>Ollama allows cross-origin requests from&#xa0;</span>127.0.0.1<span>&#xa0;and&#xa0;</span>0.0.0.0<span>&#xa0;by default. Additional origins can be configured with&#xa0;</span>OLLAMA_ORIGINS</p> 
+        <p>OLLAMA_HOST=0.0.0.0</p> 
+        <p>тоже в виде комманды </p> 
+        <p>OLLAMA_HOST="0.0.0.0" ollama serve</p> 
+        <p>Проверка</p> 
+        <p> <a href="../../../../dio_documents/other/curl%20http:/192.168.1.75:11434/api/generate%20-d%20'{%20%22model%22:%20%22mistral%22,%20%22prompt%22:%20%22What%20is%20water%20made%20of?&quot; }'"> curl http://192.168.1.75:11434/api/generate -d '{ "model": "mistral", "prompt": "What is water made of?" }'<br /> </a></p> 
+        <h4><a name="id69"></a>&#xa0;</h4> 
+        <h4><a name="id70"></a>Инсталляция Linux</h4> 
+        <p>одной командой для линукс:<br /> <br /> curl -fsSL https://ollama.com/install.sh | sh<br /> </p> 
+        <div dir="auto">
+             Where are models stored?<a id="user-content-where-are-models-stored0" aria-label="Permalink: Where are models stored?" href="https://github.com/ollama/ollama/blob/main/docs/faq.md#where-are-models-stored" rel="nofollow" target="_blank" class="external">
+                <svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
+                    <path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path>
+                </svg></a>
+        </div> 
+        <ul dir="auto"> 
+            <li>Linux:<span>&#xa0;</span>/usr/share/ollama/.ollama/models</li> 
+        </ul> 
+        <p><a href="https://github.com/ollama/ollama/blob/main/docs/linux.md" rel="nofollow" target="_blank" class="external">https://translucentcomputing.github.io/kubert-assistant-lite/ollama.html&#xa0;&#xa0; https://github.com/ollama/ollama/blob/main/docs/linux.md</a> </p> 
+        <h4><a name="id71"></a>Инсталляция Docker</h4> 
+        <p>Вариант установки GUI с внедренной ollama: (через интерфейс работает, но апи не доступно -p 11434:11434 - не помогает)</p> 
+        <p>docker run -d -p 3000:8080&#xa0;&#xa0; -v ollama:/root/.ollama -v /mnt/ai/open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama</p> 
+        <p>docker run -d --network=host&#xa0; -v ollama:/root/.ollama -v /mnt/ai/open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:ollama</p> 
+        <p>Вариант отдельной установки </p> 
+        <p>docker run -d -v&#xa0; /mnt/ai/ollama:/root/.ollama -p 11434:11434 --name ollama ollama/ollama<br /> </p> 
+        <p>docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v /mnt/ai/open-webui-single:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main</p> 
+        <p>(установить c помощью докер:<br /> docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -v open-webui:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main)<br /> </p> 
+        <p>docker run -d -p 3000:8080 -e OLLAMA_BASE_URL=https://example.com -v /mnt/ai/open-webui-single:/app/backend/data --name open-webui --restart always ghcr.io/open-webui/open-webui:main </p> 
+        <h4><a name="id72"></a>Инсталляция дополнительного?</h4> 
+        <p>установить visual build tools:<br /> <br /> https://visualstudio.microsoft.com/visual-cpp-build-tools/<br /> <br /> установить гит:<br /> <br /> https://github.com/git-for-windows/git/releases/download/v2.44.0.windows.1/Git-2.44.0-64-bit.exe<br /> <br /> установить python 3.11:<br /> <br /> https://www.python.org/ftp/python/3.11.0/python-3.11.0-amd64.exe<br /> <br /> установить node js:<br /> <br /> https://nodejs.org/en<br /> <br /> <br /> установить bun:<br /> <br /> powershell -c "irm bun.sh/install.ps1|iex"<br /> <br /> запустить в powershell установку open-webui:<br /> <br /> git clone https://github.com/open-webui/open-webui.git<br /> cd open-webui/<br /> <br /> # Copying required .env file<br /> cp -RPp example.env .env<br /> <br /> # Building Frontend Using Node<br /> npm i<br /> npm run build<br /> <br /> # Serving Frontend with the Backend<br /> cd ./backend<br /> pip install -r requirements.txt -U<br /> </p> 
+        <h4><a name="id73"></a>Комманды</h4> 
+        <p>pulling model: </p> 
+        <p>ollama run llama3.1</p> 
+        <p>ollama run llama3.2:3b</p> 
+        <div dir="auto"> 
+            <p dir="auto" tabindex="-1">List models on your computer</p> 
+        </div> 
+        <div> 
+            <pre>ollama list
+</pre> 
+        </div> 
+        <div dir="auto"> 
+            <p dir="auto" tabindex="-1">List which models are currently loaded</p> 
+        </div> 
+        <div> 
+            <pre>ollama ps</pre> 
+        </div> 
+        <h2><a name="id1"></a>Economy, efficiency calculations</h2> 
+        <p><a href="https://www.youtube.com/watch?v=XAPoBtIMhQY" rel="nofollow" target="_blank" class="external">https://www.youtube.com/watch?v=XAPoBtIMhQY</a> Экономика LLM: что надо и сколько стоит использование больших языковых моделей </p> 
+        <p>• Renting a server is a high entry threshold </p> 
+        <p>• Optimal if used 24/7 with approximately equal load </p> 
+        <p>• Depends on your tasks </p> 
+        <p>• It is not profitable to run “senior” models </p> 
+        <p>• A hybrid option seems optimal </p> 
+        <p>• Your own server gives the opportunity to run pre-trained models </p> 
+        <p><a href="https://habr.com/ru/companies/beeline_cloud/articles/821151/" rel="nofollow" target="_blank" class="external"> https://habr.com/ru/companies/beeline_cloud/articles/821151/</a> </p> 
+        <h3><a name="id2"></a>Some advices about Hardware from Internet</h3> 
+        <p><a href="https://render.ru/ru/DigitalRazor/post/26204" rel="nofollow" target="_blank" class="external">https://render.ru/ru/DigitalRazor/post/26204</a> <br /> And AMD Threadripper Pro and Intel Xeon W processors cope much better with a huge array of data than AMD Ryzen and Intel Core. If we talk separately about the difference between Intel and AMD processors, their work with graphics processors is almost identical.<br /> Modern video accelerators provide much greater performance compared to the CPU. At the same time, video cards are usually equipped with a memory capacity in the range of 8 to 48 GB. This limits the ability to run some models on the GPU.<br /> The CPU uses system RAM. This allows you to work with larger models that cannot be loaded into video memory (VRAM). The main disadvantage is the low performance of the CPU compared to video accelerators. A powerful GPU can work with the same language model 10-100 times faster. There are libraries for inference that support a hybrid approach. This method uses the resources of both the CPU and GPU. For example, llama.cpp is a suitable solution for running models that do not fit in VRAM. This approach will provide a happy medium in performance between CPU and GPU-based calculations.<br /> RAM is usually an auxiliary element. Except when the CPU processes data. When using a GPU, RAM serves to facilitate the transfer of model data from storage to video memory. Therefore, the recommended RAM size should be equal to the video memory size, and preferably 1.5-2 times larger. Even if LLM is fully loaded into VRAM, it should be remembered that RAM must fit not only the model, but also the system swap file. However, after loading the model, the function of RAM is reduced to a minimum.</p> 
+        <p><a href="https://habr.com/ru/companies/beeline_cloud/articles/821151/" rel="nofollow" target="_blank" class="external"> https://habr.com/ru/companies/beeline_cloud/articles/821151/</a> <br /> </p> 
+        <p>You can host Lama on CPU, 70b eats about 30 GB (in RAM), some layers can be thrown into the video card, but in general the speed will be limited by the CPU. I made a choice in favor of the "server Chinese Zion" for 24 threads, 64 GB RAM. It works rather slowly, but if this is not critical - then in my opinion the best option for your money. Of course, there is no smell of any millions or even hundreds of thousands of rubles here. The size of the video frames is critical for speed. For performance, it is not critical. 4Gb will not help in any way (well, that is, they will help somehow, but it will still be very painful). 8Gb IMHO is a minimum for experiments without special expectations. LLama3 8B slightly quantized will fit into 8Gb. On 16Gb you can already load some number of 70B layers, so that the effect is clearly visible.<br /> Look at the messages of this bot https://huggingface.co/model-sizer-bot/activity/community , it takes different open llm models and calculates the minimum RAM requirements for their training and launch, depending on the type of quantization, for example for llama3-70b, unfortunately this model just barely fits into 64gb for 8bit quantization (it is even used for some finetuning) and 4bit (which already noticeably breaks the quality, by 3-5%) also does not fit into 32gb<br /> Working with llm is two directions - finetuning (training) and inference (use) and each of them has its own hardware requirements. For inference, RAM may be sufficient and the launch can be performed on the processor, since even 70b models on average hardware will give a speed of about 1 token per second, moreover, quantization is possible in this mode, when the network weights take up to 4 bits per weight instead of 16 bits on average (it can be less, but the quality drops significantly) and the speed in this case also increases. But for finetuning, quantization is almost always contraindicated, which means that the requirements for RAM are maximum. Also, the ability to place a training sample next to the model weights can increase the speed of operation many times, which is also critical. when choosing amd or intel video card, ready-made solutions will be limited to llama.cpp while with nvidia almost any code will work<br /> <br /> Recommendation for cheap hardware for home llm - nvidia gtx 3060 12gb or 4060ti 16gb, these are very slow video cards from nvidia (the company did this on purpose) but with the lowest cost per gigabyte of vram. The processor and RAM should not be the most top-end, fast RAM is not needed, here you can save money. The disk should be the fastest for reading, any cheap ssd nvme pci-e will do, but then be prepared for frequent replacements, llm-ki are hundreds of gigabytes, especially if you often save pretrained when you are doing finetuning. .... After about 3-4 months of load, the rental costs will be equal to the purchase of hardware, and if there is an opportunity to sell it later, even taking into account the high depreciation, the benefit becomes even more noticeable. I thought above in the comment that for inference llama70b a machine for 300-350 thousand rubles would be enough (about 10-20 tokens per second, for batching 50 would be reasonable), we take the best service for gpu calculations vast ai - 4x16 gb will cost $ 360 per month, this 34 thousand rubles will allow you to work for more than six months (it is better to take interruptible there, by the way, such prices are rare there, more often 2 times more expensive).</p> 
+        <p> <a href="https://vc.ru/ai/881777-spravochnik-po-vyboru-gpu-dlya-raboty-s-bolshimi-yazykovymi-modelyami-llama" rel="nofollow" target="_blank" class="external"> https://vc.ru/ai/881777-spravochnik-po-vyboru-gpu-dlya-raboty-s-bolshimi-yazykovymi-modelyami-llama</a> <br /> </p> 
+        <p>RTX 3090 24 GB 1500$-3000$<br /> Before buying this or that equipment, I recommend testing your specific tasks in different GPU configurations on immers.cloud. They have H100, RTX 4090, RTX 3090, RTX 3080, Tesla A100, RTX A5000, Tesla A10, Tesla A2, RTX 2080 Ti, Tesla T4, Tesla V100.<br /> Extenders - When there are 4 PCIE slots, PCIEх16 gen4 gen3 risers will help to install 4 cards. They come in 20, 30, 40 cm lengths. There is also 60 cm - Lian Li 600 mm PCI-e 4.0 (PW-PCI-4-60X).<br /> llama.cpp will allow you to place some of the weights in the GPU and some in RAM, this makes sense if the RAM is slightly lacking, and the quantization is already on the verge of reducing quality, I ran codestral 22b with 5bit quantization on 16gb, specifying 48 of 57 layers on the gpu with the following speeds:<br /> RTX 4070 16G is not a very profitable option economically. RTX 4060 Ti 16G on local models is almost the same in inference speed, especially if the model does not fit into the memory entirely and only partial GPU Offload is used (and this is exactly what happens on 70+ models), with a price difference of more than one and a half times.</p> 
+        <p>&#xa0;</p> 
+    </body>
 </html>

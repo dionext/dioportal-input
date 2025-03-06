@@ -11,39 +11,22 @@
         <h1>Testing and debugging</h1> 
         <div> 
             <ul class="list-unstyled" id="TOC"> 
+                <li><a href="#id2">Unit testing</a></li> 
+                <li><a href="#id3">&#xa0;&#xa0;&#xa0;&#xa0;Using Active profile for testing</a></li> 
+                <li><a href="#id4">&#xa0;&#xa0;&#xa0;&#xa0;Using In-Memory Database</a></li> 
                 <li><a href="#id0">JMeter</a></li> 
                 <li><a href="#id1">Selenium</a></li> 
             </ul>
         </div> 
-        <h2>Unit testing </h2>
-		<h3>Using Active profile for testing </h3>
-		<pre><code class="language-java">
+        <h2><a name="id2"></a>Unit testing</h2> 
+        <h3><a name="id3"></a>Using Active profile for testing</h3> 
+        <pre><code class="language-java">
 @SpringBootTest
 @ActiveProfiles(value = "test")
 class HikiMsAppApplicationTests {
 //...
-}</code></pre>
-		<br><br>
-		<a href="https://www.baeldung.com/spring-boot-junit-5-testing-active-profile">
-		https://www.baeldung.com/spring-boot-junit-5-testing-active-profile</a>
-		Execute Tests Based on Active Profile With JUnit 5<h3>Using&nbsp; In-Memory Database</h3>
-		<p>When programming integration tests, you may encounter a problem 
-		connecting to the database. Integration tests assume that your 
-		application should run normally. However, if the application uses a 
-		database, the connection to the database should be successful. If you 
-		always run integration tests in the same environment, then this will not 
-		be a big problem for you. The database must be accessible in your 
-		environment one way or another, otherwise you wouldn't be able to debug 
-		your application. Accordingly, the database will also be available 
-		during the launch of the integration test. However, if you want the 
-		integration test to be able to run successfully in any environment (for 
-		example, during the execution of a CI/CD pipeline), then you can no 
-		longer expect that your database will still be accessible from this new 
-		environment. In this case, you will need to take care of replacing the 
-		database in advance. Typically, In-Memory Database is used for these 
-		purposes.</p>
-		<p>Maven Dependencies </p>
-		<pre><code class="language-xml">
+}</code></pre> 
+        <br><br> <a href="https://www.baeldung.com/spring-boot-junit-5-testing-active-profile" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/spring-boot-junit-5-testing-active-profile</a> Execute Tests Based on Active Profile With JUnit 5<h3><a name="id4"></a>Using In-Memory Database</h3> <p>When programming integration tests, you may encounter a problem connecting to the database. Integration tests assume that your application should run normally. However, if the application uses a database, the connection to the database should be successful. If you always run integration tests in the same environment, then this will not be a big problem for you. The database must be accessible in your environment one way or another, otherwise you wouldn't be able to debug your application. Accordingly, the database will also be available during the launch of the integration test. However, if you want the integration test to be able to run successfully in any environment (for example, during the execution of a CI/CD pipeline), then you can no longer expect that your database will still be accessible from this new environment. In this case, you will need to take care of replacing the database in advance. Typically, In-Memory Database is used for these purposes.</p> <p>Maven Dependencies </p> <pre><code class="language-xml">
         &lt;!-- dependencies for database--&gt;
         &lt;dependency&gt;
             &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
@@ -67,10 +50,7 @@ class HikiMsAppApplicationTests {
             &lt;groupId&gt;com.h2database&lt;/groupId&gt;
             &lt;artifactId&gt;h2&lt;/artifactId&gt;
             &lt;version&gt;2.1.214&lt;/version&gt;
-        &lt;/dependency&gt;</code></pre>
-		<p>&nbsp;</p>
-		<p>In application-test.yaml</p>
-		<pre><code class="language-yaml">
+        &lt;/dependency&gt;</code></pre> <p>&#xa0;</p> <p>In application-test.yaml</p> <pre><code class="language-yaml">
 spring:
   datasource:
     url: jdbc:h2:mem:myDb;DB_CLOSE_DELAY=-1;NON_KEYWORDS=KEY,VALUE
@@ -79,20 +59,6 @@ spring:
     hibernate:
       dialect: org.hibernate.dialect.H2Dialect
       hbm2ddl:
-        auto: create</code></pre>
-		<p>&nbsp;</p>
-		<p>Self-Contained Testing Using an In-Memory Database
-		<a href="https://www.baeldung.com/spring-jpa-test-in-memory-database">
-		https://www.baeldung.com/spring-jpa-test-in-memory-database</a> </p>
-		<h2><a name="id0"></a>JMeter</h2> 
-        <p><a href="https://jmeter.apache.org/" rel="nofollow" target="_blank" class="external">https://jmeter.apache.org/</a></p> 
-        <p>The Apache JMeter™ application is open source software, a 100% pure Java application designed to load test functional behavior and measure performance. It was originally designed for testing Web Applications but has since expanded to other test functions. </p> 
-        <p>Monitor your website using JMeter&#xa0; <a href="https://developer.ibm.com/tutorials/monitor-your-website-using-jmeter/" rel="nofollow" target="_blank" class="external"> https://developer.ibm.com/tutorials/monitor-your-website-using-jmeter/</a> </p> 
-        <p>Using&#xa0; you own hosts table <a href="https://jmeter.apache.org/usermanual/component_reference.html#DNS_Cache_Manager" rel="nofollow" target="_blank" class="external"> https://jmeter.apache.org/usermanual/component_reference.html#DNS_Cache_Manager</a> </p> 
-        <p>&#xa0;</p> 
-        <p> <img alt="Expample of testing project" height="648" src="../images/jmeter_example.jpg" width="1092" class=" img-fluid rounded" style="" /></p> 
-        <h2><a name="id1"></a>Selenium</h2> 
-        <p><a href="https://www.selenium.dev/" rel="nofollow" target="_blank" class="external">https://www.selenium.dev/</a> </p> 
-        <p>Selenium is an open source umbrella project for a range of tools and libraries aimed at supporting browser automation. It provides a playback tool for authoring functional tests across most modern web browsers, without the need to learn a test scripting language (Selenium IDE). It also provides a test domain-specific language (Selenese) to write tests in a number of popular programming languages, including JavaScript (Node.js), C#, Groovy, Java, Perl, PHP, Python, Ruby and Scala. Selenium runs on Windows, Linux, and macOS. It is open-source software released under the Apache License 2.0 <a href="https://en.wikipedia.org/wiki/Selenium_(software" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Selenium_(software</a>) </p> 
+        auto: create</code></pre> <p>&#xa0;</p> <p>Self-Contained Testing Using an In-Memory Database <a href="https://www.baeldung.com/spring-jpa-test-in-memory-database" rel="nofollow" target="_blank" class="external"> https://www.baeldung.com/spring-jpa-test-in-memory-database</a> </p> <h2><a name="id0"></a>JMeter</h2> <p><a href="https://jmeter.apache.org/" rel="nofollow" target="_blank" class="external">https://jmeter.apache.org/</a></p> <p>The Apache JMeter™ application is open source software, a 100% pure Java application designed to load test functional behavior and measure performance. It was originally designed for testing Web Applications but has since expanded to other test functions. </p> <p>Monitor your website using JMeter&#xa0; <a href="https://developer.ibm.com/tutorials/monitor-your-website-using-jmeter/" rel="nofollow" target="_blank" class="external"> https://developer.ibm.com/tutorials/monitor-your-website-using-jmeter/</a> </p> <p>Using&#xa0; you own hosts table <a href="https://jmeter.apache.org/usermanual/component_reference.html#DNS_Cache_Manager" rel="nofollow" target="_blank" class="external"> https://jmeter.apache.org/usermanual/component_reference.html#DNS_Cache_Manager</a> </p> <p>&#xa0;</p> <p> <img alt="Expample of testing project" height="648" src="../images/jmeter_example.jpg" width="1092" class=" img-fluid rounded" style="" /></p> <h2><a name="id1"></a>Selenium</h2> <p><a href="https://www.selenium.dev/" rel="nofollow" target="_blank" class="external">https://www.selenium.dev/</a> </p> <p>Selenium is an open source umbrella project for a range of tools and libraries aimed at supporting browser automation. It provides a playback tool for authoring functional tests across most modern web browsers, without the need to learn a test scripting language (Selenium IDE). It also provides a test domain-specific language (Selenese) to write tests in a number of popular programming languages, including JavaScript (Node.js), C#, Groovy, Java, Perl, PHP, Python, Ruby and Scala. Selenium runs on Windows, Linux, and macOS. It is open-source software released under the Apache License 2.0 <a href="https://en.wikipedia.org/wiki/Selenium_(software" rel="nofollow" target="_blank" class="external">https://en.wikipedia.org/wiki/Selenium_(software</a>) </p> </br></br>
     </body>
 </html>
