@@ -8,7 +8,7 @@
         <meta name="keywords" content="" />
     </head>
     <body> 
-        <h1>Typical operating system preparation after creating a new server</h1>
+        <h1>Typical operating system preparation after creating a new server</h1> 
         <div> 
             <ul class="list-unstyled" id="TOC"> 
                 <li><a href="#id0">Initial</a></li> 
@@ -34,7 +34,7 @@
         <p>&#xa0;</p> 
         <h2><a name="id1"></a>SSH</h2> 
         <h3><a name="id3"></a>SSH Key generation</h3> 
-        <p>Key generation&#xa0; </p> &#xa0;
+        <p>Key generation&#xa0; </p> &#xa0; 
         <pre><code class="language-bash">ssh-keygen</code></pre>Key placement 
         <br /> ~/.ssh 
         <br /> ~/.ssh/id_rsa.pub - public key. It is copied to the server where you need to gain access. 
@@ -89,9 +89,9 @@
         <pre>docker stop portainer </pre> 
         <pre>docker rm portainer </pre> 
         <pre>docker pull portainer/portainer-ce:latest </pre> 
-        <pre>docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest</pre> <a name="id4"></a>
+        <pre>docker run -d -p 8000:8000 -p 9443:9443 --name=portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest</pre> <a name="id4"></a> 
         <br /> Creating folders (for example)&#xa0; 
-        <p> <span style="color: rgb(36, 36, 36); font-family: source-code-pro, Menlo, Monaco, &quot;Courier New&quot;, Courier, monospace; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.352px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: pre-wrap; background-color: rgb(242, 242, 242); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"> sudo mkdir -p /mnt/devops/monitoring </span></p> &#xa0;
+        <p> <span style="color: rgb(36, 36, 36); font-family: source-code-pro, Menlo, Monaco, &quot;Courier New&quot;, Courier, monospace; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: -0.352px; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: pre-wrap; background-color: rgb(242, 242, 242); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"> sudo mkdir -p /mnt/devops/monitoring </span></p> &#xa0; 
         <p>&#xa0;</p> 
         <p>&#xa0;</p> 
     </body>

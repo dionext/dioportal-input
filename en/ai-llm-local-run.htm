@@ -8,7 +8,7 @@
         <meta name="keywords" content="" />
     </head>
     <body> 
-        <h1>AI. Local model run</h1>
+        <h1>AI. Local model run</h1> 
         <div> 
             <ul class="list-unstyled" id="TOC"> 
                 <li><a href="#id0">ollama</a></li> 
@@ -35,10 +35,9 @@
         <p>У кого проблемы со свободным местом для ollama на диске С - нужно задать переменную окружения OLLAMA_MODELS=путь\до\папки. Должно сработать и для другого диска. Туда будут сохранены все загруженные модели, которые и выедают место</p> 
         <p>OLLAMA_MODELS=D:\Soft\AI\ollama\models</p> 
         <div dir="auto">
-             Where are models stored?<a id="user-content-where-are-models-stored" aria-label="Permalink: Where are models stored?" href="https://github.com/ollama/ollama/blob/main/docs/faq.md#where-are-models-stored" rel="nofollow" target="_blank" class="external">
-                <svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
-                    <path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path>
-                </svg></a>
+             Where are models stored?<a id="user-content-where-are-models-stored" aria-label="Permalink: Where are models stored?" href="https://github.com/ollama/ollama/blob/main/docs/faq.md#where-are-models-stored" rel="nofollow" target="_blank" class="external"> 
+                <svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16"> <path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path> 
+                </svg></a> 
         </div> 
         <ul dir="auto"> 
             <li>macOS:<span>&#xa0;</span>~/.ollama/models</li> 
@@ -47,7 +46,7 @@
         </ul> 
         <p>&#xa0;</p> 
         <ol> 
-            <li>In the Environment Variables window, edit or create a new variable for your user account:
+            <li>In the Environment Variables window, edit or create a new variable for your user account: 
                 <ul> 
                     <li>Variable Name:<span>&#xa0;</span>OLLAMA_HOST</li> 
                     <li>Variable Value:<span>&#xa0;</span>0.0.0.0</li> 
@@ -67,10 +66,9 @@
         <h4><a name="id70"></a>Инсталляция Linux</h4> 
         <p>одной командой для линукс:<br /> <br /> curl -fsSL https://ollama.com/install.sh | sh<br /> </p> 
         <div dir="auto">
-             Where are models stored?<a id="user-content-where-are-models-stored0" aria-label="Permalink: Where are models stored?" href="https://github.com/ollama/ollama/blob/main/docs/faq.md#where-are-models-stored" rel="nofollow" target="_blank" class="external">
-                <svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16">
-                    <path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path>
-                </svg></a>
+             Where are models stored?<a id="user-content-where-are-models-stored0" aria-label="Permalink: Where are models stored?" href="https://github.com/ollama/ollama/blob/main/docs/faq.md#where-are-models-stored" rel="nofollow" target="_blank" class="external"> 
+                <svg aria-hidden="true" height="16" version="1.1" viewbox="0 0 16 16" width="16"> <path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path> 
+                </svg></a> 
         </div> 
         <ul dir="auto"> 
             <li>Linux:<span>&#xa0;</span>/usr/share/ollama/.ollama/models</li> 

@@ -8,7 +8,7 @@
         <meta name="keywords" content="" />
     </head>
     <body> 
-        <h1><a name="id1"></a>Spring: Security</h1>
+        <h1><a name="id1"></a>Spring: Security</h1> 
         <div> 
             <ul class="list-unstyled" id="TOC"> 
                 <li><a href="#id0">Overview</a></li> 
@@ -93,73 +93,73 @@
                     <div> 
                         <dl> 
                             <dt>
-                              users
+                               users 
                             </dt> 
                             <dd> 
                               <p>Users are entities that are able to log into your system. They can have attributes associated with themselves like email, username, address, phone number, and birthday. They can be assigned group membership and have specific roles assigned to them.</p> 
                             </dd> 
                             <dt>
-                              credentials
+                               credentials 
                             </dt> 
                             <dd> 
                               <p>Credentials are pieces of data that Keycloak uses to verify the identity of a user. Some examples are passwords, one-time-passwords, digital certificates, or even fingerprints.</p> 
                             </dd> 
                             <dt>
-                              roles
+                               roles 
                             </dt> 
                             <dd> 
                               <p>Roles identify a type or category of user.<span>&#xa0;</span>Admin,<span>&#xa0;</span>user,<span>&#xa0;</span>manager, and<span>&#xa0;</span>employee<span>&#xa0;</span>are all typical roles that may exist in an organization. Applications often assign access and permissions to specific roles rather than individual users as dealing with users can be too fine-grained and hard to manage.</p> 
                             </dd> 
                             <dt>
-                              user role mapping
+                               user role mapping 
                             </dt> 
                             <dd> 
                               <p>A user role mapping defines a mapping between a role and a user. A user can be associated with zero or more roles. This role mapping information can be encapsulated into tokens and assertions so that applications can decide access permissions on various resources they manage.</p> 
                             </dd> 
                             <dt>
-                              groups
+                               groups 
                             </dt> 
                             <dd> 
                               <p>Groups manage groups of users. Attributes can be defined for a group. You can map roles to a group as well. Users that become members of a group inherit the attributes and role mappings that group defines.</p> 
                             </dd> 
                             <dt>
-                              realms
+                               realms 
                             </dt> 
                             <dd> 
                               <p>A realm manages a set of users, credentials, roles, and groups. A user belongs to and logs into a realm. Realms are isolated from one another and can only manage and authenticate the users that they control.</p> 
                             </dd> 
                             <dt>
-                              clients
+                               clients 
                             </dt> 
                             <dd> 
                               <p>Clients are entities that can request Keycloak to authenticate a user. Most often, clients are applications and services that want to use Keycloak to secure themselves and provide a single sign-on solution. Clients can also be entities that just want to request identity information or an access token so that they can securely invoke other services on the network that are secured by Keycloak.</p> 
                             </dd> 
                             <dt>
-                              client scopes
+                               client scopes 
                             </dt> 
                             <dd> 
                               <p>When a client is registered, you must define protocol mappers and role scope mappings for that client. It is often useful to store a client scope, to make creating new clients easier by sharing some common settings. This is also useful for requesting some claims or roles to be conditionally based on the value of<span>&#xa0;</span>scope<span>&#xa0;</span>parameter. Keycloak provides the concept of a client scope for this.</p> 
                             </dd> 
                             <dt>
-                              client role
+                               client role 
                             </dt> 
                             <dd> 
                               <p>Clients can define roles that are specific to them. This is basically a role namespace dedicated to the client.</p> 
                             </dd> 
                             <dt>
-                              identity token
+                               identity token 
                             </dt> 
                             <dd> 
                               <p>A token that provides identity information about the user. Part of the OpenID Connect specification.</p> 
                             </dd> 
                             <dt>
-                              access token
+                               access token 
                             </dt> 
                             <dd> 
                               <p>A token that can be provided as part of an HTTP request that grants access to the service being invoked on. This is part of the OpenID Connect and OAuth 2.0 specification.</p> 
                             </dd> 
                             <dt>
-                              direct grant
+                               direct grant 
                             </dt> 
                             <dd> 
                               <p>A way for a client to obtain an access token on behalf of a user via a REST invocation.</p> 
